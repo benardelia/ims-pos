@@ -141,7 +141,7 @@ const Moon = () => {
             <input type="text" placeholder="Search Product" value={search} onChange={(e) => setSearch(e.target.value)} 
                 className="font-light mx-3 px-2 border border-slate-700 py-1 rounded-2xl w-1/2"/>
         </div>
-        <div className="w-full h-svh grid md:grid-cols-4 sm:grid-cols-3 gap-2 ">
+        <div className="w-full h-svh grid md:grid-cols-4 sm:grid-cols-3 gap-1 ">
         {products.map(product =>
          <Product  key={product.id}
                    product={product}
