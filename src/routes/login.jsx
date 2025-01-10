@@ -1,82 +1,62 @@
 import { useState } from "react";
 import { Avatar } from "../components/ui/avatar";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
-
-    const users = [
-    {
-        id:0,
-        name: "Nassir Amir",
-        pass: "1234"
-    },
-    {
-    id:1,
-    name: "Benaugust",
-    pass: "2345"
-    },
-    {
-    id:2,
-    name: "Goodluck John",
-    pass: "3456"
-    } 
-]
-
-
-  function UserList ({users, onTouch}) {
-    return (
-      <div className="h-80 rounded-lg w-1/2 items-center mx-8 bg-inherit">
-            {users.map(user =>
-        <div key={user.id} 
-         className="m-2  px-6 w-96 py-4 border text-slate-50
-         items-center border-slate-100 rounded-lg
-         hover:bg-slate-600 hover:text-gray-800
-         hover:border-gray-900 flex "
-         onClick={()=>{onTouch(user)}}
-         >
-        <Avatar name={user.name}/>
-        <h className="ml-6 font-semibold text-white">{user.name}</h>
-       </div>
-         )}
-            </div>
-    )
-  }
-   const Number = ({value}) => {
-    return (
-      <button className="text-gray-100 text-lg size-14 p-3 bg-gray-700 shadow-sm rounded-md">{value}</button>
-    );
-   }
-   const Show = ({user,numbers}) => {
-   
-    return (
-      <div className="flex flex-col">
-      <h className="font-semibold text-gray-100">{user.name}</h>
-      </div>
-    )
-   }
- const Login = () => {
-  const [keeper, setKeeper] = useState(users[0]);
-  const [pass, setPass] = useState("");
-  const navigate = useNavigate();
-  const handleLogin = (e) => {
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Email:', email);
+    console.log('Password:', password);
+    // Add login logic here
   };
+  const navigate = useNavigate();
   return (
-    <div className="bg-gray-900 w-full h-svh">
-        <div className="bg-inherit flex py-48 w-screen">
-              <UserList users={users}
-                        onTouch={user => setKeeper(user) }
-                        />
-                        <div className="w-1/2 flex flex-col">
-                           <Show user={keeper}/>
-                           <input type="password" value={pass} onChange={(e)=> setPass(e.target.value)} 
-                           className="bg-gray-800 pl-4 text-gray-100 text-lg rounded-md h-14 w-3/4"/>
-                        </div>
-                        {
-                          (keeper.pass === pass && 
-                            navigate("/dashboard/home"))
-                        }
+    <div className='flex w-full '>
+      <div className="flex py-auto w-full items-center justify-center min-h-screen bg-blue-50 dark:bg-slate-500">
+        <div className=" px-8 py-12 bg-white dark:bg-slate-800 rounded-lg justify-center shadow-xl w-1/3 h-3/4 my-auto sm:h-4/5">
+          <h2 className="text-xl  font-poppins text-center text-slate-800 dark:text-slate-50">Login</h2>
+          <form onSubmit={handleSubmit} className="space-y-10 sm:space-y-14 my-8 sm:my-16 ">
+            <div>
+              <label htmlFor="email" className="block text-md sm:text-sm font-medium text-gray-700 dark:text-gray-200">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full mt-1 h-10 sm:h-10  text-md sm:text-sm border border-gray-300 rounded-lg
+   focus:outline-none focus:ring-2 "
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-100">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password} onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-4 py-1 mt-1 text-lg sm:text-xs h-10 sm:h-10 border border-gray-300 rounded-lg
+   focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+            <button
+              onClick={()=> navigate("/auth/home")}
+              type="submit"
+              className="w-full px-8 py-2 text-white bg-slate-700 text-sm sm:text-sm h-10 sm:h-10 rounded-md hover:bg-slate-800
+   focus:outline-none focus:ring-2 focus:ring-slate-200 hover:font-bold focus:ring-opacity-50 font-semibold"
+            >
+              Sign In
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
-};
+}
 export default Login

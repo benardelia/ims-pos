@@ -158,7 +158,7 @@ const Moon = () => {
         <div className="w-full flex flex-col shadow-sm p-2 rounded-md">
                  {cart.length === 0 && <p className="text-gray-100"> cart is empty</p>}
                  {cart.map((item, index) =>
-                 <div className="bg-gray-200 pt-2 m-1 h-20 px-2 rounded-lg justify-center">
+                 <div className="bg-gray-200 dark:bg-gray-950 dark:text-gray-300 pt-2 m-1 h-20 px-2 rounded-lg justify-center">
                     <div className="flex justify-between">
                     <h className="font-semibold">{item.name}</h>
                     <h className="font-semibold mx-3">{item.price}/-</h>
@@ -175,7 +175,7 @@ const Moon = () => {
                     </div>)}
                     
                  </div>
-                 <div className="w-full sticky bottom-0 bg-gray-50 text-gray-900 flex flex-col">
+                 <div className="w-full sticky bottom-0 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 text-gray-900 flex flex-col">
                     <div className="flex justify-between w-full bg-inherit mb-8 px-4">
                         <h className="font-semibold text-lg">Total:</h>
                         <h1 className="">345$</h1>
