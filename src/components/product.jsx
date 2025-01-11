@@ -5,7 +5,7 @@ const Product = ({product, onAdd}) => {
     const [show, setShow] = useState(false);
     return (
         <div className=" flex bg-gray-200 dark:bg-gray-950 text-gray-950 dark:text-gray-300 flex-col rounded-lg shadow
-                    justify-end pb-3">
+                    justify-end pb-3 min-h-44">
             <div className="flex justify-between mx-2 items-center">
             <div>
             <p className="text-xs font-bold">{product.price}/-</p>
