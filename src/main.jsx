@@ -27,7 +27,7 @@ import Shortage from './routes/Shortage';
     Component: Dashboard,
     children: [
       {
-        imdex: true,
+        index: true,
         path: "/dashboard/home",
         Component: Moon
       },
