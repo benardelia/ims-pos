@@ -8,27 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('/auth/jwt/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password}),
-      }) ;
-      if (response.ok) {
-        const data = await response.json();
-        const token = data.access;
-        localStorage.setItem('jwt_token', token);
-        navigate("/dashboard/home");
-      } else {
-        console.error('login failed') 
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-    }
-  };
- 
+  }
   return (
     <div className='flex w-full '>
       <div className="flex py-auto w-full items-center justify-center min-h-screen bg-blue-50 dark:bg-slate-500">
@@ -64,6 +44,7 @@ const Login = () => {
             </div>
             <button
               type="submit"
+              onClick={() => navigate('/dashboard/home')}
               className="w-full px-8 py-2 text-white bg-slate-700 text-sm sm:text-sm h-10 sm:h-10 rounded-md hover:bg-slate-800
    focus:outline-none focus:ring-2 focus:ring-slate-200 hover:font-bold focus:ring-opacity-50 font-semibold"
             >
