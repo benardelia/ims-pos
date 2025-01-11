@@ -5,11 +5,27 @@ import { useNavigate, Link } from "react-router";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Add login logic here
+    try {
+      const response = await fetch('/auth/jwt/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password}),
+      }) ;
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.access;
+        localStorage.setItem('jwt_token', token);
+        navigate("/dashboard/home");
+      } else {
+        console.error('login failed') 
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
   const navigate = useNavigate();
   return (
@@ -41,12 +57,11 @@ const Login = () => {
                 id="password"
                 value={password} onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-1 mt-1 text-lg sm:text-xs h-10 sm:h-10 border border-gray-300 rounded-lg
-   focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full mt-1 h-10 sm:h-10  text-md sm:text-sm border border-gray-300 rounded-lg
+   focus:outline-none focus:ring-2 "
               />
             </div>
             <button
-              onClick={()=> navigate("/auth/home")}
               type="submit"
               className="w-full px-8 py-2 text-white bg-slate-700 text-sm sm:text-sm h-10 sm:h-10 rounded-md hover:bg-slate-800
    focus:outline-none focus:ring-2 focus:ring-slate-200 hover:font-bold focus:ring-opacity-50 font-semibold"
