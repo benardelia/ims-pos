@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -27,7 +28,7 @@ const Login = () => {
       console.error('Error during login:', error);
     }
   };
-  const navigate = useNavigate();
+ 
   return (
     <div className='flex w-full '>
       <div className="flex py-auto w-full items-center justify-center min-h-screen bg-blue-50 dark:bg-slate-500">
