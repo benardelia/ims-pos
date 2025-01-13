@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { BiCartAdd, BiChevronDown, BiChevronUp } from "react-icons/bi";
 
+
+
 const Product = ({product, onAdd}) => {
     const [show, setShow] = useState(false);
     return (
-        <div className=" flex bg-gray-200 dark:bg-gray-950 text-gray-950 dark:text-gray-300 flex-col rounded-lg shadow
-                    justify-end pb-3 min-h-44">
+        <div className=" flex bg-gray-200 dark:bg-gray-900 text-gray-950 dark:text-gray-300 flex-col rounded-lg shadow dark:shadow-gray-50
+                    justify-end pb-3 h-48 w-full">
             <div className="flex justify-between mx-2 items-center">
             <div>
             <p className="text-xs font-bold">{product.price}/-</p>
@@ -16,7 +18,7 @@ const Product = ({product, onAdd}) => {
             </div>
             { show && <p className="text-xs max-w-28 max-h-32 py-2">{product.description}</p> }
             </div>
-            <p className="text-xs">{product.qStock} items</p>
+            <p className="text-xs">{product.stock} items</p>
             </div>
             <button onClick={onAdd}
             className="rounded-full size-8 place-items-center border border-gray-600 bg-inherit  font-light"><BiCartAdd/></button>

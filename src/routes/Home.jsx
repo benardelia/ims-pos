@@ -2,6 +2,8 @@ import { useNavigate } from "react-router";
 
 const Home = () => {
     const navigate = useNavigate();
+        const token = localStorage.getItem('jwt_token');
+        console.log(token)
     return (
         <div className="w-full bg-slate-300 dark:bg-slate-900 h-svh">
             <div className="flex flex-col">
