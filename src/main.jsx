@@ -10,7 +10,12 @@ import Moon from './routes/moon';
 import Sales from './routes/Sales';
 import Products from './routes/Products';
 import Shortage from './routes/Shortage';
-
+import Dash from './routes/dash';
+import Inventory from './routes/inventory';
+import Reports from './routes/reports';
+import Management from './routes/management';
+import Admin from './routes/admin';
+import NewInv from './routes/NewInv';
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([
@@ -19,28 +24,55 @@ const session = localStorage.getItem("jwt_token");
     Component: Home
   },
   {
-    path: "/login",
+    path: "login",
     Component: Login
   },
   {
-    path: "/dashboard",
+    path: "/admin",
+    Component: Admin,
+    children: [
+      {
+        index: true,
+        path: "dashboard",
+        Component: Dash
+      },
+      {
+        path:"inventory",
+        Component: Inventory
+      },
+      {
+        path: "reports",
+        Component: Reports
+      },
+      {
+        path: "management",
+        Component: Management
+      },
+      {
+        path: "newInv",
+        Component: NewInv
+      },
+    ]
+  },
+  {
+    path: "dashboard",
     element: <div>{(session !== "") ? <Dashboard/> : <Navigate to="/"/> }</div>,
     children: [
       {
         index: true,
-        path: "/dashboard/home",
+        path: "home",
         Component: Moon
       },
       {
-        path: "/dashboard/sales",
+        path: "sales",
         Component: Sales
       },
       {
-        path: "/dashboard/products",
+        path: "products",
         Component: Products
       },
       {
-        path: "/dashboard/shortage",
+        path: "shortage",
         Component: Shortage
       },
     ],

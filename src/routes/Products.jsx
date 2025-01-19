@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import axios from "axios";
-import { Table, TableColumnHeader, TableHeader } from "@chakra-ui/react";
+import { Spinner, Table, TableColumnHeader, TableHeader } from "@chakra-ui/react";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -30,21 +30,21 @@ const Products = () => {
         <div className="mx-4">
         <h1 className="font-bold text-xl my-4">List of Products   ({products.length})</h1>
         <div className="mr-12">
-            { (loading) ? <p className="text-center text-xl font-semibold">loading..............</p> :
+            { loading ? <div className="justify-center"><Spinner size="xl"/></div> :
         <Table.ScrollArea>
-        <Table.Root size="lg" showColumnBorder striped rounded="md" variant="outline">
+        <Table.Root size="lg"  interactive striped rounded="md" variant="outline">
             <Table.Header className="bg-slate-600 sticky top-0">
                 <Table.Row>
-                    <Table.ColumnHeader className="text-gray-100">ID</Table.ColumnHeader>
+                    <Table.ColumnHeader className="text-gray-100">NO.</Table.ColumnHeader>
                     <Table.ColumnHeader className="text-gray-100">PRODUCT</Table.ColumnHeader>
                     <Table.ColumnHeader className="text-gray-100" textAlign="center">Q.IN STOCK</Table.ColumnHeader>
                     <Table.ColumnHeader textAlign="end" className="text-gray-100">PRICE</Table.ColumnHeader>
                 </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {products.map((product)=>(
+                    {products.map((product,index)=>(
                     <Table.Row key={product.id}>
-                        <Table.Cell>{product.id}</Table.Cell>
+                        <Table.Cell>{index + 1}</Table.Cell>
                         <Table.Cell>{product.name}</Table.Cell>
                         <Table.Cell textAlign="center">{product.stock}</Table.Cell>
                         <Table.Cell textAlign="end">{product.price}</Table.Cell>

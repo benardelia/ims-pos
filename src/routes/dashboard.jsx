@@ -1,8 +1,8 @@
 import { IconButton, Input } from "@chakra-ui/react";
 import { useState } from "react";
-import { BiCart, BiCartAdd } from "react-icons/bi";
+import { BiCart, BiCartAdd, BiLogOut } from "react-icons/bi";
 import { BsCartFill } from "react-icons/bs";
-import { NavLink, Outlet, Link, useNavigate } from "react-router";
+import { NavLink, Outlet, Link, useNavigate, redirect } from "react-router";
 
 
 const links = 
@@ -31,7 +31,7 @@ const Header = () => {
         navigate("/");
        }
        if (token === null) {
-            navigate("/");
+           return redirect("/");
        }
      
     return (
@@ -46,7 +46,7 @@ const Header = () => {
             {link.name}
             </NavLink>)
              }
-             <button onClick={handleLogout} className="bg-slate-900 mt-72 rounded-lg text-gray-50 py-2">sign out</button>
+             <button onClick={handleLogout} className="bg-slate-50 flex items-center mt-72 rounded-lg px-3 text-red-600 hover:font-semibold py-2"><BiLogOut className="mr-1"/>Log out</button>
             </div>
             <div className="w-5/6 rounded-lg">
             <Outlet/>

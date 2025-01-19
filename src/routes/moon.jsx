@@ -6,6 +6,7 @@ import { CgAdd } from "react-icons/cg";
 import { PiMinusCircleFill } from "react-icons/pi";
 import { RiAddCircleFill } from "react-icons/ri";
 import axios from "axios";
+import { Spinner } from "@chakra-ui/react";
 
 const Moon = () => {
     const [cart, setCart] = useState([]);
@@ -18,13 +19,7 @@ const Moon = () => {
     const addToCart = (product) => {
          setCart((prevCart) => {
             const existingProduct = prevCart.find((item) => item.id === product.id);
-            if (existingProduct) {
-               return prevCart.map((item) =>
-               item.id === product.id ? { ...item, quantity: item.quantity + 1 } :item
-               )
-            }
-            
-            return [...prevCart,{ ...product, quantity: 1}];
+       return 
     });
     };
     const removeProduct = (id) => {
@@ -49,18 +44,17 @@ const Moon = () => {
           );
       },[])  
             
-  
+          const searchable = products.filter((text)=> text.name === search);
 
     return (
         <div className="flex w-full">
         <div className="w-2/3 h-dvh">
         <div className="w-full mb-8">
             <input type="text" placeholder="Search Product" value={search} onChange={(e) => setSearch(e.target.value)} 
-                className="font-light mx-3 px-2 border border-slate-700 py-1 rounded-2xl w-1/2"/>
+                className="font-light mx-auto px-2 border border-slate-700 py-1 rounded-2xl w-1/2"/>
         </div>
         <div className="w-full  grid md:grid-cols-4 sm:grid-cols-3 gap-1">
-        { (loading)? <p>Loading............</p> :
-        products.map(product =>
+        { products.map(product =>
          <Product  key={product.id}
                    product={product}
                    onAdd={()=> addToCart(product)}
