@@ -1,5 +1,6 @@
-import { NavLink, Outlet } from "react-router"
+import { Link, NavLink, Outlet } from "react-router"
 import { Avatar } from "../components/ui/avatar";
+import { BiLogOutCircle } from "react-icons/bi";
 
   const links = 
     [
@@ -13,7 +14,7 @@ import { Avatar } from "../components/ui/avatar";
     return (
         <div className="relative min-h-svh">
         <div className="flex">
-        <div className="min-h-dvh flex bg-white rounded-r-lg  flex-col w-1/5">
+        <div className="min-h-dvh flex bg-white dark:bg-gray-400 rounded-r-lg  flex-col w-1/5">
         <div className="bg-inherit px-3 py-3 flex border-b border-gray-100 mb-3">
             <Avatar name="Nassir Masuke"/>
             <div className="flex flex-col ml-4">
@@ -23,11 +24,12 @@ import { Avatar } from "../components/ui/avatar";
         </div>
          {links.map(link =>
     <NavLink key={link.name} to={link.path} className={({ isActive }) =>
-      isActive ? "px-2 py-2 shadow-gray-300  font-semibold bg-blue-300 rounded-md mr-1"
-        : "text-gray-800 font-normal dark:text-gray-200 px-2 py-2"}>
+      isActive ? "px-2 py-2 shadow-gray-300  font-semibold bg-blue-200 dark:bg-blue-900 rounded-md mr-1"
+        : "text-gray-800  font-normal px-2 py-2"}>
                     {link.name}
                     </NavLink>)
                      }
+                     <Link to="/login"className="flex text-red-500 dark:text-red-800 absolute bottom-7 mx-6 items-center">Log out<BiLogOutCircle/></Link>
         </div>
         <Outlet/>
         </div>

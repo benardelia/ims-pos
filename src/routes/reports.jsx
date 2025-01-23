@@ -7,16 +7,16 @@ import { Button } from "../components/ui/button";
 const Reports = () => {
     const [state, setState] = useState("sales");
     return (
-        <div className="w-full bg-gray-100 h-dvh overflow-y-auto">
+        <div className="w-full bg-gray-100 dark:bg-gray-700 h-dvh overflow-y-auto">
             <div className=" m-6 flex justify-between">
                 <h1 className="font-bold text-lg">Sales report.</h1>
-                <Button bg="red.100" color="red.600" rounded="lg" fontSize="sm" px="0.75rem"  fontWeight="bold">clear sales<CgTrash/></Button>
+                <Button rounded="lg" fontSize="sm" px="0.75rem" className="text-red-500 dark:text-white bg-white dark:bg-red-500" fontWeight="bold">clear sales<CgTrash/></Button>
             </div>
             <div className="">
                   <div className="mx-12">
-                        <Table.Root rounded="md" bg="white" striped borderColor="orange.800" variant="outline">
+                        <Table.Root rounded="md" striped borderColor="orange.800" variant="outline"className="bg-white dark:bg-gray-800">
                             <Table.Header>
-                                <Table.Row className="bg-blue-200" mt="5rem">
+                                <Table.Row className="bg-blue-200 dark:bg-blue-950" mt="5rem">
                                 <Table.ColumnHeader className="">NO.</Table.ColumnHeader>
                                 <Table.ColumnHeader className="">PRODUCT</Table.ColumnHeader>
                                 <Table.ColumnHeader className="">QUANTITY SOLD</Table.ColumnHeader>
@@ -64,11 +64,11 @@ const Reports = () => {
             </div>
             <div className="flex justify-between m-12">
             <h1 className="font-bold text-xl">Orders report.</h1>
-            <Button color="red.600" bg="red.100" px="0.75rem" fontSize="sm" fontWeight="bold"rounded="lg" >clear orders<CgTrash/></Button>
+            <Button className="text-red-500 dark:text-white bg-white dark:bg-red-500" px="0.75rem" fontSize="sm" fontWeight="bold"rounded="lg" >clear orders<CgTrash/></Button>
             </div>
             <div className="mx-48">
-                <Table.Root variant="outline" bg="white" rounded="xl" className="mb-12">
-                    <Table.Header className="bg-blue-300">
+                <Table.Root variant="outline" rounded="xl" className="mb-12 bg-white dark:bg-gray-800">
+                    <Table.Header className="bg-blue-300 dark:bg-blue-950">
                         <Table.Row>
                             <Table.ColumnHeader>ORDER ID</Table.ColumnHeader>
                             <Table.ColumnHeader textAlign="center">Date & Time</Table.ColumnHeader>

@@ -63,8 +63,7 @@ const Login = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full mt-1 h-10 sm:h-10  text-md sm:text-sm border border-gray-300 rounded-lg
-   focus:outline-none focus:ring-2 "
+                className="w-full bg-gray-50 px-4 dark:bg-gray-700 mt-1 h-10 sm:h-10  text-md sm:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 "
               />
             </div>
             <div>
@@ -76,13 +75,13 @@ const Login = () => {
                 id="password"
                 value={password} onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full mt-1 h-10 sm:h-10  text-md sm:text-sm border border-gray-300 rounded-lg
+                className="w-full bg-gray-50 px-4 dark:bg-gray-700 mt-1 h-10 sm:h-10  text-md sm:text-sm  rounded-lg
    focus:outline-none focus:ring-2 "
               />
             </div>
             <button
               type="submit" onClick={handleSubmit}
-              className="w-full px-8 py-2 text-white bg-slate-700 text-sm sm:text-sm h-10 sm:h-10 rounded-md hover:bg-slate-800
+              className="w-full px-8 py-2 text-white bg-slate-600 text-sm sm:text-sm h-10 sm:h-10 rounded-md hover:bg-slate-700
    focus:outline-none focus:ring-2 focus:ring-slate-200 hover:font-bold focus:ring-opacity-50 font-semibold"
             >
               Sign In
