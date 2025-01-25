@@ -2,6 +2,10 @@ import { Button, Table } from "@chakra-ui/react"
 import { CgAdd } from "react-icons/cg"
 import { GrAdd } from "react-icons/gr"
 import { useNavigate} from "react-router"
+import { Tabs } from "@chakra-ui/react"
+
+
+
 
 
 const Inventory = () => {
@@ -10,17 +14,15 @@ const Inventory = () => {
         <div className="w-full bg-gray-100 dark:bg-gray-700">
             <div className="mx-6">
             <div classname="flex justify-between  mx-12">
-            <h1 className="my-6 font-bold text-2xl">Inventory.</h1>
+            <h1 className="my-6 font-bold text-xl">Inventory.</h1>
             </div>
-            <div classname="flex">
-                <h1 className="font-bold text-lg">List of Medicines.</h1>
+            <div className=" my-6 mx-12 flex justify-between items-center">
+                <h1 className="font-bold text-lg">List of Products.</h1>
                 <Button 
-                bg="red.500"
+                colorPalette="cyan"
+                variant="solid"
                 my="1.25rem"
                 px="1rem"
-                color="white"
-                fontSize="sm"
-                fontWeight="bold"
                 onClick={()=> navigate("/admin/newInv")}
                 >
                     <GrAdd/>Add product

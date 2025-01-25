@@ -3,7 +3,7 @@ import React from "react";
 import { BiChevronRight, BiChevronsRight } from "react-icons/bi";
 import { Link } from "react-router";
 import { Box } from "@chakra-ui/react";
-
+  
 const Boxy = ({box}) => {
     return(
             <div className="w-full mx-12 h-36 bg-white dark:bg-gray-800 flex place-items-center rounded-xl justify-center shadow-md">
@@ -20,7 +20,7 @@ const Boxy = ({box}) => {
    const Reed = ({good}) => {
     return (
         <div className="w-full bg-white dark:bg-gray-800 h-36 rounded-xl shadow-lg">
-            <div className="h-10 border-b rounded-t-xl flex bg-blue-200 dark:bg-blue-950 place-items-center justify-between px-6">
+            <div className="h-10 border-b dark:border-b-gray-800 rounded-t-xl flex bg-blue-200 dark:bg-blue-800 place-items-center justify-between px-6">
                 <h1 className="font-semibold text-sm">{good.moja}</h1>
                 <Link to={good.tatu} className="text-sm flex items-center">Go to {good.mbili}<BiChevronsRight/></Link>
             </div>
@@ -44,11 +44,11 @@ const Dash = () => {
         <h1 className="text-lg font-bold">Dashboard.</h1>
         <p className="text-sm font-light">A quick overview of the store.</p>
         </div>
-        <div className="flex relative justify-evenly w-full mb-8">
+        <div className="flex relative justify-evenly px-6 w-full mb-8">
             <Boxy box={{
                 main: "450,000",
                 color: "green-600",
-                detail: "Sales",
+                detail: "Sales/mo",
                 link:"sale report",
                 path: "/admin/reports"
              }}/>
@@ -82,7 +82,7 @@ const Dash = () => {
             fourth: "products categories"
         }}/>
         <Reed good = {{  
-         moja: "Products sold",
+         moja: "Products sold/mo",
          mbili: "sales report",
          tatu: "/admin/inventory",
          first: "122",

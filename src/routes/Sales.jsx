@@ -5,7 +5,7 @@ const Sales = () => {
         <div className="">
         <h className="text-xl font-bold pb-8"> Sales.</h>
         <div className="mr-4">
-        <Table.Root rounded="md" striped variant="outline">
+        <Table.Root rounded="lg" striped variant="outline"className="bg-white dark:bg-gray-800 mx-4" >
             <Table.Header>
                 <Table.Row className="bg-slate-700" mt="5rem">
                 <Table.ColumnHeader className="text-gray-100">NO.</Table.ColumnHeader>

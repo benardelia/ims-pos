@@ -6,7 +6,7 @@ import { BiCartAdd, BiChevronDown, BiChevronUp } from "react-icons/bi";
 const Product = ({product, onAdd}) => {
     const [show, setShow] = useState(false);
     return (
-        <div className=" flex bg-gray-200 dark:bg-gray-900 text-gray-950 dark:text-gray-300 flex-col rounded-lg shadow dark:shadow-gray-50
+        <div className=" flex bg-gray-200 dark:bg-gray-800 text-gray-950 dark:text-white flex-col rounded-lg shadow dark:shadow-gray-200
                     justify-end pb-3 h-52 w-full">
             <div className="flex justify-between mx-2 items-center">
             <div>

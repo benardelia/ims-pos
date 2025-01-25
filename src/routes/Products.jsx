@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import axios from "axios";
-import { Spinner, Table, TableColumnHeader, TableHeader } from "@chakra-ui/react";
+import { Skeleton, Spinner, Table, TableColumnHeader, TableHeader } from "@chakra-ui/react";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -30,9 +30,9 @@ const Products = () => {
         <div className="mx-4">
         <h1 className="font-bold text-xl my-4">List of Products   ({products.length})</h1>
         <div className="mr-12">
-            { loading ? <div className="justify-center"><Spinner size="xl"/></div> :
+        <Skeleton loading={loading} rounded="lg" w="90%" h="25rem" variant="shine"> 
         <Table.ScrollArea>
-        <Table.Root size="lg"  interactive striped rounded="md" variant="outline">
+        <Table.Root size="lg"  interactive striped rounded="md" variant="outline" className="bg-white dark:bg-gray-800">
             <Table.Header className="bg-slate-600 sticky top-0">
                 <Table.Row>
                     <Table.ColumnHeader className="text-gray-100">NO.</Table.ColumnHeader>
@@ -52,7 +52,8 @@ const Products = () => {
                     )}
                 </Table.Body>
         </Table.Root>
-        </Table.ScrollArea>}
+        </Table.ScrollArea>
+        </Skeleton>
         </div>
         </div>
     );
