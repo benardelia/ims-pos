@@ -14,7 +14,7 @@ const Sales = () => {
                         </div>
                         <div className="">
                               <div className="mx-12">
-                                    <Table.Root rounded="md" interactive borderColor="orange.800" variant="outline"className="bg-white dark:bg-gray-800">
+                                    <Table.Root rounded="md" shadow="lg" interactive borderColor="orange.800" variant="outline"className="bg-white dark:bg-gray-800">
                                         <Table.Header>
                                             <Table.Row className="bg-blue-200 dark:bg-blue-950" mt="5rem">
                                             <Table.ColumnHeader className="">NO.</Table.ColumnHeader>
@@ -65,6 +65,30 @@ const Sales = () => {
         </div>
     );
   }
+
+  const orders = [
+    {
+        id: 34635462,
+        date: "23th Jan 2025 04:36"
+    },
+    {
+        id: 34234567,
+        date: "19th Dec 2024 13:54"
+    },
+    {
+        id: 34635465,
+        date: "27th Jan 2025 12:01"
+    },
+    {
+        id: 34635462,
+        date: "1st Feb 2024 20:31"
+    },
+    {
+        id: 34635423,
+        date: "2nd Aug 2024 11:23"
+    }
+]
+
    const Orders = () => {
     return (
         <div className="">
@@ -73,38 +97,22 @@ const Sales = () => {
             <Button className="text-red-500 dark:text-white bg-white dark:bg-red-500" px="0.75rem" fontSize="sm" fontWeight="bold"rounded="lg" >clear orders<CgTrash/></Button>
             </div>
               <div className="mx-12">
-                            <Table.Root interactive variant="outline" rounded="xl" striped="gray.300" className="mb-12 bg-white dark:bg-gray-800">
+                            <Table.Root interactive shadow="lg" variant="outline" rounded="xl" striped="gray.300" className="mb-12 bg-white dark:bg-gray-800">
                                 <Table.Header className="bg-blue-200 dark:bg-blue-950">
                                     <Table.Row>
+                                        <Table.ColumnHeader>NO.</Table.ColumnHeader>
                                         <Table.ColumnHeader>ORDER ID</Table.ColumnHeader>
                                         <Table.ColumnHeader textAlign="center">Date & Time</Table.ColumnHeader>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
-                                    <Table.Row>
-                                        <Table.Cell>24112322</Table.Cell>
-                                        <Table.Cell textAlign="center">18 Jan 2025 22:32</Table.Cell>
+                                    {orders.map((order, index) => 
+                                    <Table.Row key={order.id}>
+                                        <Table.Cell>{index + 1}</Table.Cell>
+                                        <Table.Cell>{order.id}</Table.Cell>
+                                        <Table.Cell textAlign="center">{order.date}</Table.Cell>
                                     </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>24112322</Table.Cell>
-                                        <Table.Cell textAlign="center">18 Jan 2025 22:32</Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>24112322</Table.Cell>
-                                        <Table.Cell textAlign="center">18 Jan 2025 22:32</Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>24112322</Table.Cell>
-                                        <Table.Cell textAlign="center">18 Jan 2025 22:32</Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>24112322</Table.Cell>
-                                        <Table.Cell textAlign="center">18 Jan 2025 22:32</Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>24112322</Table.Cell>
-                                        <Table.Cell textAlign="center">18 Jan 2025 22:32</Table.Cell>
-                                    </Table.Row>
+                                     )}
                                 </Table.Body>
                             </Table.Root>
         </div>

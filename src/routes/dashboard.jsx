@@ -46,7 +46,7 @@ const Header = () => {
             {link.name}
             </NavLink>)
              }
-             <button onClick={handleLogout} className="bg-slate-50 flex items-center mt-72 mx-6 rounded-lg px-3 text-red-600 hover:font-semibold py-2"><BiLogOut className="mr-1"/>Log out</button>
+             <button onClick={handleLogout} className="bg-slate-50 flex items-center mt-72 mx-6 rounded-lg px-3 md:text-lg sm:text-sm text-red-600 hover:font-semibold py-2"><BiLogOut className="mr-1"/>Log out</button>
             </div>
             <div className="w-5/6 rounded-lg">
             <Outlet/>

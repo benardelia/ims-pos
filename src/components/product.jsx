@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { BiCartAdd, BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-
-
 const Product = ({product, onAdd}) => {
     const [show, setShow] = useState(false);
     return (
         <div className=" flex bg-gray-200 dark:bg-gray-800 text-gray-950 dark:text-white flex-col rounded-lg shadow dark:shadow-gray-200
-                    justify-end pb-3 h-52 w-full">
+                    justify-end pb-3 md:h-52 sm:h-44 w-full">
             <div className="flex justify-between mx-2 items-center">
             <div>
             <p className="text-xs font-bold">{product.price}/-</p>

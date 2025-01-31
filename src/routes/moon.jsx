@@ -19,7 +19,13 @@ const Moon = () => {
     const addToCart = (product) => {
          setCart((prevCart) => {
             const existingProduct = prevCart.find((item) => item.id === product.id);
-       return 
+            if (existingProduct){
+                return prevCart.map((item) => item.id=== product.id ?
+            {...item, quantity:item.quantity + 1} : item
+            ) ;
+            }
+       return [...prevCart, product];
+       console.log(product);
     });
     };
     const removeProduct = (id) => {
@@ -68,7 +74,7 @@ const Moon = () => {
         </div>
        
         <div className="w-full flex flex-col shadow-sm p-2 rounded-md">
-                 {cart.length === 0 && <p className="text-gray-100"> cart is empty</p>}
+                 {cart.length === 0 && <p className="text-gray-*00"> cart is empty</p>}
                  {cart.map((item, index) =>
                  <div className="bg-gray-200 dark:bg-gray-900 dark:text-gray-300 pt-2 m-1 h-20 px-2 rounded-lg justify-center">
                     <div className="flex justify-between">

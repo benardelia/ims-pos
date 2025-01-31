@@ -29,7 +29,7 @@ import { BiLogOutCircle } from "react-icons/bi";
                     {link.name}
                     </NavLink>)
                      }
-                     <Link to="/login"className="flex text-red-500 dark:text-red-800 absolute bottom-7 mx-6 items-center">Log out<BiLogOutCircle/></Link>
+                     <Link to="/login"className="flex text-red-600 dark:text-red-800 absolute bottom-7 mx-6 items-center">Log out<BiLogOutCircle/></Link>
         </div>
         <Outlet/>
         </div>
