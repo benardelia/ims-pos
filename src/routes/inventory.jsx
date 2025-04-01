@@ -3,8 +3,14 @@ import { CgAdd } from "react-icons/cg"
 import { GrAdd } from "react-icons/gr"
 import { Link, useNavigate} from "react-router"
 import { Tabs } from "@chakra-ui/react"
+import { createClient } from "@supabase/supabase-js";
+import { useState, useEffect } from "react"
+import { FaSpinner } from "react-icons/fa6";
 
-const products = [
+
+const supabase = createClient("https://hdvpgcnhocljtpmtlrae.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkdnBnY25ob2NsanRwbXRscmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIyNTc0ODMsImV4cCI6MjA1NzgzMzQ4M30.4YvNxHdJ1VKo2oB9qa7AsMGFeAydZf0lx_DR831FF-s");
+
+const pro = [
     {
         id: 0,
         name: "azam juice",
@@ -56,31 +62,43 @@ const products = [
     },
     {
         id: 7,
-        name: "Vim",
-        stock: 12,
-        category: "cleaning"
-
-    },
-    {
+        name: "Vim",stock: 12,category: "cleaning"
+    },{
         id: 8,
         name: "clean wash",
         stock: 12,
-        category: "soap"
-
-    },
-    {
+        category: "soap"},{
         id: 9,
         name: "magadi",
         stock: 12,
         category: "soap"
 
     },
-]
+];
+
 
 const Inventory = () => {
     const navigate = useNavigate();
+    const [products,setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false)
+
+    async function getProducts() {
+          const { data, error } = await supabase.from("products").select();
+                setProducts(data);
+                setLoading(false)
+
+                if (error) {
+                    setError(true)
+                }
+            }
+              
+              useEffect(()=> {
+                 getProducts();
+               },[])  
+        
     return (
-        <div className="w-full h-dvh overflow-y-auto bg-gray-100 dark:bg-gray-700">
+        <div className="w-full font-open text-gray-900 dark:text-gray-50 h-dvh overflow-y-auto bg-gray-50 dark:bg-slate-500">
                <div className="w-full my-4 flex justify-between px-6">
                             <div className="flex flex-col">
                             <h1 className=" font-bold text-lg">User Management</h1>
@@ -100,9 +118,13 @@ const Inventory = () => {
                 <h1 className="font-bold text-lg">List of Products.</h1>
             </div>
             <div className="mx-8 mb-24">
-                <Table.Root shadow="lg" variant="outline" interactive rounded="xl"className="bg-white dark:bg-gray-800">
+                { loading ? <div className="size-12 shadow-xl flex justify-center place-items-center justify-self-center bg-white rounded-md">
+                                <FaSpinner className="animate-spin"/>
+                                 </div>
+                : error ? <p className="font-open text-center text-sm font-bold text-red-600">Failed to fetch. check internet connection.</p> :
+                <Table.Root interactive rounded="xl" className="bg-white dark:bg-gray-800">
                     <Table.Header>
-                        <Table.Row className="bg-blue-200 rounded-t-lg dark:bg-blue-950">
+                        <Table.Row className="bg-lime-200 rounded-t-lg dark:bg-blue-700">
                             <Table.ColumnHeader>
                                 Product Name
                             </Table.ColumnHeader>
@@ -120,7 +142,7 @@ const Inventory = () => {
                     </Table.Header>
                     <Table.Body>
                         {
-                            products.map((product)=> (<Table.Row>
+                            products.map((product)=> (<Table.Row  className="bg-white dark:bg-gray-800">
                                 <Table.Cell>{product.name}</Table.Cell>
                                 <Table.Cell alignItems="center">{product.id}</Table.Cell>
                                 <Table.Cell>{product.category}</Table.Cell>
@@ -130,7 +152,7 @@ const Inventory = () => {
                         }
                     </Table.Body>
                 </Table.Root>
-
+            }
             </div>
         </div>
     )

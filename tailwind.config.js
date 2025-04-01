@@ -6,7 +6,14 @@ export default {
 
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        open: ['"Nunito Sans Variable"', 'sans-serif'],
+      },
+      colors: {
+        custom: '#C0E863',
+      },
+    },
   },
   plugins: [],
 }

@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { BrowserRouter, createBrowserRouter,RouterProvider, Navigate } from "react-router";
+import '@fontsource-variable/nunito-sans';
+import { BrowserRouter, createBrowserRouter,RouterProvider, Navigate, useNavigate } from "react-router";
 import { Provider } from "@/components/ui/provider"
 import Login from './routes/login';
 import Home from './routes/Home';
@@ -16,6 +17,7 @@ import Reports from './routes/reports';
 import Management from './routes/management';
 import Admin from './routes/admin';
 import NewInv from './routes/NewInv';
+import Error from './routes/error';
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([

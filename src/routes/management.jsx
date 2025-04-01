@@ -13,9 +13,7 @@ import { Input } from "@chakra-ui/react";
 import { PiTrashFill } from "react-icons/pi";
 
 
-
-
-const users = [
+  const users = [
     {
         id: 0,
         name: "Goodluck john",
@@ -38,13 +36,12 @@ const users = [
 
 const User = ({user}) => {
     return (
-        <div className="flex relative shadow-sm items-center mx-2 my-3 bg-gray-50 py-2 px-2 rounded-md">
+        <div className="flex font-open relative shadow-sm items-center mx-2 my-3 bg-gray-50 dark:bg-gray-700 py-2 px-2 rounded-md">
             <Avatar name={user.name} size="sm"/>
             <div className="flex flex-col ml-6">
                 <h1 className="font-semibold text-gray-800">{user.name}</h1>
                 <p className="text-sm font-light">{user.joined}</p>
             </div>
-
             <div className="flex absolute right-0 ">
                 <button className="size-8 bg-white justify-center place-items-center rounded-full text-blue-600"><BiEditAlt/></button>
                 <button className="size-8 text-red-400 justify-center place-items-center bg-white rounded-full mx-1 font-bold"><FiTrash/></button>
@@ -53,10 +50,18 @@ const User = ({user}) => {
     )
 } 
 
+   const Expense = () => {
+    return (
+        <div className="">
+            <button className="p-4 bg-green-500 font-open font-bold
+            ">Add Expense</button>
+        </div>
+    )
+   }
 
 const Management = () => {
     return (
-        <div className="bg-gray-100 dark:bg-gray-700 w-full h-dvh">
+        <div className="bg-gray-100 font-open dark:bg-slate-500 w-full h-dvh">
             <div className="w-full my-4 flex justify-between px-6">
                 <div className="flex flex-col">
                 <h1 className=" font-bold text-lg">User Management</h1>
@@ -71,42 +76,40 @@ const Management = () => {
 
             <div className="m-12">
                 <h1 className="font-semibold">List of Users</h1>
-                <Table.Root variant="outline" shadow="lg"  text-gray-800 dark:text-gray-200 rounded="xl" interactive >
+                <Table.Root className=" bg-white rounded-lg dark:bg-gray-500text-gray-800 dark:text-gray-200" rounded="xl" interactive >
                     <Table.Header >
-                      <Table.Row className="bg-blue-200 dark:bg-blue-800">
+                      <Table.Row className="bg-lime-200 dark:bg-blue-700">
                       <Table.ColumnHeader className="w-6">NO.</Table.ColumnHeader>
                         <Table.ColumnHeader>Name</Table.ColumnHeader>
                         <Table.ColumnHeader>User Roles</Table.ColumnHeader>
                         <Table.ColumnHeader pr="3rem" textAlign="end">Actions</Table.ColumnHeader>
                       </Table.Row>
                     </Table.Header>
-                    <Table.Body className="bg-white dark:bg-gray-800">
-                       { users.map((user, index) => (<Table.Row key={user.id}><Table.Cell>{index + 1}</Table.Cell>
+                    <Table.Body>
+                       { users.map((user, index) => (<Table.Row key={user.id}  className="bg-white dark:bg-gray-800"><Table.Cell >{index + 1}</Table.Cell>
                                               <Table.Cell>
                                                 <div className="flex  text-gray-800 dark:text-gray-200 ">
                                                    <Avatar size="xs" name={user.name}/>
                                                    <div className="flex ml-4 flex-col">
                                                     <h1 className="font-semibold  flex items-center">{user.name}</h1>
-                                                   <div className="flex items-center"><p className="font-semibold">since:</p><p className="text-xs text-gray-500">{user.joined}</p></div>
+                                                   <div className="flex items-center"><p className="font-semibold">since:</p><p className="text-xs text-gray-500 dark:text-gray-100">{user.joined}</p></div>
                                                    </div>
                                                 </div>
                                               </Table.Cell>
                                               <Table.Cell>
-                                                <Badge h="1rem"  bg={ user.role ==="admin" ? "green.400" : "yellow.400"}
-                                                rounded="full"
-                                                fontSize="xs"
-                                                fontWeight="medium" 
-                                                p="8px" >{user.role}</Badge>
+                                                <div className="text-xs font-bold">{user.role}</div>
                                               </Table.Cell>
-                                              <Table.Cell textAlign="end"><Button size="xs" bg="gray.200" rounded="full">
+                                              <Table.Cell textAlign="end" className="flex justify-end"><button  className="size-8 flex place-items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700">
                                                 <FiEdit/>
-                                                </Button><Button size="xs" fontSize="xs" bg="red.600" mx="1rem" p="0.5rem" fontWeight="black" rounded="full" color="white">
-                                                    <FiTrash/></Button> </Table.Cell>
+                                                </button><button className="size-8 flex place-items-center mx-4 justify-center rounded-full bg-red-400 dark:bg-red-700">
+                                                    <FiTrash/></button> </Table.Cell>
                                                 
                                               </Table.Row>
                     ))}
                     </Table.Body>
                 </Table.Root>
+
+
             </div>
         </div>
     )
