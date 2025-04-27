@@ -3,9 +3,10 @@ import { Avatar } from "../components/ui/avatar";
 import { useNavigate, Link } from "react-router";
 import axios from "axios";
 import apiClient from "../api/axios";
-import { Spinner } from "@chakra-ui/react"
+import { Checkbox, Spinner } from "@chakra-ui/react"
 import { Button } from "../components/ui/button";
-import { Input, Stack } from "@chakra-ui/react"
+import { Input, Stack, defineStyle,Field } from "@chakra-ui/react"
+import { BiArrowBack } from "react-icons/bi";
 import {
   DialogActionTrigger,
   DialogBody,
@@ -16,7 +17,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Field } from "@/components/ui/field"
+import { Box } from "@chakra-ui/react";
+import { PasswordInput } from "@/components/ui/password-input";
 import { useRef } from "react"
 
 export const Lead = () => {
@@ -37,7 +39,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("http://154.118.227.229:1967/auth/jwt/create/", JSON.stringify({username, password}),
+      const response = await axios.post("http://10.219.31.111:8000/auth/jwt/create/", JSON.stringify({username, password}),
       {
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +49,6 @@ const Login = () => {
 
       if (response.status === 200) {
         const token = response.data.access;
-        console.log(token);
         localStorage.setItem('jwt_token', token);
         navigate('/dashboard/home');
         setLoading(false);
@@ -55,60 +56,78 @@ const Login = () => {
     } catch (error) {
       if (error.response) {
         console.error("login failed:",error.response.data);
-      } else {
-        console.error("error during login:",error.message);
       }
+      navigate("/")
     }
 
   }
   return (
-    <div className='flex w-full font-open '>
-      <div className="flex py-auto w-full items-center justify-center min-h-screen bg-gray-100 dark:bg-slate-500">
-        <div className="px-8 py-12 bg-white dark:bg-slate-800 rounded-lg justify-center shadow-xl w-1/3 h-3/4 my-auto sm:h-4/5">
-          <h2 className="text-xl font-poppins font-semibold text-center text-slate-800 dark:text-slate-50">Sign In</h2>
-          <form onSubmit={handleSubmit} className="space-y-10 sm:space-y-16 my-8 sm:my-16 ">
-            <div className="flex flex-col space-y-6 my-4">
-            <div>
-              <label htmlFor="name" className="block text-md sm:text-sm font-medium text-gray-700 dark:text-gray-200">
-                Username:
-              </label>
-              <input
+    <div className="flex w-full relative font-open">
+      <div className="sm:w-1/2 bg-[#082d2e]"></div>
+      <Link to="/" className="absolute text-white left-8 top-8"><BiArrowBack/></Link>
+      <div className="flex flex-col py-auto w-full sm:w-1/2 items-center justify-center min-h-screen dark:bg-slate-500">
+        <div className=" py-12 dark:bg-slate-800 justify-center w-2/3 h-3/4 sm:h-5/6">
+          <h2 className="text-2xl font-poppins font-semibold text-slate-800 dark:text-slate-50">Welcome</h2>
+          <p className="text-xs font-open">please enter login details below</p>
+          <form onSubmit={handleSubmit} className="flex flex-col justify-center h-4/5">
+          <div className="flex flex-col space-y-12 my-16">
+            <Field.Root>
+              <Input
                 type="text"
+                variant="flushed"
+                placeholder="Enter Email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full bg-gray-50 px-4 border dark:bg-gray-700 mt-1 h-10 sm:h-10  text-md sm:text-sm border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:ring-2 "
+                className="w-full px-4 border-b mt-1 text-gray-900 bg-green-50 border-[#082d2e] h-10 sm:h-10  text-md sm:text-sm"
               />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-100">
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
+            </Field.Root>
+              <PasswordInput
+              placeholder="Enter Password"
                 value={password} onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full bg-gray-50 px-4 border border-gray-300 dark:border-gray-500 dark:bg-gray-700 mt-1 h-10 sm:h-10  text-md sm:text-sm  rounded-lg
-   focus:outline-none focus:ring-2 "
+                className="w-full px-4 border-b border-[#082d2e] mt-1 h-10 sm:h-10 bg-green-50 text-md sm:text-sm"
               />
+             
             </div>
+            <div className="flex justify-between my-8">
+               <div className="flex items-center"><input type='checkbox' className=" border mx-2 border-slate-900 " />
+               <p className=" text-sm">remember me</p>
+               </div>
+              <Link className="text-sm underline">Forgot password?</Link>
             </div>
             <button
               type="submit" onClick={handleSubmit}
-              className="w-full px-8 font-open bg-custom text-sm sm:text-sm h-10 sm:h-10 rounded-md
-   focus:outline-none focus:ring-2 focus:ring-slate-200 hover:font-bold focus:ring-opacity-50 font-semibold"
+               className="py-3 bg-[#082d2e] text-sm sm:text-sm h-10 sm:h-10 rounded-md text-gray-100 hover:font-bold font-semibold"
             >
               Sign In
             </button>
           </form>
-          {loading && <p className="font-open text-center font-bold">Loading...</p>}
-        <p className="text-sm flex items-center justify-self-center font-semibold text-center">
-          admin click <Link to="/admin/dashboard" className="mx-1 underline">here</Link></p>
-    
+        
         </div>
+        <p className="text-sm font-open">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
       </div>
     </div>
   );
 }
+
+    const floatingStyle = defineStyle({
+      pos: "absolute",
+      bg: "bg",
+      px:"0.5",
+      top: "-0.3",
+      insetStart: "2",
+      pointerEvents: "none",
+      transition: "position",
+      _peerPlaceholderShown: {
+        color: "fg.muted",
+        top: "2.5",
+        insetStart: "3"
+      },
+      _peerFocusVisible: {
+        color: "fg",
+        tp: "-3",
+        insetStart: "2"
+      }
+    })
+
 export default Login;

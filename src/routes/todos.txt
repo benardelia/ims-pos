@@ -1,0 +1,5 @@
+create register and password reset components.
+create add user components.
+create view and edit products page.
+react context to handle authentication and authorisation.
+login form chakra ui

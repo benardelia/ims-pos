@@ -18,7 +18,7 @@ const colorScale = scaleOrdinal({
 
 const Doughnut = ({ width = 150, height = 150 }) => {
   const radius = Math.min(width, height) / 2;
-  const innerRadius = radius * 0.9;
+  const innerRadius = radius * 0.88;
 
   const { tooltipData, tooltipLeft, tooltipTop, showTooltip, hideTooltip } = useTooltip();
 
@@ -31,7 +31,7 @@ const Doughnut = ({ width = 150, height = 150 }) => {
             pieValue={d => d.value}
             outerRadius={radius}
             innerRadius={innerRadius}
-            padAngle={0.02}
+            padAngle={0.01}
           >
             {pie =>
               pie.arcs.map(arc => (
@@ -49,7 +49,7 @@ const Doughnut = ({ width = 150, height = 150 }) => {
             y="0"
             textAnchor="middle"
             dominantBaseline="middle"
-            className="text-sm font-open font-bold fill-gray-700"
+            className="text-sm dark:text-gray-100 text-black font-open font-bold"
           >
             1,200,000 Tshs
           </text>

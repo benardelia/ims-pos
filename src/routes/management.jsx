@@ -1,5 +1,5 @@
 import { Tabs, Table, Badge, Center } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Button } from "../components/ui/button";
 import { CgEditNoise, CgTrash } from "react-icons/cg";
@@ -11,28 +11,7 @@ import { IoTrashBinOutline } from "react-icons/io5";
 import { FiDelete, FiEdit, FiTrash } from "react-icons/fi";
 import { Input } from "@chakra-ui/react";
 import { PiTrashFill } from "react-icons/pi";
-
-
-  const users = [
-    {
-        id: 0,
-        name: "Goodluck john",
-        joined: "12th Dec 2023",
-        role: "keeper"
-    },
-    {
-        id: 1,
-        name: "Ashura Hajj",
-         role: "keeper",
-        joined: "19th Jan 2024"
-    },
-    {
-        id: 2,
-         role: "admin",
-        name: "Masuke Junior",
-        joined: "3rd Aug 2022"
-    }
-]
+import axios from "axios";
 
 const User = ({user}) => {
     return (
@@ -59,9 +38,30 @@ const User = ({user}) => {
     )
    }
 
+   
+
 const Management = () => {
+    const [users, setUsers] = useState([]);
+    const [loading ,setLoading] = useState(true)
+    const session = localStorage.getItem("jwt_token");
+    const axiosInstance = axios.create({
+                    baseURL: "http://127.0.0.1:8000/",
+                    timeout: 9000,
+                    headers: {
+                        Authorization : `Bearer ${session}`,
+                    }
+                })
+        useEffect(()=> {
+            axiosInstance.get("/auth/users/")
+            .then((response) => {
+                setUsers(response.data.results)
+                setLoading(false)
+            })
+
+        },[])
+
     return (
-        <div className="bg-gray-100 font-open dark:bg-slate-500 w-full h-dvh">
+        <div className="bg-gray-100 font-open dark:bg-slate-700 w-full h-dvh">
             <div className="w-full my-4 flex justify-between px-6">
                 <div className="flex flex-col">
                 <h1 className=" font-bold text-lg">User Management</h1>
@@ -70,29 +70,30 @@ const Management = () => {
                 <div className="flex items-center">
                 <Input type="search" variant="filled" placeholder="Search a User" 
                 className=" rounded-2xl h-8 mx-6 text-gray-700 text-sm bg-white px-3 "/>
-                <Button className="bg-yellow-400 font-semibold px-4 h-8">Add user</Button>
+                <Button className="bg-yellow-400  dark:text-gray-900 font-semibold px-4 h-8">Add user</Button>
                 </div>
             </div>
 
-            <div className="m-12">
+            <div className="m-8">
                 <h1 className="font-semibold">List of Users</h1>
+                
                 <Table.Root className=" bg-white rounded-lg dark:bg-gray-500text-gray-800 dark:text-gray-200" rounded="xl" interactive >
                     <Table.Header >
-                      <Table.Row className="bg-lime-200 dark:bg-blue-700">
-                      <Table.ColumnHeader className="w-6">NO.</Table.ColumnHeader>
-                        <Table.ColumnHeader>Name</Table.ColumnHeader>
-                        <Table.ColumnHeader>User Roles</Table.ColumnHeader>
-                        <Table.ColumnHeader pr="3rem" textAlign="end">Actions</Table.ColumnHeader>
+                      <Table.Row className="bg-custom dark:bg-custom dark:text-gray-900">
+                      <Table.ColumnHeader className="dark:text-gray-900 font-bold w-6">NO.</Table.ColumnHeader>
+                        <Table.ColumnHeader className="dark:text-gray-900 font-bold">Name</Table.ColumnHeader>
+                        <Table.ColumnHeader className="dark:text-gray-900 font-bold">User Roles</Table.ColumnHeader>
+                        <Table.ColumnHeader pr="3rem" textAlign="end" className="dark:text-gray-900 font-bold"> Actions</Table.ColumnHeader>
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                       { users.map((user, index) => (<Table.Row key={user.id}  className="bg-white dark:bg-gray-800"><Table.Cell >{index + 1}</Table.Cell>
+                       {users.length>0 && users.map((user, index) => (<Table.Row key={user.id}  className="bg-white dark:bg-gray-800"><Table.Cell >{index + 1}</Table.Cell>
                                               <Table.Cell>
                                                 <div className="flex  text-gray-800 dark:text-gray-200 ">
                                                    <Avatar size="xs" name={user.name}/>
                                                    <div className="flex ml-4 flex-col">
-                                                    <h1 className="font-semibold  flex items-center">{user.name}</h1>
-                                                   <div className="flex items-center"><p className="font-semibold">since:</p><p className="text-xs text-gray-500 dark:text-gray-100">{user.joined}</p></div>
+                                                    <h1 className="font-semibold  flex items-center">{user.username}</h1>
+                                                   <div className="flex items-center"><p className="text-sm text-gray-500 dark:text-gray-100">{user.email}</p></div>
                                                    </div>
                                                 </div>
                                               </Table.Cell>
@@ -108,8 +109,6 @@ const Management = () => {
                     ))}
                     </Table.Body>
                 </Table.Root>
-
-
             </div>
         </div>
     )

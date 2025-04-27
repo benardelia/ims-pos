@@ -18,6 +18,8 @@ import Management from './routes/management';
 import Admin from './routes/admin';
 import NewInv from './routes/NewInv';
 import Error from './routes/error';
+import Edit from './routes/Edit';
+import Register from './routes/Register';
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([
@@ -28,6 +30,10 @@ const session = localStorage.getItem("jwt_token");
   {
     path: "login",
     Component: Login
+  },
+  {
+    path: "register",
+    Component: Register
   },
   {
     path: "/admin",
@@ -53,6 +59,10 @@ const session = localStorage.getItem("jwt_token");
       {
         path: "newInv",
         Component: NewInv
+      },
+      {
+        path: "edit/:id",
+        Component: Edit
       },
     ]
   },
