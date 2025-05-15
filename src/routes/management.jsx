@@ -12,6 +12,7 @@ import { FiDelete, FiEdit, FiTrash } from "react-icons/fi";
 import { Input } from "@chakra-ui/react";
 import { PiTrashFill } from "react-icons/pi";
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 const User = ({user}) => {
     return (
@@ -43,14 +44,7 @@ const User = ({user}) => {
 const Management = () => {
     const [users, setUsers] = useState([]);
     const [loading ,setLoading] = useState(true)
-    const session = localStorage.getItem("jwt_token");
-    const axiosInstance = axios.create({
-                    baseURL: "http://127.0.0.1:8000/",
-                    timeout: 9000,
-                    headers: {
-                        Authorization : `Bearer ${session}`,
-                    }
-                })
+    
         useEffect(()=> {
             axiosInstance.get("/auth/users/")
             .then((response) => {
@@ -61,7 +55,7 @@ const Management = () => {
         },[])
 
     return (
-        <div className="bg-gray-100 font-open dark:bg-slate-700 w-full h-dvh">
+        <div className="bg-inherit font-open w-full h-dvh">
             <div className="w-full my-4 flex justify-between px-6">
                 <div className="flex flex-col">
                 <h1 className=" font-bold text-lg">User Management</h1>
@@ -77,7 +71,7 @@ const Management = () => {
             <div className="m-8">
                 <h1 className="font-semibold">List of Users</h1>
                 
-                <Table.Root className=" bg-white rounded-lg dark:bg-gray-500text-gray-800 dark:text-gray-200" rounded="xl" interactive >
+                <Table.Root className=" bg-white rounded-lg dark:bg-opacity-10 text-gray-800 dark:text-gray-200" rounded="xl" interactive >
                     <Table.Header >
                       <Table.Row className="bg-custom dark:bg-custom dark:text-gray-900">
                       <Table.ColumnHeader className="dark:text-gray-900 font-bold w-6">NO.</Table.ColumnHeader>
@@ -87,7 +81,7 @@ const Management = () => {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                       {users.length>0 && users.map((user, index) => (<Table.Row key={user.id}  className="bg-white dark:bg-gray-800"><Table.Cell >{index + 1}</Table.Cell>
+                       {users.length>0 && users.map((user, index) => (<Table.Row key={user.id}  className=""><Table.Cell >{index + 1}</Table.Cell>
                                               <Table.Cell>
                                                 <div className="flex  text-gray-800 dark:text-gray-200 ">
                                                    <Avatar size="xs" name={user.name}/>
@@ -100,7 +94,7 @@ const Management = () => {
                                               <Table.Cell>
                                                 <div className="text-xs font-bold">{user.role}</div>
                                               </Table.Cell>
-                                              <Table.Cell textAlign="end" className="flex justify-end"><button  className="size-8 flex place-items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700">
+                                              <Table.Cell textAlign="end" className="flex justify-end"><button  className="size-8 flex place-items-center justify-center rounded-full bg-gray-200 dark:bg-opacity-15">
                                                 <FiEdit/>
                                                 </button><button className="size-8 flex place-items-center mx-4 justify-center rounded-full bg-red-400 dark:bg-red-700">
                                                     <FiTrash/></button> </Table.Cell>

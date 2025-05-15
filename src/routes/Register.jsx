@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { NavLink, Link } from "react-router";
 import { toaster, Toaster } from '../components/ui/toaster';
 import axios from 'axios';
-
-
+import { Input } from '@chakra-ui/react';
+import axiosAuthInstance from './axiosAuthInstatnce';
+import back from "./asset/bg.jpg"
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -25,22 +26,24 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-       await axios.post("http://192.168.245.111:8000/auth/users/", formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        }
-      },
-      );
+       await axiosAuthInstance.post("/auth/users/", JSON.stringify(formData));
+      if (loading) {
+        toaster.create({
+          title: "creating account!",
+          type: "loading",
+          duration: 3000
+         })
+      }
       toaster.create({
-        title: "creating account!",
-        type: "loading",
-        duration: 3000
+        title: " account created!",
+        type: "success",
+        duration: 1000
        })
-        navigate('/login');
+        navigate("/login");
         setLoading(false);
     } catch (error) {
       if (error.response) {
+        const err = error.response.data
         console.error("login failed:",error.response.data);
         toaster.create({
           title: error.message,
@@ -54,144 +57,106 @@ const Register = () => {
 
   }
   return (
-    <div className="flex w-full bg-slate-100">
-      <div className='sm:w-2/3 w-full flex h-auto mx-6 justify-center  bg-green-100'>
-        <div className="w-full font-open sm:w-3/4 my-8 px-4 py-4 space-y-8 bg-white rounded-xl font-poppins shadow-xl">
-          <h2 className="text-xl font-open text-center text-slate-800">
+    <div className="flex h-dvh overflow-y-auto w-full">
+      <div className='sm:w-2/3 h-dvh overflow-y-auto py-6 w-full flex justify-center bg-[#082d2e]'>
+        <div className="w-full font-open sm:px-20 px-10 space-y-4  bg-[#082d2e]  ">
+          <h2 className="text-xl font-open text-center text-slate-100">
             Please Register
           </h2>
           <form onSubmit={handleSubmit} className="space-y-10 ">
             <div>
-              <label
-                htmlFor="username"
-                className="block text-sm  sm:text-xs font-medium text-gray-700"
-              >
-                User Name
-              </label>
-              <input
+              <Input variant="flushed"
                 type="text"
-                id="username"
+                placeholder="Enter Username"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 sm:py-3 mt-1 sm:text-xs border border-gray-300 rounded-md
- focus:outline-none focus:ring-2 focus:ring-slate-400 text-sm"
+                className="w-full px-4 py-2 sm:py-3  mt-1 sm:text-xs bg-[#1a5052] text-gray-100 border-gray-50 border-b text-sm"
               />
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block sm:text-xs text-sm font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <input
+              <Input variant="flushed"
                 type="email"
                 id="email"
+                placeholder="Enter e-mail"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 sm:py-3 mt-1 text-sm sm:text-xs border border-gray-300 rounded-md
- focus:outline-none focus:ring-2 focus:ring-slate-400"
+                className="w-full px-4 py-2 bg-[#1a5052] text-gray-100 border-gray-50  sm:py-3 mt-1  text-sm sm:text-xs border-b"
               />
             </div>
             <div>
-              <label
-                htmlFor="password"
-                className="block sm:text-xs text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <input
+              <Input variant="flushed"
                 type="password"
+                placeholder='Enter Password'
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-2 sm:py-3 mt-1 text-sm sm:text-xs border border-gray-300 rounded-md
- focus:outline-none focus:ring-2 focus:ring-slate-400"
+                required
+                className="w-full px-4 py-2 sm:py-3 mt-1 text-sm sm:text-xs border-b bg-[#1a5052]  border-b-gray-50"
               />
             </div>
             <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block sm:text-xs text-sm font-medium text-gray-700"
-              >
-                Confirm Password
-              </label>
-              <input
+              <Input variant="flushed"
                 type="password"
+                placeholder='Confirm Password'
                 id="confirmPassword"
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={(e)=>setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-2 sm:py-3 mt-1 sm:text-xs border border-gray-300 rounded-md
- focus:outline-none focus:ring-2 focus:ring-blue-400"/>
-              {(formData.password && confirmPassword) !== "" && formData.password !== confirmPassword ? <p className='text-xs mt-2 font-semibold  text-red-500 '>Passwords do not match..</p> :  ( (formData.password && confirmPassword) === "" ) ? <p>  </p> : <p className='text-green-700 text-xs mt-2 font-bold font-poppins'>Passwords match</p> }
+                required
+                className="w-full px-4 py-2 bg-[#1a5052] text-gray-100 border-b-gray-50 sm:py-3 mt-1 sm:text-xs border-b "/>
+              {(formData.password && confirmPassword) !== "" && formData.password !== confirmPassword ? <p className='text-xs mt-2 font-semibold  dark:text-red-400 text-red-600 '>Passwords do not match..</p> :  ( (formData.password && confirmPassword) === "" ) ? <p>  </p> : <p className='text-green-500 text-xs mt-2 font-bold font-poppins'>Passwords match</p> }
             </div>
             <div>
-              <label
-                htmlFor="username"
-                className="block text-sm  sm:text-xs font-medium text-gray-700"
-              >
-              First Name
-              </label>
-              <input
+              <Input variant="flushed"
                 type="text"
                 id="username"
+                placeholder="Enter First Name"
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 sm:py-3 mt-1 sm:text-xs border border-gray-300 rounded-md
- focus:outline-none focus:ring-2 focus:ring-slate-400 text-sm"
+                className="w-full bg-[#1a5052] text-gray-100 border-gray-50 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b b text-sm"
               />
             </div>
             <div>
-              <label
-                htmlFor="username"
-                className="block text-sm  sm:text-xs font-medium text-gray-700"
-              >
-                Last Name
-              </label>
-              <input
+              <Input variant="flushed"
                 type="text"
-                id="username"
+                placeholder="Enter Last Name"
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 sm:py-3 mt-1 sm:text-xs border border-gray-300 rounded-md
- focus:outline-none focus:ring-2 focus:ring-slate-400 text-sm"
+                className="w-full bg-[#1a5052] text-gray-100 border-b-gray-50 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b text-sm"
               />
             </div>
-            
-           
-            
+          
             <div>
               <div className="flex mb-2 items-center mx-1">
-                <input type='checkbox' value={formData.terms} onChange={handleChange} className="focus: border border-slate-900 mr-2" /><p className="sm:text-xs text-sm">I agree with <Link className='underline'> terms and regulations</Link></p>
+                <input type='checkbox' value={formData.terms} onChange={handleChange} className="border-b border-b-slate-900 mr-2" /><p className="sm:text-xs text-sm text-gray-100">I agree with <Link className='underline'> terms and regulations</Link></p>
               </div>
               <button
                 onClick={handleSubmit}
-                className="w-full px-4 hover:font-semibold mb-4 text-sm py-3 text-white bg-[#082d2e] sm:text-sm  rounded-lg focus:ring-opacity-50"
+                className="w-full px-4 hover:font-semibold bg-green-400 text-sm py-3 font-semibold text-gray-900 sm:text-sm  rounded-lg focus:ring-opacity-50"
               >
                 Register
               </button>
             </div>
             <Toaster/>
-          </form>
-          <p className="sm:text-sm text-center text-gray-700 ">
-            Already have an account?{"  "}
-            <Link to="/login" className="text-slate-800 hover:underline">
-              Login
+            <p className="text-center text-white pb-8 text-sm font-light">
+            Already have an account?
+            <Link to="/login" className=" hover:underline">
+                 Login
             </Link>
           </p>
+          </form>
         </div>
       </div>
-      <div className='sm:w-1/2 h- bg-[#082d2e]'></div>
+      <img src={back} className="sm:w-1/2 w-0 opacity-40 h-dvh relative"/>
     </div>
 
   );

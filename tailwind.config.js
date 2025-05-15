@@ -9,6 +9,9 @@ export default {
     extend: {
       fontFamily: {
         open: ['"Nunito Sans Variable"', 'sans-serif'],
+        condensed: ['"Roboto Condensed Variable"', 'sans-serif'],
+        plus: ['"Plus Jakarta Sans Variable"', 'sans-serif'],
+        roboto: ['"Roboto Variable"','sans-serif']
       },
       colors: {
         custom: '#C0E863',

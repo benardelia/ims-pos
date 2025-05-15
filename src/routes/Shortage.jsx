@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Table } from "@chakra-ui/react";
+import { PiSpinnerLight } from "react-icons/pi";
+import axiosInstance from "./axiosInstance";
+
 
 const Shortage = () => {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [count, setCount] = useState(null)
-    const session = localStorage.getItem("jwt_token");
-
-    const axiosInstance = axios.create({
-        baseURL: "http://127.0.0.1:8000",
-        timeout: 9000,
-        headers: {
-            Authorization : `Bearer ${session}`,
-        }
-    }) 
     useEffect(()=> {
         axiosInstance.get("/store/products/?shortage=0")
         .then((response)=> {
@@ -25,16 +19,15 @@ const Shortage = () => {
         }
         );
     },[])
-
-
     return (
         <div className="">
-        <h className="text-xl mx-6 font-open font-bold">Stock shortage.</h>
+        <h className="text-xl mx-6   font-open font-bold">Stock shortage.</h>
        <div className="p-5">
-       <p className="font-open ml-12 font-bold">{count}</p>
+       <p className="  font-open ml-12 font-bold">{count}</p>
        </div>
-       <div className="mx-12">
-            <Table.Root interactive className="">
+       <div className="flex justify-center">
+        { loading ? <PiSpinnerLight className="animate-spin my-72 size-8"/> :
+            <Table.Root interactive className="dark:bg-opacity-20 sm:mx-6">
                 <Table.Header >
                     <Table.Row className="bg-custom ">
                         <Table.ColumnHeader className="dark:text-gray-900"> 
@@ -47,13 +40,14 @@ const Shortage = () => {
                 </Table.Header>
                 <Table.Body>
                    {
-                    products?.map((item, i)=><Table.Row className="dark:bg-slate-800">
+                    products?.map((item, i)=><Table.Row className="">
                         <Table.Cell>{item.name}</Table.Cell>
                         <Table.Cell textAlign="center" className="underline">see product</Table.Cell>
                     </Table.Row>)
                    }
                 </Table.Body>
             </Table.Root>
+}
             </div>
         </div>
     );

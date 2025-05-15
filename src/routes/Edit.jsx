@@ -2,12 +2,17 @@ import { useState,useEffect, useRef } from "react"
 import { Editable, IconButton} from "@chakra-ui/react"
 import { LuCheck, LuPencilLine, LuX } from "react-icons/lu"
 import { Link, useParams } from "react-router"
-import { BiArrowToLeft, BiLeftArrow } from "react-icons/bi"
-import { RiArrowLeftLine } from "react-icons/ri"
+import { BiArrowToLeft, BiCategoryAlt, BiDollar, BiLeftArrow } from "react-icons/bi"
+import { RiArrowLeftLine, RiStockFill } from "react-icons/ri"
  import axios from "axios"
 import { Input } from "@chakra-ui/react"
 import { toaster, Toaster } from "../components/ui/toaster"
-
+import axiosInstance from "./axiosInstance"
+import { CgNametag } from "react-icons/cg"
+import { AiFillProduct, AiOutlineStock } from "react-icons/ai"
+import { MdCategory, MdDescription, MdOutlineInventory2, MdProductionQuantityLimits } from "react-icons/md"
+import { PiListNumbers } from "react-icons/pi"
+import { GiPriceTag } from "react-icons/gi"
 
 const Edit = () => {
       const {id} = useParams();
@@ -18,15 +23,7 @@ const Edit = () => {
       const [price,setPrice] = useState("600");
       const [product,setProduct] = useState(null)
       const inputRef = useRef()
-      const session = localStorage.getItem("jwt_token");
-      const axiosInstance = axios.create({
-                  baseURL: "http://10.219.31.111:8000",
-                      timeout: 18000,
-                      headers: {
-                          Authorization : `Bearer ${session}`,
-                          "Content-Type": "application/json"
-                      }
-                  })
+      
           useEffect(()=> {
     axiosInstance.get(`/store/products/${id}`)
       .then(res=> {
@@ -52,55 +49,52 @@ const Edit = () => {
         e.preventDefault()
         console.log(product)
         try {
-        const res = await axios.put(`http://10.219.31.111:8000/store/products/${product.uuid}/`,product,{
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session}`
-        }
-        });
+        const res = await axiosInstance.put(`/store/products/${product.uuid}/`,product);
 
         toaster.create({
           title: "product updated successfully!",
+          description: res.status,
           type: "success",
           duration: 3000
         })
       } catch (error) {
+  
         console.log(error.message)
         toaster.create({
-          title: error.message,
+          title: "fields cannot be empty",
           type: "error",
           duration: 5000
         })
       }
     }
   return (
-    <div className="h-dvh flex relative place-items-center dark:bg-slate-700 justify-center bg-gray-200 w-full">
-      <Link to="/admin/inventory" className="absolute top-8 left-4"><RiArrowLeftLine/></Link>
-      <div className="rounded-lg flex-col h-auto py-12 shadow-lg bg-white dark:bg-slate-800 flex place-items-center justify-center w-1/2">
-      <h1 className="font-bold font-open text-lg my-2">Edit Product</h1>
-      <form onSubmit={handlePut} className="w-full flex flex-col my-6 place-items-center space-y-6">
-      <div className="flex flex-col w-5/6">
-      <p className="font-open text-sm font-semibold">Edit name</p>
-         <Input name="name" value={product?.name} onChange={handleChange}  className="bg-gray-100 text-sm h-10 px-2 rounded-md dark:bg-gray-700"/>  
+    <div className="h-dvh font-roboto flex justify-center relative bg-[#dddbdb] dark:bg-black first-line: w-full">
+      <Link to="/admin/inventory" className="absolute top-8 left-8"><RiArrowLeftLine/></Link>
+      <div className="rounded-xl justify-center my-6 bg-white flex-col flex px-8 w-1/2">
+      <h1 className="font-bold font-roboto text-lg m-2">Edit Product</h1>
+      <form onSubmit={handlePut} className="w-full flex flex-col place-items-center space-y-12">
+      <div className="flex items-center w-full">
+      <AiFillProduct/>
+         <Input name="name" value={product?.name} onChange={handleChange}  className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/>  
        </div>
-         <div className="flex flex-col w-5/6">
-         <p className="font-open text-sm font-semibold">Edit description</p>
-         <Input name="description" value={product?.description} onChange={handleChange} className="bg-gray-100 text-sm h-10 px-2 rounded-md dark:bg-gray-700"/> 
+         <div className="flex items-center w-full">
+        <MdDescription/>
+         <Input name="description" value={product?.description} onChange={handleChange} className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/> 
          </div>
-         <div className="flex flex-col w-5/6">
-         <p className="font-open text-sm font-semibold">Edit category</p>
-         <Input name="category" value={product?.category} onChange={handleChange} className="bg-gray-100 text-sm h-10 px-2 rounded-md dark:bg-gray-700"/> 
+         <div className="flex items-center w-full">
+        <MdCategory/>
+         <Input name="category" value={product?.category} className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/> 
          </div>
-         <div className="flex flex-col w-5/6">
-         <p className="font-open text-sm font-semibold">Edit Stock</p>
-         <Input name="stock" value={product?.stock} onChange={handleChange}  className="bg-gray-100 text-sm h-10 px-2 rounded-md dark:bg-gray-700"/> 
+         <div className="flex items-center w-full">
+         <MdOutlineInventory2/>
+         <Input name="stock" value={product?.stock} onChange={handleChange}  className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/> 
          </div>
-         <div className="flex flex-col w-5/6">
-         <p className="font-open text-sm font-semibold">Edit price</p>
-         <Input name="price" value={product?.price} onChange={handleChange}  className="bg-gray-100 text-sm h-10 px-2 rounded-md dark:bg-gray-700"/>   
+         <div className="flex items-center w-full">
+         <BiDollar/>
+         <Input name="price" value={product?.price} onChange={handleChange}  className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/>   
          </div>
          <Toaster/>
-         <button className="bg-custom w-5/6 py-2 md:py-2 mt-16 mb-8 shadow-md dark:text-gray-900 rounded-md font-open font-bold">UPDATE PRODUCT</button>
+         <button className="bg-custom w-full py-2 md:py-2 mt-16 mb-8 shadow-md dark:text-gray-900 rounded-md font-roboto font-bold">UPDATE PRODUCT</button>
          </form>
       </div>
     </div>

@@ -2,6 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import '@fontsource-variable/nunito-sans';
+import '@fontsource-variable/roboto-condensed';
+import '@fontsource-variable/roboto';
+import '@fontsource-variable/plus-jakarta-sans';
 import { BrowserRouter, createBrowserRouter,RouterProvider, Navigate, useNavigate } from "react-router";
 import { Provider } from "@/components/ui/provider"
 import Login from './routes/login';
@@ -20,6 +23,7 @@ import NewInv from './routes/NewInv';
 import Error from './routes/error';
 import Edit from './routes/Edit';
 import Register from './routes/Register';
+import Items from './routes/Items';
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([
@@ -56,19 +60,24 @@ const session = localStorage.getItem("jwt_token");
         path: "management",
         Component: Management
       },
-      {
-        path: "newInv",
-        Component: NewInv
-      },
-      {
-        path: "edit/:id",
-        Component: Edit
-      },
+      
     ]
   },
   {
+    path: "/orders/:id",
+    Component: Items
+  },
+  {
+    path: "/admins/newInv",
+    Component: NewInv
+  },
+  {
+    path: "/admins/edit/:id",
+    Component: Edit
+  },
+  {
     path: "dashboard",
-    element: <div>{(session !== "") ? <Dashboard/> : <Navigate to="/"/> }</div>,
+    element: <div>{session ? <Dashboard/> : <Navigate to="/"/> }</div>,
     children: [
       {
         index: true,
