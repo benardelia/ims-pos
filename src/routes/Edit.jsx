@@ -20,6 +20,9 @@ const Edit = () => {
            const [loading, setLoading] = useState(true);
       const [description, setDescription] = useState("350 mls");
       const [stock,setStock] = useState("50");
+      const [img, setImg] = useState({image: null,
+        product: id
+       });
       const [price,setPrice] = useState("600");
       const [product,setProduct] = useState(null)
       const inputRef = useRef()
@@ -67,15 +70,51 @@ const Edit = () => {
         })
       }
     }
+
+    const handleImageChange = (e) => {
+      setImg(e.target.files[0]);
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (!img) return;
+  
+      // Create form data
+      const formData = new FormData();
+      formData.append('image', img); 
+  
+      try {
+        const response = await axios.post('/store/image/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(formData)
+        toaster.create({
+          title: "image uploaded successfully!",
+          description: res.status,
+          type: "success",
+          duration: 4000
+        })
+      } catch (error) {
+        console.error('Upload error:', error);
+      }
+    };
+  const handleBoth = (e)=> {
+    e.preventDefault();
+    handleSubmit();
+    handlePut();
+  }
+
   return (
     <div className="h-dvh font-roboto flex justify-center relative bg-[#dddbdb] dark:bg-black first-line: w-full">
       <Link to="/admin/inventory" className="absolute top-8 left-8"><RiArrowLeftLine/></Link>
-      <div className="rounded-xl justify-center my-6 bg-white flex-col flex px-8 w-1/2">
+      <div className="rounded-xl justify-center h-auto my-6 bg-white dark:bg-opacity-20 flex-col flex px-8 w-auto">
       <h1 className="font-bold font-roboto text-lg m-2">Edit Product</h1>
-      <form onSubmit={handlePut} className="w-full flex flex-col place-items-center space-y-12">
+      <form className="w-full flex flex-col place-items-center space-y-12 ">
       <div className="flex items-center w-full">
       <AiFillProduct/>
-         <Input name="name" value={product?.name} onChange={handleChange}  className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/>  
+         <Input name="name" value={product?.name} w="28rem" onChange={handleChange}  className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/>  
        </div>
          <div className="flex items-center w-full">
         <MdDescription/>
@@ -93,8 +132,12 @@ const Edit = () => {
          <BiDollar/>
          <Input name="price" value={product?.price} onChange={handleChange}  className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10"/>   
          </div>
+         <div className="flex items-center w-full">
+         <BiDollar/>
+         <input type="file" name="image" value={img?.image} onChange={handleImageChange}  className="bg-[#f0ebeb]   text-sm h-10 px-2 rounded-md dark:bg-opacity-10 w-full"/>   
+         </div>
          <Toaster/>
-         <button className="bg-custom w-full py-2 md:py-2 mt-16 mb-8 shadow-md dark:text-gray-900 rounded-md font-roboto font-bold">UPDATE PRODUCT</button>
+         <button onClick={handleSubmit} className="bg-custom w-full py-2 md:py-2 mt-16 mb-8 shadow-md dark:text-gray-900 rounded-md font-roboto font-bold">UPDATE PRODUCT</button>
          </form>
       </div>
     </div>

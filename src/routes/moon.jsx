@@ -32,17 +32,33 @@ import axiosInstance from "./axiosInstance";
                     setNext(response.data.next)
                     setPrevious(response.data.previous)
             }
-            );
+            ).catch(error => {
+                setLoading(false)
+                const err = error.response.data
+                toaster.create({
+                    title: err.detail,
+                    type: "error",
+                    duration: 5000
+                  })
+            })
+
             axiosInstance.get("/store/customers/")
             .then(res=>{
                 setCustomer(res.data.results);
 
+            }).catch(error => {
+                const err = error.response.data
+                toaster.create({
+                    title: err.detail,
+                    type: "error",
+                    duration: 5000
+                  })
             })
            
                   
         },[url, reload])
         const sale = {
-            customer: "cbe2092a-1dbd-4f9d-8fd6-135a37155800",
+            customer: "	269726ad-794d-4c35-bc31-a42b469c77c0",
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity
@@ -145,6 +161,7 @@ import axiosInstance from "./axiosInstance";
                     {    
                     filteredProducts?.map(product =>
                         <Product key={product.uuid}
+                        image={product?.images.image}
                             product={product}
                             onAdd={() => addToCart(product)}
                         />)}

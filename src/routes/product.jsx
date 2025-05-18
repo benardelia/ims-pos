@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { BiCartAdd, BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-const Product = ({product, onAdd}) => {
+const Product = ({product, onAdd, image}) => {
     const [show, setShow] = useState(false);
     return (
         <div className="relative flex bg-white dark:bg-opacity-10 text-gray-950 dark:text-gray-100 flex-col rounded-lg dark:shadow-gray-200
-                    justify-end pb-3 md:h-48 h-40 w-full">
-            <div className="flex justify-between mx-2 items-center">
+                      md:h-48 h-40 w-full">
+                      <div className="h-3/4 rounded-t-md bg-[#a8a4a4] dark:bg-opacity-30 animate-pulse">
+                         <img src={image} className="h-full w-full"/>
+                      </div>
+            <div className="flex h-1/4 justify-between m-2 items-center">
             <div>
             <div className="flex flex-col">
             <div className="flex">
-            <h className=" font-roboto mr-2">{product.name}</h>
+            <h className=" font-open text-sm mr-2">{product.name}</h>
             <button onClick={()=> setShow(!show)} className="">{show ? <BiChevronUp/> : <BiChevronDown/>}</button>
             </div>
-            <p className="text-xs font-roboto">{product.price.toLocaleString()}/=</p>
-            { show && <p className="text-xs font-extralight  font-roboto max-w-28 max-h-32 py-2">{product.description}</p> }
+            <p className="text-xs font-open">{product.price.toLocaleString()}/=</p>
+            { show && <p className="text-xs font-extralight  font-open max-w-28 max-h-32 py-2">{product.description}</p> }
             </div>
             <p className="text-xs flex mt-2 font-light">{product.stock}  {product.stock > 1 ? <p className="ml-1">items</p> : <p className="ml-1">item</p>}</p>
             </div>

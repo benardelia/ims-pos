@@ -15,6 +15,8 @@ import { RiStockFill, RiStockLine } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
 import { IoWarningOutline } from "react-icons/io5";
 import { ColorModeButton } from "../components/ui/color-mode";
+import { useAuth } from "./AuthContext";
+
 
 const links = 
     [
@@ -38,21 +40,24 @@ const Header = () => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null)
     const navigate = useNavigate();
+    const { setToken } = useAuth();
     const session = localStorage.getItem("jwt_token")
-
+    const { token } = useAuth();
                        useEffect(()=>{
+                        if (!token) return;
                        axiosInstance.get("/core/user/me/")
                        .then((response)=> {
                            setUser(response.data);
                        }
                        );
-  },[session])
-       const handleLogout = ()=> {
-        localStorage.removeItem("jwt_token");
-        setUser(null)
-        navigate("/login");
-       }
-       const perm = user?.permissions
+  },[])
+  const handleLogout = (token) => {
+    localStorage.removeItem("jwt_token"); // Clear storage
+    setToken(null);                       // Update context
+    navigate("/login", { replace: true }); // Redirect
+  };
+
+       const owner = user?.user_type === "Owner"
   return (
         <div className="h-dvh bg-gray-50 dark:bg-opacity-10 text-gray-950 dark:text-gray-100 w-full">
             <div className="flex">
@@ -79,7 +84,7 @@ const Header = () => {
             <IoWarningOutline className="text-xl"/>
             </NavLink>
              
-             {perm?.length >10 &&
+             { owner &&
              <button onClick={()=>navigate("/admin/dashboard/")} className="bg-gray-100 dark:bg-opacity-20   font-open flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/></button>
  }
              <button onClick={handleLogout} className="bg-gray-100 font-open flex items-center rounded-lg mt-2 p-3 text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1 text-xl"/></button>
@@ -89,7 +94,7 @@ const Header = () => {
                         <Avatar />
                         <div className="flex flex-col ml-4">
                             <h1 className=" text-gray-700 dark:text-gray-50   font-open font-bold">{user?.username}</h1>
-                            <p className="text-gray-700 dark:text-gray-50 font-light font-open text-sm">{perm?.length>10 ? "admin" :"keeper"}</p>
+                            <p className="text-gray-700 dark:text-gray-50 font-light font-open text-sm">{user?.user_type}</p>
                         </div>
                     </div>
             <NavLink to="home" className={({ isActive }) =>
@@ -113,16 +118,13 @@ const Header = () => {
             <IoWarningOutline className="mr-2"/>  Shortage
             </NavLink>
              
-             {perm?.length >10 &&
+             {owner &&
              <button onClick={()=>navigate("/admin/dashboard/")} className="bg-gray-100 dark:bg-opacity-20   font-open flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/>Admin panel</button>
  }
              <button onClick={handleLogout} className="bg-gray-100   font-open flex items-center rounded-lg mt-2 p-3  sm:text-sm text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>
             </div>
             <div className="w-5/6 bg-gray-100 dark:bg-black h-dvh overflow-y-auto">
-            {session ?
-                <Outlet/> : <Navigate to="/login"/>
-            }
-            
+            <Outlet/>
             </div>
            
             </div>

@@ -8,6 +8,7 @@ import { Button } from "../components/ui/button";
 import { Input, Stack, defineStyle,Field } from "@chakra-ui/react"
 import { BiArrowBack } from "react-icons/bi";
 import back from "./asset/bg.jpg"
+import { useEffect } from "react";
 import {
   DialogActionTrigger,
   DialogBody,
@@ -23,6 +24,8 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useRef } from "react"
 import { Toaster, toaster } from "../components/ui/toaster";
 import axiosAuthInstance from "./axiosAuthInstatnce";
+import { useAuth } from "./AuthContext";
+
 
 export const Lead = () => {
   return (
@@ -38,6 +41,15 @@ const Login = () => {
   const [loading, setLoading] = useState();
   const ref = useRef<HTMLInputElement>(null)
   const navigate = useNavigate();
+  const { setToken, token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard/home");
+    }
+  }, [token])
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -45,9 +57,9 @@ const Login = () => {
       const response = await axiosAuthInstance.post("/auth/jwt/create/", JSON.stringify({username, password}));
 
       if (response.status === 200) {
-        const token = response.data.access;
-        localStorage.setItem('jwt_token', token);
-        navigate('/dashboard/home');
+        const accessToken = response.data.access;
+      localStorage.setItem("jwt_token", accessToken);
+      setToken(accessToken);
         setLoading(false);
       }
     } catch (error) {
@@ -58,6 +70,7 @@ const Login = () => {
                 type: "error",
                 duration: 3000
                })
+               setLoading(false)
     }
 
   }
@@ -106,6 +119,7 @@ const Login = () => {
             </button>
           </form>
         </div>
+        {loading && <p className="">submitting..</p>}
         <p className="   font-open text-sm text-gray-100 font-light">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
       </div>
     </div>
