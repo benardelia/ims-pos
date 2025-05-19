@@ -29,7 +29,7 @@ const Sales = () => {
                 setLoading(false)
              }
              )
-            })
+            },[url])
 const onNext = () => {
     setUrl(next)
     setLoading(true)
