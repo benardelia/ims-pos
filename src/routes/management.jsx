@@ -92,7 +92,7 @@ const Management = () => {
                                                 </div>
                                               </Table.Cell>
                                               <Table.Cell>
-                                                <div className="text-xs font-bold">{user.role}</div>
+                                                <div className="text-xs font-bold">{user?.user_type}</div>
                                               </Table.Cell>
                                               <Table.Cell textAlign="end" className="flex justify-end"><button  className="size-8 flex place-items-center justify-center rounded-full bg-gray-200 dark:bg-opacity-15">
                                                 <FiEdit/>

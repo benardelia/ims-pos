@@ -23,7 +23,9 @@ import axiosInstance from "./axiosInstance";
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null);
     const [reload, setReload] = useState(false)
+    const session = localStorage.getItem("jwt_token")
         useEffect(()=> {
+        if (session) {
             axiosInstance.get(url)
             .then((response)=> {
                 setProducts(response.data.results);
@@ -54,11 +56,10 @@ import axiosInstance from "./axiosInstance";
                     duration: 5000
                   })
             })
-           
-                  
-        },[url, reload])
+        }    
+    },[url])
         const sale = {
-            customer: "	269726ad-794d-4c35-bc31-a42b469c77c0",
+            customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity

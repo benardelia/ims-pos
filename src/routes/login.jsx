@@ -112,7 +112,7 @@ const Login = () => {
               <Link className="text-sm font-light text-gray-100 underline">Forgot password?</Link>
             </div>
             <button
-              type="submit" onClick={handleSubmit}
+              type="submit"
                className="py-3 bg-green-400 text-sm sm:text-sm h-10 sm:h-10 rounded-md text-gray-900 hover:font-bold font-semibold"
             >
               Sign In
