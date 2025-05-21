@@ -15,7 +15,8 @@ import { RiStockFill, RiStockLine } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
 import { IoWarningOutline } from "react-icons/io5";
 import { ColorModeButton } from "../components/ui/color-mode";
-import { useAuth } from "./AuthContext";
+
+
 
 
 const links = 
@@ -40,9 +41,7 @@ const Header = () => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null)
     const navigate = useNavigate();
-    const { setToken } = useAuth();
-    const session = localStorage.getItem("jwt_token")
-    const { token } = useAuth();
+    const token = localStorage.getItem("jwt_token")
                        useEffect(()=>{
                         if (!token) return;
                        axiosInstance.get("/core/user/me/")
@@ -51,9 +50,8 @@ const Header = () => {
                        }
                        );
   },[])
-  const handleLogout = (token) => {
-    localStorage.removeItem("jwt_token"); // Clear storage
-    setToken(null);                       // Update context
+  const handleLogout = () => {
+    localStorage.removeItem("jwt_token"); // Clear storage // Update context
     navigate("/login", { replace: true }); // Redirect
   };
 
@@ -124,8 +122,8 @@ const Header = () => {
              <button onClick={handleLogout} className="bg-gray-100   font-open flex items-center rounded-lg mt-2 p-3  sm:text-sm text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>
             </div>
             <div className="w-5/6 bg-gray-100 dark:bg-black h-dvh overflow-y-auto">
-            <Outlet/>
-            </div>
+            {token ? <Outlet/> : <Navigate to="/login"/>}
+       </div>
            
             </div>
         </div>

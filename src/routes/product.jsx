@@ -6,7 +6,7 @@ const Product = ({product, onAdd, image}) => {
     return (
         <div className="relative flex bg-white dark:bg-opacity-10 text-gray-950 dark:text-gray-100 flex-col rounded-lg dark:shadow-gray-200
                       md:h-48 h-40 w-full">
-                      <div className="h-3/4 rounded-t-md bg-[#a8a4a4] dark:bg-opacity-30 animate-pulse">
+                      <div className="h-3/4 rounded-t-md bg-[#e2dede] dark:bg-opacity-30 animate-pulse">
                          <img src={image} className="h-full w-full"/>
                       </div>
             <div className="flex h-1/4 justify-between m-2 items-center">

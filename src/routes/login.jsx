@@ -24,8 +24,6 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useRef } from "react"
 import { Toaster, toaster } from "../components/ui/toaster";
 import axiosAuthInstance from "./axiosAuthInstatnce";
-import { useAuth } from "./AuthContext";
-
 
 export const Lead = () => {
   return (
@@ -41,14 +39,6 @@ const Login = () => {
   const [loading, setLoading] = useState();
   const ref = useRef<HTMLInputElement>(null)
   const navigate = useNavigate();
-  const { setToken, token } = useAuth();
-
-  useEffect(() => {
-    if (token) {
-      navigate("/dashboard/home");
-    }
-  }, [token])
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,10 +47,10 @@ const Login = () => {
       const response = await axiosAuthInstance.post("/auth/jwt/create/", JSON.stringify({username, password}));
 
       if (response.status === 200) {
-        const accessToken = response.data.access;
-      localStorage.setItem("jwt_token", accessToken);
-      setToken(accessToken);
+        const token = response.data.access;
+      localStorage.setItem("jwt_token", token);
         setLoading(false);
+        navigate("/dashboard/home");
       }
     } catch (error) {
         const err = error.response.data
@@ -77,7 +67,7 @@ const Login = () => {
   return (
     <div className="flex h-full w-full relative   font-open">
       <Toaster/>
-      <img src={back} className="sm:w-1/2 w-0 opacity-40 h-full relative"/>
+      <img src={back} className="sm:w-1/2 w-0 opacity-80 h-full relative"/>
       <Link to="/" className="absolute text-white left-8 top-8"><BiArrowBack/></Link>
       <div className="flex flex-col py-auto w-full sm:w-1/2 items-center justify-center  min-h-screen bg-[#082d2e]">
         <div className=" sm:py-12  justify-center sm:w-2/3 w-10/12 h-3/4 sm:h-5/6">
@@ -112,7 +102,7 @@ const Login = () => {
               <Link className="text-sm font-light text-gray-100 underline">Forgot password?</Link>
             </div>
             <button
-              type="submit"
+              type="submit" disabled={loading}
                className="py-3 bg-green-400 text-sm sm:text-sm h-10 sm:h-10 rounded-md text-gray-900 hover:font-bold font-semibold"
             >
               Sign In
@@ -125,25 +115,5 @@ const Login = () => {
     </div>
   );
 }
-
-    const floatingStyle = defineStyle({
-      pos: "absolute",
-      bg: "bg",
-      px:"0.5",
-      top: "-0.3",
-      insetStart: "2",
-      pointerEvents: "none",
-      transition: "position",
-      _peerPlaceholderShown: {
-        color: "fg.muted",
-        top: "2.5",
-        insetStart: "3"
-      },
-      _peerFocusVisible: {
-        color: "fg",
-        tp: "-3",
-        insetStart: "2"
-      }
-    })
 
 export default Login;

@@ -7,6 +7,8 @@ import {Button,Dialog,HStack,Portal} from "@chakra-ui/react"
 import { toaster, Toaster } from "../components/ui/toaster";
 import axiosInstance from "./axiosInstance";
 
+
+
   const Moon = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [cart, setCart] = useState([]);
@@ -23,9 +25,10 @@ import axiosInstance from "./axiosInstance";
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null);
     const [reload, setReload] = useState(false)
-    const session = localStorage.getItem("jwt_token")
+
+
+      const token = localStorage.getItem("jwt_token");
         useEffect(()=> {
-        if (session) {
             axiosInstance.get(url)
             .then((response)=> {
                 setProducts(response.data.results);
@@ -56,7 +59,6 @@ import axiosInstance from "./axiosInstance";
                     duration: 5000
                   })
             })
-        }    
     },[url])
         const sale = {
             customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
@@ -84,6 +86,7 @@ import axiosInstance from "./axiosInstance";
              console.error(error)
              toaster.create({
                        title: err.detail,
+                       description: error.status,
                        type: "error",
                        duration: 5000
                      })

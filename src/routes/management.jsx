@@ -10,7 +10,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { FiDelete, FiEdit, FiTrash } from "react-icons/fi";
 import { Input } from "@chakra-ui/react";
-import { PiTrashFill } from "react-icons/pi";
+import { PiSpinnerLight, PiTrashFill } from "react-icons/pi";
 import axios from "axios";
 import axiosInstance from "./axiosInstance";
 
@@ -70,6 +70,8 @@ const Management = () => {
 
             <div className="m-8">
                 <h1 className="font-semibold">List of Users</h1>
+                {loading ? <PiSpinnerLight className="animate-spin size-7 flex place-self-center"/> :
+                
                 
                 <Table.Root className=" bg-white rounded-lg dark:bg-opacity-10 text-gray-800 dark:text-gray-200" rounded="xl" interactive >
                     <Table.Header >
@@ -96,13 +98,13 @@ const Management = () => {
                                               </Table.Cell>
                                               <Table.Cell textAlign="end" className="flex justify-end"><button  className="size-8 flex place-items-center justify-center rounded-full bg-gray-200 dark:bg-opacity-15">
                                                 <FiEdit/>
-                                                </button><button className="size-8 flex place-items-center mx-4 justify-center rounded-full bg-red-400 dark:bg-red-700">
-                                                    <FiTrash/></button> </Table.Cell>
+                                                </button></Table.Cell>
                                                 
                                               </Table.Row>
                     ))}
                     </Table.Body>
                 </Table.Root>
+}
             </div>
         </div>
     )

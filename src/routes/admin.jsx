@@ -10,6 +10,8 @@ import { FaWarehouse } from "react-icons/fa";
 import { PiWarehouseBold } from "react-icons/pi";
 import { ColorModeButton } from "../components/ui/color-mode";
 
+
+
   const links = 
     [
     {path: "dashboard", name: "dashboard"},
@@ -19,10 +21,12 @@ import { ColorModeButton } from "../components/ui/color-mode";
    ];
 
   const Admin = () => {
-    const handleLogout = () => {
-      localStorage.removeItem("jwt_token");
-      Navigate("/login")
-    }
+    
+    const handleLogout = (token) => {
+      localStorage.removeItem("jwt_token"); // Clear storage                       // Update context
+      navigate("/login", { replace: true }); // Redirect
+    };
+
     return (
         <div className="relative min-h-svh">
         <div className="flex bg-gray-100 dark:bg-black">

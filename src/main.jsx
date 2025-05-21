@@ -24,8 +24,7 @@ import Error from './routes/error';
 import Edit from './routes/Edit';
 import Register from './routes/Register';
 import Items from './routes/Items';
-import ProtectedRoute from './routes/ProtectedRoute';
-import { AuthProvider } from './routes/AuthContext';
+
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([
@@ -43,7 +42,7 @@ const session = localStorage.getItem("jwt_token");
   },
   {
     path: "/admin",
-    Component: Admin,
+    element: <Admin/>,
     children: [
       {
         index: true,
@@ -79,7 +78,7 @@ const session = localStorage.getItem("jwt_token");
   },
   {
     path: "dashboard",
-    element:<ProtectedRoute><Dashboard/></ProtectedRoute> ,
+    element:<Dashboard/> ,
     children: [
       {
         index: true,
@@ -105,10 +104,7 @@ const session = localStorage.getItem("jwt_token");
 createRoot(document.getElementById('root')).render(
   <StrictMode>
       <Provider>
-      <AuthProvider>
       <RouterProvider router={router}/>
-      </AuthProvider>
-       
       </Provider>  
   </StrictMode>
 )
