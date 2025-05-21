@@ -6,6 +6,7 @@ import { Skeleton } from "@chakra-ui/react";
 import {Button,Dialog,HStack,Portal} from "@chakra-ui/react"
 import { toaster, Toaster } from "../components/ui/toaster";
 import axiosInstance from "./axiosInstance";
+import { PiSpinner } from "react-icons/pi";
 
 
 
@@ -70,17 +71,20 @@ import axiosInstance from "./axiosInstance";
         }
     const onSell = async (e) => {
         e.preventDefault();
+        setSelling(true);
         console.log(sale)
         try {
-         const res = await axiosInstance.post('/store/sale',
+         const res = await axiosInstance.post("/store/sale",
                 JSON.stringify(sale));
               setCart([])
+              setSelling(false);
               setReload(!reload)
               toaster.create({
                 title: "cart sold successfully",
                 type: "success",
                 duration: 5000
               })
+              
             }  catch (error) {
                 const err = error.response.data
              console.error(error)
@@ -142,8 +146,12 @@ import axiosInstance from "./axiosInstance";
 
     
     return (
-        <div className="flex h-dvh   font-roboto w-full">
+        <div className="flex h-dvh relative  font-roboto w-full">
             <Toaster/>
+            {selling &&
+            <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute top-6 left-4 dark:bg-opacity-20 bg-white">
+                <PiSpinner className="animate-spin"/><p className="font-open text-sm font-bold px-4">selling...</p></div>
+  }
             <div className="sm:w-2/3 w-full h-dvh">
                 <div className="flex justify-center my-6">
                     <input type="text" placeholder="Search Product" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
