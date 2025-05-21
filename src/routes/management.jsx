@@ -1,6 +1,6 @@
 import { Tabs, Table, Badge, Center } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "../components/ui/button";
 import { CgEditNoise, CgTrash } from "react-icons/cg";
 import { Avatar } from "../components/ui/avatar";
@@ -53,7 +53,8 @@ const Management = () => {
             })
 
         },[])
-
+ 
+        const navigate = useNavigate();
     return (
         <div className="bg-inherit font-open w-full h-dvh">
             <div className="w-full my-4 flex justify-between px-6">
@@ -64,7 +65,7 @@ const Management = () => {
                 <div className="flex items-center">
                 <Input type="search" variant="filled" placeholder="Search a User" 
                 className=" rounded-2xl h-8 mx-6 text-gray-700 text-sm bg-white px-3 "/>
-                <Button className="bg-yellow-400  dark:text-gray-900 font-semibold px-4 h-8">Add user</Button>
+                <Button onClick={()=>navigate("/admins/add-user")} className="bg-yellow-400  dark:text-gray-900 font-semibold px-4 h-8">Add user</Button>
                 </div>
             </div>
 
