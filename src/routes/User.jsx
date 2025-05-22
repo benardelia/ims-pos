@@ -27,7 +27,7 @@ import { BsArrowLeft } from "react-icons/bs";
           e.preventDefault();
           setLoading(true);
           try {
-             await axiosAuthInstance.post("/core/users/", JSON.stringify(formData));
+             await axiosAuthInstance.post("/auth/users/", JSON.stringify(formData));
             if (loading) {
               toaster.create({
                 title: "creating account!",
@@ -162,10 +162,8 @@ import { BsArrowLeft } from "react-icons/bs";
                     >
                       Add
                     </button>
-                    
                   </div>
-                  <Toaster/>
-                  
+                  <Toaster/> 
                 </form>
               </div>
             </div>

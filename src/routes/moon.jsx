@@ -149,7 +149,7 @@ import { PiSpinner } from "react-icons/pi";
         <div className="flex h-dvh relative  font-open w-full">
             <Toaster/>
             {selling &&
-            <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute top-6 left-4 dark:bg-opacity-20 bg-white">
+            <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute bottom-6 left-4 dark:bg-opacity-20 bg-white">
                 <PiSpinner className="animate-spin"/><p className="font-open text-sm font-bold px-2">selling...</p></div>
   }
             <div className="sm:w-2/3 w-full h-dvh">

@@ -1,14 +1,16 @@
 import { useNavigate } from "react-router";
-
+import logo from "./asset/logo.png"
 const Home = () => {
     const navigate = useNavigate();
         const token = localStorage.getItem('jwt_token');
         console.log(token)
     return (
-            <div className="flex h-full flex-col overflow-y-auto w-full">
-            <div className="w-full bg-[#082d2e]">
-                <div className="flex justify-between mx-6 sm:mx-24 mt-4">
-                    <h2 className="  font-roboto text-lg font-bold text-gray-50">GrandyPOS</h2>
+            <div className="flex h-full relative flex-col overflow-y-auto w-full">
+                <img src={logo} className="-z-50 right-8 absolute"/>
+            <div className="w-full bg-[#082d2e] bg-opacity-80">
+                
+                <div className="flex justify-between z-50 mx-6 sm:mx-24 mt-4">
+                    
                     <ul className="flex   font-roboto text-gray-50 text-sm flex-row space-x-6">
                         <li className="  font-roboto">features</li>
                         <li className="">pricing</li>

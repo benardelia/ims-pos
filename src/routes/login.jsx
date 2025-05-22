@@ -24,6 +24,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useRef } from "react"
 import { Toaster, toaster } from "../components/ui/toaster";
 import axiosAuthInstance from "./axiosAuthInstatnce";
+import { PiSpinner, PiSpinnerFill } from "react-icons/pi";
 
 export const Lead = () => {
   return (
@@ -109,7 +110,7 @@ const Login = () => {
             </button>
           </form>
         </div>
-        {loading && <p className="">submitting..</p>}
+        {loading && <div className="font-open text-xs bg-opacity-10 bg-black p-4 rounded-xl absolute top-12 flex items-center right-1/6"><PiSpinner className="mr-2 text-lg animate-spin"/> submitting..</div>}
         <p className="   font-open text-sm text-gray-100 font-light">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
       </div>
     </div>
