@@ -13,11 +13,11 @@ import back from "./asset/back.png"
 
 const Boxy2 = ({ box, isLoading, icon }) => {
     return (
-        <div  className="font-open hover:slashed-zero bg-white relative h-full p-4 shadow flex flex-col justify-center place-items-center w-full  dark:bg-opacity-10">
+        <div  className="font-open hover:slashed-zero bg-white relative h-full rounded-xl p-4 shadow flex flex-col justify-center place-items-center w-full  dark:bg-opacity-10">
             { isLoading? <Skeleton h="2.5rem" w="3rem" my="1rem"/>:
             <p className="font-semibold text-2xl   font-font-open my-4">{box.main}</p>
 }
-<div className="size-10 hover:size-12  absolute -top-6 flex place-items-center justify-center dark:bg-opacity-10 bg-white hover:drop-shadow-sm dark:shadow-gray-100 shadow-md">
+<div className="size-10 hover:size-12 rounded-full absolute -top-6 flex place-items-center justify-center dark:bg-opacity-10 bg-white hover:drop-shadow-sm dark:shadow-gray-100 shadow-md">
   {icon}
 </div>
     <p className="text-xs font-open">{box.detail}</p>

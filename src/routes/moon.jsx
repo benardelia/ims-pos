@@ -61,7 +61,7 @@ import { PiSpinner } from "react-icons/pi";
                     duration: 5000
                   })
             })
-    },[url, filters])
+    },[url,reload, filters])
         const sale = {
             customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
             items: cart.map(item => ({
