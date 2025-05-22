@@ -1,4 +1,4 @@
-import { Input } from "@chakra-ui/react";
+import { Input, NativeSelect } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Toaster, toaster } from "../components/ui/toaster";
@@ -9,6 +9,7 @@ import { BsArrowLeft } from "react-icons/bs";
        const [formData, setFormData] = useState({
           username: "",
           email: "",
+          userType: "",
           first_name: "",
           last_name: ""
         })
@@ -88,6 +89,21 @@ import { BsArrowLeft } from "react-icons/bs";
                       className="w-full dark:bg-opacity-10 px-4 py-2 bg-[#eceaea] text-gray-100 border-gray-900  sm:py-3 mt-1  text-sm sm:text-xs border-b"
                     />
                   </div>
+                    <NativeSelect.Root  variant="flushed" size="sm" width="full" p="" >
+                                  <NativeSelect.Field placeholder="select user type"
+                                  value={formData.userType}
+                                  name="userType"
+                                  onChange={handleChange}
+                                  h="2.9rem"
+                                  px="0.5rem"
+                                  className="dark:bg-opacity-10 border-b border-black dark:border-gray-200 bg-[#f0ebeb] dark:text-white"
+                                  >
+                                  <option value="Owner" className="dark:bg-[#363636]">owner</option>
+                                  <option value="Staff" className="dark:bg-[#363636]">Staff</option>
+                                  </NativeSelect.Field>
+                                  <NativeSelect.Indicator />
+                                </NativeSelect.Root>
+                    
                   <div>
                     <Input variant="flushed"
                       type="password"
@@ -138,10 +154,10 @@ import { BsArrowLeft } from "react-icons/bs";
                 
                   <div>
                     <div className="flex mb-2 items-center mx-1">
-                      <input type='checkbox' value={formData.terms} onChange={handleChange} className="border-b border-b-slate-900 mr-2" /><p className="sm:text-xs text-sm text-gray-100">I agree with <Link className='underline'> terms and regulations</Link></p>
+                      <p className="sm:text-xs text-sm text-gray-100">I agree with <Link className='underline'> terms and regulations</Link></p>
                     </div>
                     <button
-                      onClick={handleSubmit}
+                      type="submit"
                       className="w-full px-4 hover:font-semibold bg-custom text-sm py-2 font-semibold text-gray-900 sm:text-sm  rounded-sm focus:ring-opacity-50"
                     >
                       Add

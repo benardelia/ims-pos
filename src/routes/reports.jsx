@@ -44,7 +44,7 @@ const Sales = () => {
             }
             const tota = Math.ceil(cont/10)
     return (
-        <div className="font-roboto w-full mb-36">
+        <div className="font-open w-full mb-36">
              <div className=" my-6 mx-6 flex justify-between">
                             <h1 className="font-semibold text-xl">Sales report.</h1>
                             <Button rounded="lg" fontSize="sm" px="0.75rem" className="text-red-500 dark:text-white bg-white dark:bg-red-500" fontWeight="bold">clear sales<CgTrash/></Button>
@@ -76,9 +76,9 @@ const Sales = () => {
                                     </Table.Root>
 }
                                      {!loading && <div className="flex mt-4 justify-self-center items-center">
-                                                    {previous && <button onClick={onPrev} className="   font-roboto rounded-full text-sm bg-gray-300 dark:bg-gray-800 p-1"><BiChevronLeft/></button>}
-                                                           <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
-                                                         {next && <button onClick={onNext} className=" rounded-full   font-roboto text-sm bg-gray-300 dark:bg-gray-800 p-1"><BiChevronRight/></button>
+                                                    {previous && <button onClick={onPrev} className="   font-open rounded-full text-sm bg-gray-300 dark:bg-gray-800 p-1"><BiChevronLeft/></button>}
+                                                           <p className="text-xs mx-4 font-bold text-center   font-open">{page}/{tota}</p>
+                                                         {next && <button onClick={onNext} className=" rounded-full   font-open text-sm bg-gray-300 dark:bg-gray-800 p-1"><BiChevronRight/></button>
                                                           }
                                                     </div>}
                                     </div>
@@ -127,7 +127,7 @@ const Sales = () => {
         
 
     return (
-        <div className=" h-dvh font-roboto w-full pb-12">
+        <div className=" h-dvh font-open w-full pb-12">
             <div className="flex justify-between  my-6 mx-12">
             <h1 className="font-semibold text-xl">Orders report.</h1>
             <Button className="text-red-500 dark:text-white bg-white dark:bg-red-500" px="0.75rem" fontSize="sm" fontWeight="bold"rounded="lg" >clear orders<CgTrash/></Button>
@@ -135,7 +135,7 @@ const Sales = () => {
               
               <div className="mx-4 flex flex-col place-items-center">
               {loading ? <PiSpinnerLight className="animate-spin m-auto size-8 flex place-self-center"/> :
-               error ? <p className="  font-roboto text-center">Error loading</p>
+               error ? <p className="  font-open text-center">Error loading</p>
                           :
                           <TableScrollArea className="w-full">
                             <Table.Root interactive shadow="md" variant="outline" className=" bg-white dark:bg-opacity-10">
@@ -164,9 +164,9 @@ const Sales = () => {
    }
                             {!loading &&
                             <div className="flex place-self-center items-center">
-                                    {previous && <button onClick={handlePrevious} className=" border dark:bg-gray-800   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>}
-                                           <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
-                                         {next && <button onClick={handleNext} className="border rounded-full font-roboto text-sm shadow-lg bg-gray-300 dark:bg-gray-800 p-1"><BiChevronRight/></button>
+                                    {previous && <button onClick={handlePrevious} className=" border dark:bg-gray-800   font-open rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>}
+                                           <p className="text-xs mx-4 font-bold text-center   font-open">{page}/{tota}</p>
+                                         {next && <button onClick={handleNext} className="border rounded-full font-open text-sm shadow-lg bg-gray-300 dark:bg-gray-800 p-1"><BiChevronRight/></button>
                                           }
                                     </div>
                             }
@@ -187,7 +187,7 @@ const Sales = () => {
    const Reports = () => {
     const [view, setView] = useState("sales");
     return (
-        <div className="w-full font-roboto bg-inherit">
+        <div className="w-full font-open bg-inherit">
            
             <Tabs.Root defaultValue="Sales" w="full" mx="">
             <Tabs.List>

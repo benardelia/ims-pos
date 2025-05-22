@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table } from "@chakra-ui/react";
 import { PiSpinnerLight } from "react-icons/pi";
 import axiosInstance from "./axiosInstance";
+import { Link, useNavigate } from "react-router";
 
 
 const Shortage = () => {
@@ -19,6 +20,8 @@ const Shortage = () => {
         }
         );
     },[])
+
+    const navigate = useNavigate();
     return (
         <div className="">
         <h className="text-xl mx-6   font-open font-bold">Stock shortage.</h>
@@ -42,7 +45,7 @@ const Shortage = () => {
                    {
                     products?.map((item, i)=><Table.Row className="">
                         <Table.Cell>{item.name}</Table.Cell>
-                        <Table.Cell textAlign="center" className="underline">see product</Table.Cell>
+                        <Table.Cell textAlign="center" className=""><button className="underline" onClick={()=>navigate(`/dashboard/product/${item.uuid}`)}>see product</button></Table.Cell>
                     </Table.Row>)
                    }
                 </Table.Body>

@@ -26,7 +26,7 @@ import { ColorModeButton } from "../components/ui/color-mode";
       localStorage.removeItem("jwt_token"); // Clear storage                       // Update context
       navigate("/login", { replace: true }); // Redirect
     };
-
+        const token = localStorage.getItem("jwt_token")
     return (
         <div className="relative min-h-svh">
         <div className="flex bg-gray-100 dark:bg-black">
@@ -54,7 +54,10 @@ import { ColorModeButton } from "../components/ui/color-mode";
                      <Link to="/dashboard/home" className="p-3 mt-12 font-font-open flex items-center text-sm font-semibold bg-gray-50 d dark:bg-opacity-10  mx-2 rounded-lg"><AiFillShop className="mr-1"/> shop panel</Link>
                      <button onClick={handleLogout}  className="p-2 my-3 font-font-open flex text-sm items-center font-semibold bg-gray-50 dark:bg-red-100  mx-2 rounded-lg text-red-500 dark:text-red-800"><BiLogOutCircle className="mr-2"/>Log out</button>
         </div>
-        <Outlet/>
+        {
+          token ? <Outlet/> : <Navigate to="/login"/>
+        }
+        
         </div>
     </div>
     )

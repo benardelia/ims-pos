@@ -46,9 +46,9 @@ const Management = () => {
     const [loading ,setLoading] = useState(true)
     
         useEffect(()=> {
-            axiosInstance.get("/auth/users/")
+            axiosInstance.get("/core/users/")
             .then((response) => {
-                setUsers(response.data.results)
+                setUsers(response.data)
                 setLoading(false)
             })
 
@@ -68,7 +68,6 @@ const Management = () => {
                 <Button onClick={()=>navigate("/admins/add-user")} className="bg-yellow-400  dark:text-gray-900 font-semibold px-4 h-8">Add user</Button>
                 </div>
             </div>
-
             <div className="m-8">
                 <h1 className="font-semibold">List of Users</h1>
                 {loading ? <PiSpinnerLight className="animate-spin size-7 flex place-self-center"/> :

@@ -6,18 +6,19 @@ const Product = ({product, onAdd, image}) => {
     return (
         <div className="relative flex bg-white dark:bg-opacity-10 text-gray-950 dark:text-gray-100 flex-col rounded-lg dark:shadow-gray-200
                       md:h-48 h-40 w-full">
-                      <div className="h-3/4 rounded-t-md bg-[#e2dede] dark:bg-opacity-30 animate-pulse">
+                      <div className="h-3/5 rounded-t-md bg-[#e2dede] dark:bg-opacity-30 animate-pulse">
                          <img src={image} className="h-full w-full"/>
                       </div>
-            <div className="flex h-1/4 justify-between m-2 items-center">
+            <div className="flex h-1/3 justify-between mx-2 items-center">
             <div>
             <div className="flex flex-col">
             <div className="flex">
-            <h className=" font-open text-sm mr-2">{product.name}</h>
+            <h className=" font-open text-sm mr-2">{!show? product.name.slice(0,13) + ".." :
+            product.name }</h>
             <button onClick={()=> setShow(!show)} className="">{show ? <BiChevronUp/> : <BiChevronDown/>}</button>
             </div>
             <p className="text-xs font-open">{product.price.toLocaleString()}/=</p>
-            { show && <p className="text-xs font-extralight  font-open max-w-28 max-h-32 py-2">{product.description}</p> }
+            {}
             </div>
             <p className="text-xs flex mt-2 font-light">{product.stock}  {product.stock > 1 ? <p className="ml-1">items</p> : <p className="ml-1">item</p>}</p>
             </div>

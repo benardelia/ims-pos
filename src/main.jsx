@@ -25,6 +25,7 @@ import Edit from './routes/Edit';
 import Register from './routes/Register';
 import Items from './routes/Items';
 import User from './routes/User';
+import { Prod } from './routes/prod';
 
 
 const session = localStorage.getItem("jwt_token");
@@ -81,6 +82,10 @@ const session = localStorage.getItem("jwt_token");
      path: "/admins/add-user",
      Component: User
   },
+  {
+    path: "/dashboard/product/:id",
+    Component: Prod
+ },
   {
     path: "dashboard",
     element:<Dashboard/> ,

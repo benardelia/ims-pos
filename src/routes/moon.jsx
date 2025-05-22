@@ -62,7 +62,7 @@ import { PiSpinner } from "react-icons/pi";
             })
     },[url])
         const sale = {
-            customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
+            customer: "cbe2092a-1dbd-4f9d-8fd6-135a37155800",
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity
@@ -146,11 +146,11 @@ import { PiSpinner } from "react-icons/pi";
 
     
     return (
-        <div className="flex h-dvh relative  font-roboto w-full">
+        <div className="flex h-dvh relative  font-open w-full">
             <Toaster/>
             {selling &&
             <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute top-6 left-4 dark:bg-opacity-20 bg-white">
-                <PiSpinner className="animate-spin"/><p className="font-open text-sm font-bold px-4">selling...</p></div>
+                <PiSpinner className="animate-spin"/><p className="font-open text-sm font-bold px-2">selling...</p></div>
   }
             <div className="sm:w-2/3 w-full h-dvh">
                 <div className="flex justify-center my-6">
@@ -165,7 +165,7 @@ import { PiSpinner } from "react-icons/pi";
                      
                  </div>
                      : error ? 
-                     <p className="font-roboto text-center text-red-600">
+                     <p className="font-open text-center text-red-600">
                     Failed to fetch, Check the internet connection.
                     </p> : <p></p> }
                     {previous && <button onClick={onLess} className="flex justify-self-center"><BiChevronUp className="font-bold"/></button>}
@@ -191,17 +191,17 @@ import { PiSpinner } from "react-icons/pi";
                     {cart.map(item => <div key={item.id} className="bg-white dark:bg-opacity-10 items-center m-2 rounded-xl flex p-2">
                         <div className=" ml-2 w-full">
                             <div className="flex justify-between">
-                                <h className="  font-roboto dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>
+                                <h className="  font-open dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>
                                 <button className="text-red-400 dark:text-red-200" onClick={() => removeFromCart(item.uuid)}><FaRegTrashAlt /></button>
                             </div>
-                            <p className="  font-roboto text-xs text-gray-500 dark:text-gray-400">Stock: {item.stock}</p>
+                            <p className="  font-open text-xs text-gray-500 dark:text-gray-400">Stock: {item.stock}</p>
                             <div className="flex justify-between">
-                                <h className="  font-roboto font-semibold text-sm">{item.price.toLocaleString()} Tshs</h>
+                                <h className="  font-open font-semibold text-sm">{item.price.toLocaleString()} Tshs</h>
                                 <div className="flex items-center">
                                     <button onClick={() => reduceQuantity(item.uuid)} className="size-5 rounded-full bg-gray-200 flex
     place-items-center text-gray-700 font-black
     justify-center">-</button>
-                                    <span className="px-2 text-sm font-semibold    font-roboto">{item.quantity}</span>
+                                    <span className="px-2 text-sm font-semibold    font-open">{item.quantity}</span>
                                     <button onClick={() => updateQuantity(item.uuid, item.quantity)} className="size-5 rounded-full bg-lime-300 text-gray-700 flex place-items-center font-black justify-center">+</button>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@ import { PiSpinner } from "react-icons/pi";
            
           >
             <Dialog.Trigger asChild>
-              <Button  className="p-2 my-4 dark:text-gray-950 font-bold   font-roboto shadow rounded-lg bg-lime-300 w-full"
+              <Button  className="p-2 my-4 dark:text-gray-950 font-bold   font-open shadow rounded-lg bg-lime-300 w-full"
               >SELL</Button>
             </Dialog.Trigger>
             <Portal>
@@ -234,7 +234,7 @@ import { PiSpinner } from "react-icons/pi";
                     
                   </Dialog.Header>
                   <Dialog.Body >
-                    <p className="  font-roboto flex">
+                    <p className="  font-open flex">
                       You're about to sell  total price <p className=" ml-1 font-bold">{total.toLocaleString()} Tshs</p>
                     </p>
                   </Dialog.Body>
@@ -248,10 +248,10 @@ import { PiSpinner } from "react-icons/pi";
               </Dialog.Positioner>
             </Portal>
           </Dialog.Root>
-                        <button onClick={() => setCart([])} className="p-2   font-roboto dark:bg-opacity-5 text-gray-700 dark:text-gray-50 mb-4 shadow text-sm rounded-lg
+                        <button onClick={() => setCart([])} className="p-2   font-open dark:bg-opacity-5 text-gray-700 dark:text-gray-50 mb-4 shadow text-sm rounded-lg
     bg-white w-full">CANCEL CART</button>
                     </div>
-                    : <p className="text-center   font-roboto font-bold my-36">The Cart Is Empty.</p>
+                    : <p className="text-center   font-open font-bold my-36">The Cart Is Empty.</p>
                 }
             
             </div>

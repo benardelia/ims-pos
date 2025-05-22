@@ -5,7 +5,7 @@ const Home = () => {
         const token = localStorage.getItem('jwt_token');
         console.log(token)
     return (
-            <div className="flex h-svh flex-col overflow-y-auto w-full">
+            <div className="flex h-full flex-col overflow-y-auto w-full">
             <div className="w-full bg-[#082d2e]">
                 <div className="flex justify-between mx-6 sm:mx-24 mt-4">
                     <h2 className="  font-roboto text-lg font-bold text-gray-50">GrandyPOS</h2>
