@@ -22,7 +22,8 @@ import { PiSpinner } from "react-icons/pi";
     const [customers, setCustomer] = useState({})
     const [user,setUser] = useState({})
     const [sold, setSold] = useState(0);
-    const [url, setUrl] = useState("/store/products/?stock=1");
+    const [filters, setFilters] = useState("")
+    const [url, setUrl] = useState(`/store/products/?name=${filters}`);
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null);
     const [reload, setReload] = useState(false)
@@ -60,7 +61,7 @@ import { PiSpinner } from "react-icons/pi";
                     duration: 5000
                   })
             })
-    },[url])
+    },[url, filters])
         const sale = {
             customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
             items: cart.map(item => ({
@@ -88,6 +89,7 @@ import { PiSpinner } from "react-icons/pi";
             }  catch (error) {
                 const err = error.response.data
              console.error(error)
+             setSelling(false)
              toaster.create({
                        title: err.detail,
                        description: error.status,
@@ -139,7 +141,7 @@ import { PiSpinner } from "react-icons/pi";
         }));
     };
     const filteredProducts = products?.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        p.name.toLowerCase().includes(filters.toLowerCase()));
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const tax = total * 0.25;
     const grandTotal = total + tax;
@@ -154,7 +156,7 @@ import { PiSpinner } from "react-icons/pi";
   }
             <div className="sm:w-2/3 w-full h-dvh">
                 <div className="flex justify-center my-6">
-                    <input type="text" placeholder="Search Product" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                    <input type="text" placeholder="Search Product" value={filters} onChange={(e) => setFilters(e.target.value)}
                         className="font-light mx-auto text-sm px-4 py-3 dark:bg-opacity-10 rounded-lg w-2/3"/>
                 </div>
                { loading ? <div className="w-full my-4 grid p-2 md:grid-cols-4 sm:grid-cols-3 gap-2">

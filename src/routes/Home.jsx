@@ -6,13 +6,12 @@ const Home = () => {
         console.log(token)
     return (
             <div className="flex h-full relative flex-col overflow-y-auto w-full">
-                <img src={logo} className="-z-50 right-8 absolute"/>
-            <div className="w-full bg-[#082d2e] bg-opacity-80">
                 
+            <div className="w-full h-auto bg-[#082d2e] bg-opacity-70">
+                <img src={logo} className="-z-50 right-48 h-5/6 top-0 absolute"/>
                 <div className="flex justify-between z-50 mx-6 sm:mx-24 mt-4">
-                    
-                    <ul className="flex   font-roboto text-gray-50 text-sm flex-row space-x-6">
-                        <li className="  font-roboto">features</li>
+                    <ul className="flex font-roboto text-gray-50 text-sm flex-row space-x-6">
+                        <li className="font-roboto">features</li>
                         <li className="">pricing</li>
                         <li className="">about</li>
                     </ul>

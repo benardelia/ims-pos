@@ -22,20 +22,14 @@ const Inventory = () => {
     const [products,setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false)
-    const [name, setName] = useState("");
-    const [category,setCategory] = useState();
-    const [description, setDescription] = useState("");
-    const [stock,setStock] = useState(null);
-    const [posting, setPosting] = useState(null);
-    const [errorPosting, setErrorPosting] = useState(null);
-    const [price,setPrice] = useState(null);
-    const [cost,setCost] = useState(null);
     const [categories,setCategories] = useState([]);
-    const [url, setUrl] = useState("/store/products/")
+    const [filters, setFilters] = useState("")
+    const [url, setUrl] = useState(`/store/products/?name=${filters}`)
     const [next, setNext] = useState(null);
     const [cont, setCont] = useState(null);
     const [previous, setPrevious] = useState(null);
      const [page, setPage] = useState(1)
+     const [refresh, setRefresh] = useState(true)
      const [searchQuery, setSearchQuery] = useState("")
     
              useEffect(()=> {
@@ -48,7 +42,7 @@ const Inventory = () => {
             setLoading(false)
                 })
                 
-             },[url])  
+             },[url, refresh])  
              const handleNext = () => {
                 setUrl(next)
                 setPage(page + 1)
@@ -69,6 +63,7 @@ const Inventory = () => {
                              type: "success",
                              duration: 3000
                            })
+                           setRefresh(!refresh)
                          } )
                          .catch(
                         err => {
@@ -82,14 +77,13 @@ const Inventory = () => {
                             }
                          )
         }
-        const filteredProducts = products?.filter(p =>
-            p.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    
     return (
         <div className="w-full   font-roboto text-gray-900 dark:text-gray-50 h-dvh overflow-y-auto bg-inherit">
              <Toaster/>
                <div className="w-full my-4 flex  justify-end px-6">
                             <div className="flex items-center justify-self-end">
-                            <Input type="search" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} variant="filled" placeholder="search a product" 
+                            <Input type="search" value={filters} onChange={(e)=>setFilters(e.target.value)} variant="filled" placeholder="search a product" 
                             className=" rounded-2xl h-8 mx-6 text-gray-700 text-sm bg-white px-4 w-60 "/>
                                
                                 <Button onClick={()=>navigate("/admins/newInv")}
@@ -120,7 +114,7 @@ const Inventory = () => {
                     </Table.Header>
                     <Table.Body>
                         {
-                            filteredProducts?.map((product,i)=> (<Table.Row key={product.id} className="">
+                            products?.map((product,i)=> (<Table.Row key={product.id} className="">
                                 <Table.Cell>{i + 1}</Table.Cell>
                                 <Table.Cell>{product.name}</Table.Cell>
                                 <Table.Cell>{product.stock}</Table.Cell>

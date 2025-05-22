@@ -8,6 +8,7 @@ import { Button } from "../components/ui/button";
 import { Input, Stack, defineStyle,Field } from "@chakra-ui/react"
 import { BiArrowBack } from "react-icons/bi";
 import back from "./asset/bg.jpg"
+import logo from "./asset/logo.png"
 import { useEffect } from "react";
 import {
   DialogActionTrigger,
@@ -68,9 +69,9 @@ const Login = () => {
   return (
     <div className="flex h-full w-full relative   font-open">
       <Toaster/>
-      <img src={back} className="sm:w-1/2 w-0 opacity-80 h-full relative"/>
+      <img src={back} className="sm:w-1/2 w-0 opacity-30 h-full relative"/>
       <Link to="/" className="absolute text-white left-8 top-8"><BiArrowBack/></Link>
-      <div className="flex flex-col py-auto w-full sm:w-1/2 items-center justify-center  min-h-screen bg-[#082d2e]">
+      <div className="flex flex-col relative py-auto w-full sm:w-1/2 items-center justify-center  min-h-screen bg-[#082d2e]">
         <div className=" sm:py-12  justify-center sm:w-2/3 w-10/12 h-3/4 sm:h-5/6">
           <h2 className="text-2xl font-poppins text-gray-100 font-semibold">Welcome</h2>
           <p className="sm:text-xs text-sm  text-gray-100 font-open">please enter login details below</p>
@@ -110,7 +111,7 @@ const Login = () => {
             </button>
           </form>
         </div>
-        {loading && <div className="font-open text-xs bg-opacity-10 bg-black p-4 rounded-xl absolute top-12 flex items-center right-1/6"><PiSpinner className="mr-2 text-lg animate-spin"/> submitting..</div>}
+        {loading && <div className="font-open text-xs bg-opacity-10 bg-black p-4 rounded-xl absolute top-12 flex items-center right-1/6"><PiSpinner className="mr-2 text-lg animate-spin"/> logging in..</div>}
         <p className="   font-open text-sm text-gray-100 font-light">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
       </div>
     </div>

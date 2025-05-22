@@ -151,10 +151,9 @@ import { BsArrowLeft } from "react-icons/bs";
                       className="w-full dark:border-gray-50 bg-[#eceaea] dark:bg-opacity-10 text-gray-100 border-b-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b text-sm"
                     />
                   </div>
-                
                   <div>
                     <div className="flex mb-2 items-center mx-1">
-                      <p className="sm:text-xs text-sm text-gray-100">I agree with <Link className='underline'> terms and regulations</Link></p>
+                    
                     </div>
                     <button
                       type="submit"
