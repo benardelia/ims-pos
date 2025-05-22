@@ -65,7 +65,7 @@ import { BsArrowLeft } from "react-icons/bs";
                 <h2 className=" font-open text-center mt-8 text-slate-900 dark:text-gray-50">
                    Add user
                 </h2>
-                <form onSubmit={handleSubmit} className=" space-y-8 w-96">
+                <form onSubmit={handleSubmit} className=" space-y-6 w-96">
                   <div>
                     <Input variant="flushed"
                       type="text"
@@ -74,7 +74,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.username}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 sm:py-3  mt-1 sm:text-xs bg-[#eceaea] dark:bg-opacity-10 text-gray-100 border-gray-900 border-b text-sm"
+                      className="w-full px-4 py-2 sm:py-3  mt-1 sm:text-xs bg-[#eceaea] dark:bg-opacity-10 dark:border-gray-50 text-gray-100 border-gray-900 border-b text-sm"
                     />
                   </div>
                   <div>
@@ -86,11 +86,11 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full dark:bg-opacity-10 px-4 py-2 bg-[#eceaea] text-gray-100 border-gray-900  sm:py-3 mt-1  text-sm sm:text-xs border-b"
+                      className="w-full dark:bg-opacity-10 px-4 py-2 bg-[#eceaea] text-gray-100 border-gray-900 dark:border-gray-50  sm:py-3 mt-1  text-sm sm:text-xs border-b"
                     />
                   </div>
-                    <NativeSelect.Root  variant="flushed" size="sm" width="full" p="" >
-                                  <NativeSelect.Field placeholder="select user type"
+                    <NativeSelect.Root  variant="flushed" size="xs" width="full" p="" >
+                                  <NativeSelect.Field fontSize="sm" placeholder="select user type"
                                   value={formData.userType}
                                   name="userType"
                                   onChange={handleChange}
@@ -113,7 +113,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.password}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 dark:bg-opacity-10 sm:py-3 mt-1 text-sm sm:text-xs border-b bg-[#eceaea]  border-b-gray-900"
+                      className="w-full px-4 py-2 dark:bg-opacity-10 sm:py-3 mt-1 text-sm sm:text-xs border-b dark:border-gray-50 bg-[#eceaea]  border-b-gray-900"
                     />
                   </div>
                   <div>
@@ -125,7 +125,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={confirmPassword}
                       onChange={(e)=>setConfirmPassword(e.target.value)}
                       required
-                      className="w-full px-4 py-2 bg-[#eceaea] dark:bg-opacity-10 text-gray-100 border-b-gray-900 sm:py-3 mt-1 sm:text-xs border-b "/>
+                      className="w-full px-4 py-2 bg-[#eceaea] dark:border-gray-50 dark:bg-opacity-10 text-gray-100 border-b-gray-900 sm:py-3 mt-1 sm:text-xs border-b "/>
                     {(formData.password && confirmPassword) !== "" && formData.password !== confirmPassword ? <p className='text-xs mt-2 font-semibold  dark:text-red-400 text-red-600 '>Passwords do not match..</p> :  ( (formData.password && confirmPassword) === "" ) ? <p>  </p> : <p className='text-green-500 text-xs mt-2 font-bold font-poppins'>Passwords match</p> }
                   </div>
                   <div>
@@ -137,7 +137,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.first_name}
                       onChange={handleChange}
                       required
-                      className="w-full bg-[#eceaea] dark:bg-opacity-10 text-gray-100 border-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b b text-sm"
+                      className="w-full bg-[#eceaea] dark:bg-opacity-10 text-gray-100 dark:border-gray-50 border-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b b text-sm"
                     />
                   </div>
                   <div>
@@ -148,7 +148,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.last_name}
                       onChange={handleChange}
                       required
-                      className="w-full bg-[#eceaea] dark:bg-opacity-10 text-gray-100 border-b-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b text-sm"
+                      className="w-full dark:border-gray-50 bg-[#eceaea] dark:bg-opacity-10 text-gray-100 border-b-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b text-sm"
                     />
                   </div>
                 
