@@ -2,7 +2,7 @@ import { useState,useEffect, useRef } from "react"
 import { Editable, IconButton} from "@chakra-ui/react"
 import { LuCheck, LuPencilLine, LuX } from "react-icons/lu"
 import { Link, useParams } from "react-router"
-import { BiArrowToLeft, BiCategoryAlt, BiDollar, BiLeftArrow } from "react-icons/bi"
+import { BiArrowToLeft, BiArrowToRight, BiCategoryAlt, BiDollar, BiLeftArrow, BiRightArrow } from "react-icons/bi"
 import { RiArrowLeftLine, RiStockFill } from "react-icons/ri"
  import axios from "axios"
 import { Input } from "@chakra-ui/react"
@@ -13,6 +13,7 @@ import { AiFillProduct, AiOutlineStock } from "react-icons/ai"
 import { MdCategory, MdDescription, MdOutlineInventory2, MdProductionQuantityLimits } from "react-icons/md"
 import { PiListNumbers } from "react-icons/pi"
 import { GiPriceTag } from "react-icons/gi"
+import { BsArrowRight } from "react-icons/bs"
 
    const Edit = () => {
       const {id} = useParams();
@@ -21,6 +22,7 @@ import { GiPriceTag } from "react-icons/gi"
       const [description, setDescription] = useState("350 mls");
       const [stock,setStock] = useState("50");
       const [price,setPrice] = useState("600");
+      const [file, setFile] = useState(null);
       const [product,setProduct] = useState(null)
       const inputRef = useRef()
       
@@ -67,13 +69,58 @@ import { GiPriceTag } from "react-icons/gi"
         })
       }
     }
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    }
+    const handleImg = async (e) => {
+      e.preventDefault()
+      if (!file) {
+        toaster.create({
+          title: "please select file",
+          type: "error",
+          duration: 5000
+        })
+        return;
+      }
+const formData = new FormData();
+
+   if (file) {
+    formData.append("image", file)
+    formData.append("product", product.uuid); 
+   }
+   
+    await axios.post("http://127.0.0.1:8000/store/image/",formData,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then( res=> {
+      toaster.create({
+          title: "file uploaded successfully!",
+          description: res.status,
+          type: "success",
+          duration: 3000
+        })
+    })
+    .catch(error=> {
+      const err = error.details
+      toaster.create({
+          title: JSON.stringify(error.response.data),
+          type: "error",
+          duration: 10000
+        })
+        console.error(error)
+    })
+
+
+    }
 
   return (
     <div className="h-dvh    font-open flex justify-center relative bg-[#dddbdb] dark:bg-black first-line: w-full">
       <Link to="/admin/inventory" className="absolute top-8 left-12"><RiArrowLeftLine/></Link>
       <div className="rounded-md justify-center h-auto my-6 bg-white dark:bg-opacity-10 flex-col flex px-8 w-auto">
       <h1 className="font-bold font-open text-center text-lg mb-6">Edit Product</h1>
-      <form onSubmit={handlePut} className="w-full flex flex-col place-items-center space-y-12 ">
+      <div className="w-full flex flex-col place-items-center space-y-8 ">
       <div className="w-full">
       <p className="text-sm">Name</p>
          <Input name="name" onChange={handleChange} value={product?.name} w="28rem" variant="flushed"    className="bg-[#f0ebeb]   text-sm h-10 px-2 border-b border-black dark:border-gray-200  dark:bg-opacity-10"/>  
@@ -94,9 +141,15 @@ import { GiPriceTag } from "react-icons/gi"
          <p className="text-sm">Price</p>
          <Input name="price" onChange={handleChange} variant="flushed" value={product?.price}   className="bg-[#f0ebeb]  border-b border-black dark:border-gray-200  text-sm h-10 px-2 dark:bg-opacity-10"/>   
          </div>
-         <button className="bg-custom py-2 text-gray-900 w-full rounded-sm" type="submit">Update Product</button>
+         <div className="flex w-full">
+          <input type="file" onChange={handleFileChange} className="bg-[#f0ebeb] w-full border-b border-black dark:border-gray-200  text-sm py-2 px-2 dark:bg-opacity-10"/>
+         <button onClick={handleImg} className="mx-4"><BiArrowToRight/></button>
+         </div>
+         <button onClick={handlePut} className="bg-custom py-2 text-gray-900 w-full rounded-sm" type="submit">Update Product</button>
          <Toaster/>
-         </form>
+          
+         </div>
+         
       </div>
     </div>
   )

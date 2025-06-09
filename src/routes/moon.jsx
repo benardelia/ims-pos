@@ -7,7 +7,7 @@ import {Button,Dialog,HStack,Portal} from "@chakra-ui/react"
 import { toaster, Toaster } from "../components/ui/toaster";
 import axiosInstance from "./axiosInstance";
 import { PiSpinner } from "react-icons/pi";
-
+import logo from "./asset/logo.png"
 
 
   const Moon = () => {
@@ -19,11 +19,11 @@ import { PiSpinner } from "react-icons/pi";
     const [error, setError] = useState();
     const [selling, setSelling] = useState(null);
     const [errorSelling, setErrorSelling] = useState(false);
-    const [customers, setCustomer] = useState({})
+    const [customer, setCustomer] = useState({})
     const [user,setUser] = useState({})
     const [sold, setSold] = useState(0);
     const [filters, setFilters] = useState("")
-    const [url, setUrl] = useState(`/store/products/?name=${filters}`);
+    const [url, setUrl] = useState(`/store/products/?stock=1&name=${filters}`);
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null);
     const [reload, setReload] = useState(false)
@@ -175,7 +175,7 @@ import { PiSpinner } from "react-icons/pi";
                     {    
                     filteredProducts?.map(product =>
                         <Product key={product.uuid}
-                        image={product?.images.image}
+                        image={product?.images?.[0]?.image}
                             product={product}
                             onAdd={() => addToCart(product)}
                         />)}
@@ -190,7 +190,7 @@ import { PiSpinner } from "react-icons/pi";
                 </div>
 
                 <div className="w-full flex flex-col shadow-sm rounded-md">
-                    {cart.map(item => <div key={item.id} className="bg-white dark:bg-opacity-10 items-center m-2 rounded-xl flex p-2">
+                    {cart.map(item => <div key={item.id} className="bg-white dark:bg-opacity-10 shadow-sm items-center m-2 rounded-xl flex p-2">
                         <div className=" ml-2 w-full">
                             <div className="flex justify-between">
                                 <h className="  font-open dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>

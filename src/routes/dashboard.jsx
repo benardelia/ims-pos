@@ -55,7 +55,6 @@ const Header = () => {
     navigate("/login", { replace: true }); // Redirect
   };
 
-       const owner = user?.user_type === "Owner"
   return (
         <div className="h-dvh bg-gray-50 dark:bg-opacity-10 text-gray-950 dark:text-gray-100 w-full">
             <div className="flex">
@@ -82,7 +81,7 @@ const Header = () => {
             <IoWarningOutline className="text-xl"/>
             </NavLink>
              
-             { owner &&
+             { user &&
              <button onClick={()=>navigate("/admin/dashboard/")} className="bg-gray-100 dark:bg-opacity-20   font-open flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/></button>
  }
              <button onClick={handleLogout} className="bg-gray-100 font-open flex items-center rounded-lg mt-2 p-3 text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1 text-xl"/></button>
@@ -116,7 +115,7 @@ const Header = () => {
             <IoWarningOutline className="mr-2"/>  Shortage
             </NavLink>
              
-             {owner &&
+             {user &&
              <button onClick={()=>navigate("/admin/dashboard/")} className="bg-gray-100 dark:bg-opacity-20   font-open flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/>Admin panel</button>
  }
              <button onClick={handleLogout} className="bg-gray-100   font-open flex items-center rounded-lg mt-2 p-3  sm:text-sm text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>

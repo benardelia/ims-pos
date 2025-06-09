@@ -67,14 +67,14 @@ const Login = () => {
 
   }
   return (
-    <div className="flex h-full w-full relative   font-open">
+    <div className="flex h-full w-full relative   font-roboto">
       <Toaster/>
       <img src={back} className="sm:w-1/2 w-0 opacity-30 h-full relative"/>
       <Link to="/" className="absolute text-white left-8 top-8"><BiArrowBack/></Link>
       <div className="flex flex-col relative py-auto w-full sm:w-1/2 items-center justify-center  min-h-screen bg-[#082d2e]">
         <div className=" sm:py-12  justify-center sm:w-2/3 w-10/12 h-3/4 sm:h-5/6">
           <h2 className="text-2xl font-poppins text-gray-100 font-semibold">Welcome</h2>
-          <p className="sm:text-xs text-sm  text-gray-100 font-open">please enter login details below</p>
+          <p className="sm:text-xs text-sm  text-gray-100 font-roboto">please enter login details below</p>
           <form onSubmit={handleSubmit} className="flex flex-col justify-center h-4/5">
           <div className="flex flex-col space-y-12 my-16">
             <Field.Root>
@@ -111,8 +111,8 @@ const Login = () => {
             </button>
           </form>
         </div>
-        {loading && <div className="font-open text-xs bg-opacity-10 bg-black p-4 rounded-xl absolute top-12 flex items-center right-1/6"><PiSpinner className="mr-2 text-lg animate-spin"/> logging in..</div>}
-        <p className="   font-open text-sm text-gray-100 font-light">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
+        {loading && <div className="font-roboto text-xs bg-white bg-opacity-10 dark:bg-black p-4 rounded-xl absolute text-gray-100 dark:text-gray-900 top-12 flex items-center right-1/6"><PiSpinner className="mr-2 text-lg animate-spin"/> logging in..</div>}
+        <p className="   font-roboto text-sm text-gray-100 font-light">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
       </div>
     </div>
   );
