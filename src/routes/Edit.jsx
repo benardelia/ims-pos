@@ -89,7 +89,7 @@ const formData = new FormData();
     formData.append("product", product.uuid); 
    }
    
-    await axios.post("http://127.0.0.1:8000/store/image/",formData,{
+    await axios.post("https://grandypos.duckdns.org/store/image/",formData,{
       headers: {
         "Content-Type": "multipart/form-data",
       },
