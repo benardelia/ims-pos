@@ -4,7 +4,7 @@ import axiosInstance from "./axiosInstance";
 
 const Product = ({product, onAdd, image}) => {
     const [show, setShow] = useState(false);
-    const [imge, setImge] = useState(`http://192.168.132.111:8000${image}`)
+    const [imge, setImge] = useState(`https://grandypos.duckdns.org${image}`)
 
     const nime = product.name
 

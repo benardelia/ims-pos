@@ -63,7 +63,7 @@ import logo from "./asset/logo.png"
             })
     },[url,reload, filters])
         const sale = {
-            customer: "cbe2092a-1dbd-4f9d-8fd6-135a37155800",
+            customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity
