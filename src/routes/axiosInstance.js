@@ -1,7 +1,7 @@
 import axios from "axios";
      
                  const axiosInstance = axios.create({
-                             baseURL: "https://grandypos.duckdns.org",
+                             baseURL: "http://192.168.132.111:8000",
                                  timeout: 9000,
                              })
                              

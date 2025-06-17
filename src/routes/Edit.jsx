@@ -89,7 +89,7 @@ const formData = new FormData();
     formData.append("product", product.uuid); 
    }
    
-    await axios.post("https://grandypos.duckdns.org/store/image/",formData,{
+    await axios.post("http://192.168.235.111:8000/store/image/",formData,{
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -137,7 +137,7 @@ const formData = new FormData();
          <p className="text-sm">Qty. in stock</p>
          <Input name="stock" onChange={handleChange} variant="flushed" value={product?.stock}   className="bg-[#f0ebeb] border-b border-black dark:border-gray-200 text-sm h-10 px-2 dark:bg-opacity-10"/> 
          </div>
-         <div className="    w-full">
+         <div className="w-full">
          <p className="text-sm">Price</p>
          <Input name="price" onChange={handleChange} variant="flushed" value={product?.price}   className="bg-[#f0ebeb]  border-b border-black dark:border-gray-200  text-sm h-10 px-2 dark:bg-opacity-10"/>   
          </div>

@@ -63,7 +63,7 @@ import logo from "./asset/logo.png"
             })
     },[url,reload, filters])
         const sale = {
-            customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
+            customer: "cbe2092a-1dbd-4f9d-8fd6-135a37155800",
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity
@@ -177,8 +177,9 @@ import logo from "./asset/logo.png"
                         <Product key={product.uuid}
                         image={product?.images?.[0]?.image}
                             product={product}
-                            onAdd={() => addToCart(product)}
-                        />)}
+                            onAdd={()=> addToCart(product)}
+                        />)
+                    }
                 </div>
                {next && <button onClick={onMore} className="mb-12 font-bold text-sm pb-6 flex-col place-items-center flex justify-self-center">see more<BiChevronDown className="font-bold"/></button>}
             </div>

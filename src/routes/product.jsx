@@ -1,21 +1,29 @@
-import { useState } from "react";
-import { BiCartAdd, BiChevronDown, BiChevronUp } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { BiCartAdd, BiChevronDown, BiChevronLeft, BiChevronRight, BiChevronUp } from "react-icons/bi";
+import axiosInstance from "./axiosInstance";
 
 const Product = ({product, onAdd, image}) => {
     const [show, setShow] = useState(false);
+    const [imge, setImge] = useState(`http://192.168.132.111:8000${image}`)
+
+    const nime = product.name
+
     return (
         <div className="relative shadow-sm flex bg-white dark:bg-opacity-10 text-gray-950 dark:text-gray-100 flex-col rounded-lg dark:shadow-gray-700
-                      md:h-52 h-40 w-full">
+                      sm:h-52 h-40 w-full">
                       
-                         <img src={image} className="h-1/2 border-none rounded-t-xl w-full"/>
+                         <img src={imge} className="h-full rounded-lg w-full"/>
                       
-            <div className="flex h-1/2 justify-between mx-2 items-center">
+            <div className="flex h-1/3 p-2 bg-white dark:bg-black dark:bg-opacity-80 bg-opacity-80 rounded-b-lg absolute bottom-0 w-full justify-between items-center">
             <div>
             <div className="flex flex-col">
             <div className="flex">
-            <h className=" font-open text-sm mr-2">{!show? product.name.slice(0,13) + ".." :
+            <h className="font-semibold font-open text-sm  mr-2">{nime.length > 13 && !show ? product.name.slice(0,13) + ".." :
             product.name }</h>
-            <button onClick={()=> setShow(!show)} className="">{show ? <BiChevronUp/> : <BiChevronDown/>}</button>
+            {
+              nime.length > 13 && <button onClick={()=> setShow(!show)} className="">{show ? <BiChevronLeft/> : <BiChevronRight/>}</button>
+            }
+            
             </div>
             <p className="text-xs font-open">{product.price.toLocaleString()}/=</p>
             {}
@@ -23,7 +31,7 @@ const Product = ({product, onAdd, image}) => {
             <p className="text-xs flex mt-2 font-light">{product.stock}  {product.stock > 1 ? <p className="ml-1">items</p> : <p className="ml-1">item</p>}</p>
             </div>
             <button onClick={onAdd}
-            className="rounded-full `absolute shadow-lg bottom-1 right-1 size-8 dark:text-gray-950 place-items-center font-bold bg-custom"><BiCartAdd className="font-bold text-lg"/></button>
+            className="rounded-full absolute mr-1 shadow-lg bottom-1 right-1 size-8 dark:text-gray-950 place-items-center font-bold bg-custom"><BiCartAdd className="font-bold text-lg"/></button>
             </div>
             </div>
     );
