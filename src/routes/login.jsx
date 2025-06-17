@@ -57,7 +57,7 @@ const Login = () => {
     } catch (error) {
         const err = error.response.data
         console.error(error.response.data);
-      toaster.create({
+        toaster.create({
                 title: err.detail,
                 type: "error",
                 duration: 3000
