@@ -27,7 +27,7 @@ import logo from "./asset/logo.png"
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null);
     const [reload, setReload] = useState(false)
-
+    const [current, setCurrent] = useState(0)
 
       const token = localStorage.getItem("jwt_token");
         useEffect(()=> {
@@ -61,6 +61,11 @@ import logo from "./asset/logo.png"
                     duration: 5000
                   })
             })
+    const interval = setInterval(()=> {
+        setCurrent(prev => prev + 1);
+      }, 3000);
+
+      return ()=> clearInterval(interval);
     },[url,reload, filters])
         const sale = {
             customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
@@ -148,13 +153,13 @@ import logo from "./asset/logo.png"
 
     
     return (
-        <div className="flex h-dvh relative  font-open w-full">
+        <div className="flex h-dvh relative font-open w-full">
             <Toaster/>
             {selling &&
             <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute bottom-6 left-4 dark:bg-opacity-20 bg-white">
                 <PiSpinner className="animate-spin"/><p className="font-open text-sm font-bold px-2">selling...</p></div>
   }
-            <div className="sm:w-2/3 w-full h-dvh">
+            <div className="sm:w-2/3 z-50 w-full h-dvh">
                 <div className="flex justify-center my-6">
                     <input type="text" placeholder="Search Product" value={filters} onChange={(e) => setFilters(e.target.value)}
                         className="font-light mx-auto text-sm px-4 py-3 dark:bg-opacity-10 rounded-lg w-2/3"/>
@@ -175,7 +180,7 @@ import logo from "./asset/logo.png"
                     {    
                     filteredProducts?.map(product =>
                         <Product key={product.uuid}
-                        image={product?.images?.[0]?.image}
+                        image={product?.images?.[current]?.image}
                             product={product}
                             onAdd={()=> addToCart(product)}
                         />)
@@ -192,6 +197,7 @@ import logo from "./asset/logo.png"
 
                 <div className="w-full flex flex-col shadow-sm rounded-md">
                     {cart.map(item => <div key={item.id} className="bg-white dark:bg-opacity-10 shadow-sm items-center m-2 rounded-xl flex p-2">
+                        <img src={`http://192.168.20.111:8000${item?.images?.[0]?.image}`} className="rounded-sm size-16"/>
                         <div className=" ml-2 w-full">
                             <div className="flex justify-between">
                                 <h className="  font-open dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>
@@ -205,7 +211,7 @@ import logo from "./asset/logo.png"
     place-items-center text-gray-700 font-black
     justify-center">-</button>
                                     <span className="px-2 text-sm font-semibold    font-open">{item.quantity}</span>
-                                    <button onClick={() => updateQuantity(item.uuid, item.quantity)} className="size-5 rounded-full bg-lime-300 text-gray-700 flex place-items-center font-black justify-center">+</button>
+                                    <button onClick={() => updateQuantity(item.uuid, item.quantity)} className="size-5 rounded-full bg-[#f7d518] text-gray-700 flex place-items-center font-black justify-center">+</button>
                                 </div>
                             </div>
                         </div>
@@ -226,7 +232,7 @@ import logo from "./asset/logo.png"
            
           >
             <Dialog.Trigger asChild>
-              <Button  className="p-2 my-4 dark:text-gray-950 font-bold   font-open shadow rounded-lg bg-lime-300 w-full"
+              <Button  className="p-2 my-4 dark:text-gray-950 font-bold   font-open shadow rounded-lg bg-[#f7d518] w-full"
               >SELL</Button>
             </Dialog.Trigger>
             <Portal>
@@ -245,7 +251,7 @@ import logo from "./asset/logo.png"
                     <Dialog.ActionTrigger asChild>
                       <Button variant="outline">Cancel</Button>
                     </Dialog.ActionTrigger>
-                    <Button onClick={onSell} className="bg-custom text-gray-900 px-6 font-bold">SELL</Button>
+                    <Button onClick={onSell} className="bg-[#f7d518] text-gray-900 px-6 font-bold">SELL</Button>
                   </Dialog.Footer>
                 </Dialog.Content>
               </Dialog.Positioner>

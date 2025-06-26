@@ -29,25 +29,25 @@ import { ColorModeButton } from "../components/ui/color-mode";
         const token = localStorage.getItem("jwt_token")
     return (
         <div className="relative min-h-svh">
-        <div className="flex bg-gray-100 dark:bg-black">
-        <div className="min-h-dvh flex pt-6 border-r dark:border-r-gray-900 bg-gray-50 dark:bg-opacity-10 flex-col w-1/5">
+        <div className="flex bg-[#faf4f4] dark:bg-black">
+        <div className="min-h-dvh flex pt-6 border-r dark:border-r-gray-900 bg-[#fff] dark:bg-opacity-10 flex-col w-1/5">
     <NavLink to="dashboard" className={({ isActive }) =>
-      isActive ? "px-2 flex items-center mr-3 ml-2 py-2 shadow-gray-300 text-sm font-open dark:text-gray-800 font-semibold bg-custom dark:bg-custom rounded-lg"
+      isActive ? "px-2 flex items-center mr-3 ml-2 py-2 shadow-gray-300 text-sm font-open dark:text-gray-800 font-semibold bg-[#f7d518] dark:bg-[#f7d518] rounded-lg"
         : "text-gray-800 flex items-center dark:text-gray-200 font-open mr-4 text-sm font-normal px-2 py-2"}>
         <RiDashboard2Fill className="mr-2"/> Dashboard
      </NavLink>
      <NavLink to="reports" className={({ isActive }) =>
-      isActive ? "px-2 flex items-center mr-3 ml-2 py-2 shadow-gray-300 text-sm font-open dark:text-gray-800 font-semibold bg-custom dark:bg-custom rounded-lg"
+      isActive ? "px-2 flex items-center mr-3 ml-2 py-2 shadow-gray-300 text-sm font-open dark:text-gray-800 font-semibold bg-[#f7d518] dark:bg-[#f7d518] rounded-lg"
         : "text-gray-800 flex items-center dark:text-gray-200 text-sm font-open mr-4 font-normal px-2 py-2"}>
        <HiDocumentReport className="mr-2"/> Reports
      </NavLink>
      <NavLink to="inventory" className={({ isActive }) =>
-      isActive ? "px-2 mr-3 flex items-center ml-2 text-sm py-2 shadow-gray-300 font-open dark:text-gray-800 font-semibold bg-custom dark:bg-custom rounded-lg"
+      isActive ? "px-2 mr-3 flex items-center ml-2 text-sm py-2 shadow-gray-300 font-open dark:text-gray-800 font-semibold bg-[#f7d518] dark:bg-[#f7d518] rounded-lg"
         : "text-gray-800 flex items-center text-sm dark:text-gray-200 font-open mr-4 font-normal px-2 py-2"}>
          <PiWarehouseBold className="mr-2"/> Inventory
      </NavLink>
      <NavLink to="management" className={({ isActive }) =>
-      isActive ? "px-2 mr-3 ml-2 text-sm py-2 flex items-center shadow-gray-300 font-open dark:text-gray-800 font-semibold bg-custom dark:bg-custom rounded-lg"
+      isActive ? "px-2 mr-3 ml-2 text-sm py-2 flex items-center shadow-gray-300 font-open dark:text-gray-800 font-semibold bg-[#f7d518] dark:bg-[#f7d518] rounded-lg"
         : "text-gray-800 flex items-center text-sm dark:text-gray-200 font-open mr-4 font-normal px-2 py-2"}>
          <MdManageAccounts className="mr-2"/> Management
      </NavLink>

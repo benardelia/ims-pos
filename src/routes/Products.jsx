@@ -55,7 +55,7 @@ const Products = () => {
              :
     
         <Table.Root size="lg" interactive variant="outline" className="bg-white h-full w-full   font-open dark:bg-opacity-10">
-            <Table.Header className="bg-custom text-sm sticky top-0">
+            <Table.Header className="bg-[#f7d518] text-sm sticky top-0">
                 <Table.Row>
                     <Table.ColumnHeader className="dark:text-black">NO.</Table.ColumnHeader>
                     <Table.ColumnHeader className="dark:text-black">PRODUCT</Table.ColumnHeader>

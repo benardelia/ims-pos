@@ -54,7 +54,7 @@ const Sales = () => {
                                 {loading ? <PiSpinnerLight className="animate-spin size-8 flex place-self-center"/> :
                                     <Table.Root shadow="md" interactive borderColor="orange.800" variant="outline"className="bg-white w-full dark:bg-opacity-10">
                                         <Table.Header>
-                                            <Table.Row className="bg-custom">
+                                            <Table.Row className="bg-[#f7d518]">
                                             <Table.ColumnHeader className="dark:text-gray-900 font-bold">NO.</Table.ColumnHeader>
                                             <Table.ColumnHeader className="dark:text-gray-900 font-bold">PRODUCT</Table.ColumnHeader>
                                             <Table.ColumnHeader className="dark:text-gray-900 font-bold" textAlign="center">QUANTITY SOLD</Table.ColumnHeader>
@@ -139,7 +139,7 @@ const Sales = () => {
                           :
                           <TableScrollArea className="w-full">
                             <Table.Root interactive shadow="md" variant="outline" className=" bg-white dark:bg-opacity-10">
-                                <Table.Header className="bg-custom">
+                                <Table.Header className="bg-[#f7d518]">
                                     <Table.Row>
                                         <Table.ColumnHeader className="dark:text-gray-900">No.</Table.ColumnHeader>
                                         <Table.ColumnHeader className="dark:text-gray-900">Status</Table.ColumnHeader>

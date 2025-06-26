@@ -75,7 +75,7 @@ const Management = () => {
                 
                 <Table.Root className=" bg-white rounded-lg dark:bg-opacity-10 text-gray-800 dark:text-gray-200" rounded="xl" interactive >
                     <Table.Header >
-                      <Table.Row className="bg-custom dark:bg-custom dark:text-gray-900">
+                      <Table.Row className="bg-[#f7d518] dark:bg-[#f7d518] dark:text-gray-900">
                       <Table.ColumnHeader className="dark:text-gray-900 font-bold w-6">NO.</Table.ColumnHeader>
                         <Table.ColumnHeader className="dark:text-gray-900 font-bold">Name</Table.ColumnHeader>
                         <Table.ColumnHeader className="dark:text-gray-900 font-bold">User Roles</Table.ColumnHeader>

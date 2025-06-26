@@ -44,11 +44,11 @@ const tota = Math.ceil(cont/10)
     return (
         <div className="h-dvh">
         <h className="text-xl font-bold pb-8"> Sales.</h>
-        <div className=" h-full flex flex-col place-items-center relative">
+        <div className=" h-full m-6 flex flex-col place-items-center relative">
             { loading ? <PiSpinnerLight className="animate-spin size-8 flex place-self-center"/> :
         <Table.Root interactive variant="outline"className="bg-white font-semibold font-open dark:bg-opacity-10 mr-16" >
             <Table.Header>
-                <Table.Row className="bg-custom " mt="5rem">
+                <Table.Row className="bg-[#f7d518] " mt="5rem">
                 <Table.ColumnHeader className="font-bold dark:text-black">No.</Table.ColumnHeader>
                 <Table.ColumnHeader className="font-bold dark:text-black">Status</Table.ColumnHeader>
                 <Table.ColumnHeader className="font-bold dark:text-black">Payment time</Table.ColumnHeader>

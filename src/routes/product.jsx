@@ -5,12 +5,11 @@ import axiosInstance from "./axiosInstance";
 const Product = ({product, onAdd, image}) => {
     const [show, setShow] = useState(false);
     const [imge, setImge] = useState(`https://grandypos.duckdns.org${image}`)
-
+    
     const nime = product.name
-
+    
     return (
-        <div className="relative shadow-sm flex bg-white dark:bg-opacity-10 text-gray-950 dark:text-gray-100 flex-col rounded-lg dark:shadow-gray-700
-                      sm:h-52 h-40 w-full">
+        <div className="relative shadow-sm blur-none flex bg-white dark:bg-opacity-10 text-gray-950 dark:text-gray-100 flex-col rounded-lg dark:shadow-gray-700 sm:h-52 h-40 w-full">
                       
                          <img src={imge} className="h-full rounded-lg w-full"/>
                       
@@ -31,7 +30,7 @@ const Product = ({product, onAdd, image}) => {
             <p className="text-xs flex mt-2 font-light">{product.stock}  {product.stock > 1 ? <p className="ml-1">items</p> : <p className="ml-1">item</p>}</p>
             </div>
             <button onClick={onAdd}
-            className="rounded-full absolute mr-1 shadow-lg bottom-1 right-1 size-8 dark:text-gray-950 place-items-center font-bold bg-custom"><BiCartAdd className="font-bold text-lg"/></button>
+            className="rounded-full absolute mr-1 shadow-lg bottom-1 right-1 size-8 dark:text-gray-950 place-items-center font-bold bg-[#f7d518]"><BiCartAdd className="font-bold text-lg"/></button>
             </div>
             </div>
     );

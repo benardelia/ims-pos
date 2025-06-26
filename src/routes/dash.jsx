@@ -82,7 +82,7 @@ const Dash = () => {
             <img src={back} className="w-full h-full rounded-xl"/>
             <div className="absolute bg-gradient-to-r from-black to-transparent z-50 left-0 top-0 w-full h-full">
                 <h1 className="text-gray-50 pt-6 px-6 font-open font-semibold">Hi {user?.username}, thank you for choosing GrandyPOS Premium. You can freely give us suggestion or recommendations about our service.</h1>
-                <button className="text-gray-950 text-sm rounded-md m-4 py-2 px-4 bg-custom dark:bg-opacity-30 font-semibold">Send Now</button>
+                <button className="text-gray-950 text-sm rounded-md m-4 py-2 px-4 bg-[#f7d518] dark:bg-opacity-30 font-semibold">Send Now</button>
                 </div>
         </div>
             <div className=" relative grid h-1/3 grid-flow-col gap-8 w-full mb-2">

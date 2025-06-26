@@ -24,7 +24,7 @@ const Home = () => {
                     <p className="sm:text-md sm:w-5/6 text-center sm:text-start  font-roboto py-8">Whether you run a retail store, pharmacy, or supermarket, our powerful tools are built to keep your operations smooth.</p>
                     <button onClick={()=>navigate("/login")} className="bg-green-400 font-roboto flex sm:justify-self-start justify-self-center font-semibold text-gray-800 py-2 sm:px-8 px-24 mt-4 rounded-md">Get started</button>
                     </div>
-                   <img src={logo} className="sm:h-1/2 invisible"/>
+                   <img src={logo} className="sm:h-1/2 "/>
                 </div>
             </div>
             <div className=" h-1/2 w-full bg-green-400 p-4">

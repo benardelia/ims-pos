@@ -96,7 +96,7 @@ const Inventory = () => {
                 {loading ? <PiSpinnerLight className="animate-spin size-7 flex place-self-center"/> :
                 <Table.Root interactive className="bg-white dark:bg-opacity-20">
                     <Table.Header>
-                        <Table.Row className="bg-custom rounded-t-lg dark:bg-custom dark:text-gray-900">
+                        <Table.Row className="bg-[#f7d518] rounded-t-lg dark:bg-[#f7d518] dark:text-gray-900">
                         <Table.ColumnHeader className="font-bold dark:text-gray-900">
                                 NO.
                             </Table.ColumnHeader>

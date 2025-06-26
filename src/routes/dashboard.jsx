@@ -56,27 +56,27 @@ const Header = () => {
   };
 
   return (
-        <div className="h-dvh bg-gray-50 dark:bg-opacity-10 text-gray-950 dark:text-gray-100 w-full">
+        <div className="h-dvh bg-white accent-transparent dark:bg-opacity-10 text-gray-950 dark:text-gray-100 w-full">
             <div className="flex">
             <div className="sm:hidden py-4 w-12 rounded-md mr-1  flex flex-col space-y-4">
                 
             <NavLink to="home" className={({ isActive }) =>
-                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-custom"
+                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-open flex items-center font-normal dark:text-gray-50 px-2 py-2"}>
                <MdHomeFilled className="text-xl"/>
             </NavLink>
             <NavLink to="products" className={({ isActive }) =>
-                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-custom"
+                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-open flex items-center font-normal dark:text-gray-50 p-2"}>
                   <FaStore className="text-xl"/>
             </NavLink>
             <NavLink to="sales" className={({ isActive }) =>
-                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-custom"
+                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 my-1 font-open flex items-center font-normal dark:text-gray-50 px-2 py-2"}>
               <AiOutlineStock className="text-xl"/>
             </NavLink>
             <NavLink to="shortage" className={({ isActive }) =>
-                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-custom"
+                isActive ? "p-3 font-open flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-open flex items-center font-normal dark:text-gray-50 p-2"}>
             <IoWarningOutline className="text-xl"/>
             </NavLink>
@@ -95,32 +95,30 @@ const Header = () => {
                         </div>
                     </div>
             <NavLink to="home" className={({ isActive }) =>
-                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-custom"
+                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-open text-sm flex items-center my-1 font-normal dark:text-gray-50 px-2 py-2"}>
                <MdHomeFilled className="mr-2"/>  Home
             </NavLink>
             <NavLink to="products" className={({ isActive }) =>
-                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-custom"
+                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-open text-sm flex items-center my-1 font-normal dark:text-gray-50 px-2 py-2"}>
                   <FaStore className="mr-2"/>  Products
             </NavLink>
             <NavLink to="sales" className={({ isActive }) =>
-                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-custom"
+                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 my-1 font-open text-sm flex items-center font-normal dark:text-gray-50 px-2 py-2"}>
               <AiOutlineStock className="mr-2"/> Sales
             </NavLink>
             <NavLink to="shortage" className={({ isActive }) =>
-                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-custom"
+                isActive ? "px-3 py-2 font-open text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-open text-sm flex items-center my-1 font-normal dark:text-gray-50 px-2 py-2"}>
-            <IoWarningOutline className="mr-2"/>  Shortage
-            </NavLink>
-             
+                 <IoWarningOutline className="mr-2"/>  Shortage
+           </NavLink>      
              {user &&
-             <button onClick={()=>navigate("/admin/dashboard/")} className="bg-gray-100 dark:bg-opacity-20   font-open flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/>Admin panel</button>
- }
-             <button onClick={handleLogout} className="bg-gray-100   font-open flex items-center rounded-lg mt-2 p-3  sm:text-sm text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>
+             <button onClick={()=>navigate("/admin/dashboard/")} className="bg-[#f7f5f5] dark:bg-opacity-20   font-open flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/>Admin panel</button>}
+             <button onClick={handleLogout} className="bg-gray-100 font-open flex items-center rounded-lg mt-2 p-3  sm:text-sm text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>
             </div>
-            <div className="w-5/6 bg-gray-100 dark:bg-black h-dvh overflow-y-auto">
+            <div className="w-5/6 dark:bg-black relative bg-[#f1f0f0] backdrop-blur-lg h-dvh overflow-y-auto">
             {token ? <Outlet/> : <Navigate to="/login"/>}
        </div>
            

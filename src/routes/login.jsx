@@ -7,8 +7,7 @@ import { Checkbox, Spinner } from "@chakra-ui/react"
 import { Button } from "../components/ui/button";
 import { Input, Stack, defineStyle,Field } from "@chakra-ui/react"
 import { BiArrowBack } from "react-icons/bi";
-import back from "./asset/bg.jpg"
-import logo from "./asset/logo.png"
+import back from "./asset/logo.png"
 import { useEffect } from "react";
 import {
   DialogActionTrigger,
@@ -69,7 +68,10 @@ const Login = () => {
   return (
     <div className="flex h-full w-full relative   font-roboto">
       <Toaster/>
-      <img src={back} className="sm:w-1/2 w-0 opacity-30 h-full relative"/>
+      <div className="sm:w-1/2 w-0 opacity-80 flex justify-center place-items-center bg-black h-dvh relative">
+              <img src={back} className=""/>
+      </div>
+      
       <Link to="/" className="absolute text-white left-8 top-8"><BiArrowBack/></Link>
       <div className="flex flex-col relative py-auto w-full sm:w-1/2 items-center justify-center  min-h-screen bg-[#082d2e]">
         <div className=" sm:py-12  justify-center sm:w-2/3 w-10/12 h-3/4 sm:h-5/6">

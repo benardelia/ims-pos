@@ -19,5 +19,13 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    'backdrop-blur',
+    'backdrop-blur-sm',
+    'backdrop-blur-md',
+    'backdrop-blur-lg',
+    'backdrop-blur-xl',
+    'backdrop-blur-2xl',
+  ]
 }
 

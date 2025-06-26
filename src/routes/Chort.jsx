@@ -5,7 +5,7 @@ import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts"
 const Chort = ({details}) => {
   const chart = useChart({
     data: details,
-    series: [{ name: "sales", color: "green.600" }],
+    series: [{ name: "sales", color: "orange.500" }],
   })
 
   return (
@@ -28,7 +28,7 @@ const Chort = ({details}) => {
           })}
         />
         <Tooltip
-          cursor={{ fill: chart.color("bg.muted") }}
+          cursor={{ fill: chart.color("bg.emphasized") }}
           animationDuration={0}
           content={<Chart.Tooltip />}
         />
