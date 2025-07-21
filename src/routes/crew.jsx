@@ -3,12 +3,14 @@ import { Menu, Portal } from "@chakra-ui/react"
 import { BsThreeDotsVertical } from "react-icons/bs"
 import { Link, useNavigate, useParams } from "react-router"
 import { Badge } from "@chakra-ui/react"
-import pass from "./asset/pass.jpg"
 import { useEffect, useState } from "react"
 import axiosInstance from "./axiosInstance"
 import { Table,TableScrollArea } from "@chakra-ui/react"
 import { BiArrowBack } from "react-icons/bi"
 import { GiTick } from "react-icons/gi"
+
+
+
 const Crew = () => {
     const [user, setUser] = useState(null)
     const [success, setSuccess]= useState(false)
