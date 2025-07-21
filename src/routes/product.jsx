@@ -27,7 +27,7 @@ const Product = ({product, onAdd, image}) => {
             <p className="text-xs font-roboto">{product.price.toLocaleString()}/=</p>
             {}
             </div>
-            <p className="text-xs flex mt-2 font-light">{product.stock}  {product.stock > 1 ? <p className="ml-1">items</p> : <p className="ml-1">item</p>}</p>
+            <p className="text-xs flex mt-2 font-open font-light">{product.stock}  {product.stock > 1 ? <p className="ml-1">items</p> : <p className="ml-1">item</p>}</p>
             </div>
             <button onClick={onAdd}
             className="rounded-full absolute mr-1 shadow-xl bottom-1 right-1 size-9 dark:text-gray-950 place-items-center font-bold bg-[#f7d518]"><BiCartAdd className="font-bold text-lg"/></button>
