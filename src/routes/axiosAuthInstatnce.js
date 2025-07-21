@@ -3,7 +3,7 @@ import axios from "axios";
 
                            
                  const axiosAuthInstance = axios.create({
-                             baseURL: "grandypos.duckkdns.org",
+                             baseURL: "https://grandypos.duckkdns.org",
                                  timeout: 9000,
                                  headers: {
                                      "Content-Type": "application/json"

@@ -45,7 +45,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axiosAuthInstance.post("/auth/jwt/create/", JSON.stringify({username, password}));
+      const response = await axiosAuthInstance.post("/auth/jwt/create/",{username, password});
 
       if (response.status === 200) {
         const token = response.data.access;
@@ -57,7 +57,7 @@ const Login = () => {
         const err = error.response.data
         console.error(error.response.data);
         toaster.create({
-                title: JSON.stringify(error.response),
+                title: JSON.stringify(err.details),
                 type: "error",
                 duration: 3000
                })
