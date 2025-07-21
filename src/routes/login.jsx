@@ -57,7 +57,7 @@ const Login = () => {
         const err = error.response.data
         console.error(error.response.data);
         toaster.create({
-                title: err.detail,
+                title: JSON.stringify(error.response),
                 type: "error",
                 duration: 3000
                })
@@ -68,7 +68,7 @@ const Login = () => {
   return (
     <div className="flex h-full w-full relative   font-roboto">
       <Toaster/>
-      <div className="sm:w-1/2 w-0 opacity-80 flex justify-center place-items-center bg-black h-dvh relative">
+      <div className="sm:w-1/2 w-0 dark;opacity-80 bg-opacity-30 flex justify-center place-items-center bg-black h-dvh relative">
               <img src={back} className=""/>
       </div>
       

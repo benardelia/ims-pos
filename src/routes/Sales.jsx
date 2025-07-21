@@ -46,7 +46,7 @@ const tota = Math.ceil(cont/10)
         <h className="text-xl font-bold pb-8"> Sales.</h>
         <div className=" h-full m-6 flex flex-col place-items-center relative">
             { loading ? <PiSpinnerLight className="animate-spin size-8 flex place-self-center"/> :
-        <Table.Root interactive variant="outline"className="bg-white font-semibold font-open dark:bg-opacity-10 mr-16" >
+        <Table.Root interactive variant="outline"className="bg-white font-semibold font-roboto dark:bg-opacity-10 mr-16" >
             <Table.Header>
                 <Table.Row className="bg-[#f7d518] " mt="5rem">
                 <Table.ColumnHeader className="font-bold dark:text-black">No.</Table.ColumnHeader>
@@ -68,10 +68,10 @@ const tota = Math.ceil(cont/10)
         </Table.Root>}
         {!loading &&
          <div className="flex mt-4 place-self-center items-center">
-                {previous && <button onClick={onPrev} className=" dark:bg-opacity-10   font-open rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
+                {previous && <button onClick={onPrev} className=" dark:bg-opacity-10   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
                        }
-                       <p className="text-xs mx-4 font-bold text-center   font-open">{page}/{tota}</p>
-                     {next && <button onClick={onNext} className=" dark:bg-opacity-10 rounded-full   font-open text-sm shadow-lg bg-gray-300 p-1"><BiChevronRight/></button>
+                       <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
+                     {next && <button onClick={onNext} className=" dark:bg-opacity-10 rounded-full   font-roboto text-sm shadow-lg bg-gray-300 p-1"><BiChevronRight/></button>
                       }
                 </div>
 }

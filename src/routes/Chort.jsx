@@ -5,11 +5,11 @@ import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts"
 const Chort = ({details}) => {
   const chart = useChart({
     data: details,
-    series: [{ name: "sales", color: "orange.500" }],
+    series: [{ name: "sales", color: "yellow.500" }],
   })
 
   return (
-    <Chart.Root maxH="full" className="bg-black bg-opacity-5 dark:bg-opacity-10 p-4 rounded-lg shadow-sm"  chart={chart}>
+    <Chart.Root maxH="full" className="bg-black bg-opacity-5 dark:bg-opacity-10 px-4 rounded-lg shadow-sm"  chart={chart}>
       <BarChart barCategoryGap="2" data={chart.data}>
         <CartesianGrid stroke={chart.color("border.muted")} vertical={false} />
         <XAxis

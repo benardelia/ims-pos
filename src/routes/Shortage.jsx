@@ -44,7 +44,7 @@ const tota = Math.ceil(cont/10)
     const navigate = useNavigate();
     return (
         <div className="">
-        <h className="text-xl m-6   font-open font-bold">Stock shortage {cont}.</h>
+        <h className="text-xl m-6   font-roboto font-bold">Stock shortage {cont}.</h>
        <div className="m-6 flex flex-col justify-center place-items-center">
         { loading ? <PiSpinnerLight className="animate-spin size-8"/> :
             <Table.Root interactive className="dark:bg-opacity-20 sm:mx-6">
@@ -70,10 +70,10 @@ const tota = Math.ceil(cont/10)
 }
  {!loading &&
          <div className="flex mt-4 place-self-center items-center">
-                {previous && <button onClick={onPrev} className=" dark:bg-opacity-10   font-open rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
+                {previous && <button onClick={onPrev} className=" dark:bg-opacity-10   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
                        }
-                       <p className="text-xs mx-4 font-bold text-center   font-open">{page}/{tota}</p>
-                     {next && <button onClick={onNext} className=" dark:bg-opacity-10 rounded-full   font-open text-sm shadow-lg bg-gray-300 p-1"><BiChevronRight/></button>
+                       <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
+                     {next && <button onClick={onNext} className=" dark:bg-opacity-10 rounded-full   font-roboto text-sm shadow-lg bg-gray-300 p-1"><BiChevronRight/></button>
                       }
                 </div>
 }

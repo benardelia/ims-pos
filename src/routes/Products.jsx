@@ -48,13 +48,13 @@ const Products = () => {
             const tota = Math.ceil(total/10);
     return (
         <div className=" mx-0 sm:mx-4">
-        <h1 className="font-bold   font-open text-lg my-4">List of Products.</h1>
+        <h1 className="font-bold   font-roboto text-lg my-4">List of Products.</h1>
         <div className="mx-6 flex-col flex justify-center place-items-center">
         
     { loading ? <PiSpinnerLight className="animate-spin my-72 size-8"/> 
              :
     
-        <Table.Root size="lg" interactive variant="outline" className="bg-white h-full w-full   font-open dark:bg-opacity-10">
+        <Table.Root size="lg" interactive variant="outline" className="bg-white h-full w-full   font-roboto dark:bg-opacity-10">
             <Table.Header className="bg-[#f7d518] text-sm sticky top-0">
                 <Table.Row>
                     <Table.ColumnHeader className="dark:text-black">NO.</Table.ColumnHeader>
@@ -77,10 +77,10 @@ const Products = () => {
 }
 {!loading &&
 <div className="flex place-self-center mt-6 items-center">
-        {previous && <button onClick={handlePrevious} className=" border dark:bg-opacity-10   font-open rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
+        {previous && <button onClick={handlePrevious} className=" border dark:bg-opacity-10   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
                }
-               <p className="text-xs mx-4 font-bold text-center   font-open">{page}/{tota}</p>
-             {next && <button onClick={handleNext} className="border rounded-full   font-open text-sm shadow-lg bg-gray-300 dark:bg-opacity-10 p-1"><BiChevronRight/></button>
+               <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
+             {next && <button onClick={handleNext} className="border rounded-full   font-roboto text-sm shadow-lg bg-gray-300 dark:bg-opacity-10 p-1"><BiChevronRight/></button>
               }
         </div>
 }

@@ -16,8 +16,8 @@ import axiosInstance from "./axiosInstance";
 
 const User = ({user}) => {
     return (
-        <div className="flex font-open relative shadow-sm items-center mx-2 my-3 bg-gray-50 dark:bg-gray-700 py-2 px-2 rounded-md">
-            <Avatar name={user.name} size="sm"/>
+        <div className="flex font-roboto relative shadow-sm items-center mx-2 my-3 bg-gray-50 dark:bg-gray-700 py-2 px-2 rounded-md">
+            <Avatar name={user.name} src={user.image} size="sm"/>
             <div className="flex flex-col ml-6">
                 <h1 className="font-semibold text-gray-800">{user.name}</h1>
                 <p className="text-sm font-light">{user.joined}</p>
@@ -33,7 +33,7 @@ const User = ({user}) => {
    const Expense = () => {
     return (
         <div className="">
-            <button className="p-4 bg-green-500 font-open font-bold
+            <button className="p-4 bg-green-500 font-roboto font-bold
             ">Add Expense</button>
         </div>
     )
@@ -51,12 +51,12 @@ const Management = () => {
                 setUsers(response.data)
                 setLoading(false)
             })
-
+            
         },[])
  
         const navigate = useNavigate();
     return (
-        <div className="bg-inherit font-open w-full h-dvh">
+        <div className="bg-inherit font-roboto w-full h-dvh">
             <div className="w-full my-4 flex justify-between px-6">
                 <div className="flex flex-col">
                 <h1 className=" font-bold text-lg">User Management</h1>
@@ -83,10 +83,10 @@ const Management = () => {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                       {users.length>0 && users.map((user, index) => (<Table.Row key={user.id}  className=""><Table.Cell >{index + 1}</Table.Cell>
+                    {users?.map((user, index) => (<Table.Row key={user.id}  className=""><Table.Cell >{index + 1}</Table.Cell>
                                               <Table.Cell>
                                                 <div className="flex  text-gray-800 dark:text-gray-200 ">
-                                                   <Avatar size="xs" name={user.name}/>
+                                                   <Avatar size="xs" src={user.image} name={user.name}/>
                                                    <div className="flex ml-4 flex-col">
                                                     <h1 className="font-semibold  flex items-center">{user.username}</h1>
                                                    <div className="flex items-center"><p className="text-sm text-gray-500 dark:text-gray-100">{user.email}</p></div>

@@ -8,7 +8,7 @@ import { toaster, Toaster } from "../components/ui/toaster";
 import axiosInstance from "./axiosInstance";
 import { PiSpinner } from "react-icons/pi";
 import logo from "./asset/logo.png"
-
+import { Tabs, Menu } from "@chakra-ui/react";
 
   const Moon = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +19,8 @@ import logo from "./asset/logo.png"
     const [error, setError] = useState();
     const [selling, setSelling] = useState(null);
     const [errorSelling, setErrorSelling] = useState(false);
-    const [customer, setCustomer] = useState({})
+    const [customer, setCustomer] = useState(null)
+    const [customers, setCustomers] = useState()
     const [user,setUser] = useState({})
     const [sold, setSold] = useState(0);
     const [filters, setFilters] = useState("")
@@ -28,6 +29,8 @@ import logo from "./asset/logo.png"
     const [previous, setPrevious] = useState(null);
     const [reload, setReload] = useState(false)
     const [current, setCurrent] = useState(0)
+    const [saleAPI, setSaleAPI ] = useState("/store/sale")
+
 
       const token = localStorage.getItem("jwt_token");
         useEffect(()=> {
@@ -48,10 +51,9 @@ import logo from "./asset/logo.png"
                     duration: 5000
                   })
             })
-
             axiosInstance.get("/store/customers/")
             .then(res=>{
-                setCustomer(res.data.results);
+                setCustomers(res.data.results);
 
             }).catch(error => {
                 const err = error.response.data
@@ -68,7 +70,7 @@ import logo from "./asset/logo.png"
       return ()=> clearInterval(interval);
     },[url,reload, filters])
         const sale = {
-            customer: "269726ad-794d-4c35-bc31-a42b469c77c0",
+            customer: customer,
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity
@@ -80,7 +82,7 @@ import logo from "./asset/logo.png"
         setSelling(true);
         console.log(sale)
         try {
-         const res = await axiosInstance.post("/store/sale",
+         const res = await axiosInstance.post(saleAPI,
                 JSON.stringify(sale));
               setCart([])
               setSelling(false);
@@ -96,8 +98,8 @@ import logo from "./asset/logo.png"
              console.error(error)
              setSelling(false)
              toaster.create({
-                       title: err.detail,
-                       description: error.status,
+                       title: err.status,
+                       description: JSON.stringify(err),
                        type: "error",
                        duration: 5000
                      })
@@ -153,13 +155,23 @@ import logo from "./asset/logo.png"
 
     
     return (
-        <div className="flex h-dvh relative font-open w-full">
+        <div className="flex h-dvh relative font-roboto w-full">
             <Toaster/>
             {selling &&
             <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute bottom-6 left-4 dark:bg-opacity-20 bg-white">
-                <PiSpinner className="animate-spin"/><p className="font-open text-sm font-bold px-2">selling...</p></div>
+                <PiSpinner className="animate-spin"/><p className="font-roboto text-sm font-bold px-2">selling...</p></div>
   }
             <div className="sm:w-2/3 z-50 w-full h-dvh">
+            <Tabs.Root defaultValue="Sales" size="sm" w="-moz-fit-content" mb="3rem">
+                        <Tabs.List>
+                            <Tabs.Trigger value="Sales" asChild>
+                            <Button onClick={()=>setSaleAPI("store/sale")} className="py-6 w-1/2">make sales</Button>
+                          </Tabs.Trigger>
+                          <Tabs.Trigger value="orders" asChild>
+                           <Button onClick={()=>setSaleAPI("/store/new_order")} className="py-6  w-1/2">create order</Button>
+                        </Tabs.Trigger>
+                        </Tabs.List>
+                        </Tabs.Root>
                 <div className="flex justify-center my-6">
                     <input type="text" placeholder="Search Product" value={filters} onChange={(e) => setFilters(e.target.value)}
                         className="font-light mx-auto text-sm px-4 py-3 dark:bg-opacity-10 rounded-lg w-2/3"/>
@@ -172,7 +184,7 @@ import logo from "./asset/logo.png"
                      
                  </div>
                      : error ? 
-                     <p className="font-open text-center text-red-600">
+                     <p className="font-roboto text-center text-red-600">
                     Failed to fetch, Check the internet connection.
                     </p> : <p></p> }
                     {previous && <button onClick={onLess} className="flex justify-self-center"><BiChevronUp className="font-bold"/></button>}
@@ -190,27 +202,50 @@ import logo from "./asset/logo.png"
             </div>
             <div className="sm:w-1/3 invisible sm:visible w-0 relative h-dvh place-items-center">
             
-                <div className="w-full bg-white dark:bg-opacity-10 z-50 my-2 py-3 rounded-lg px-6">
-                    <h1 className="font-semibold flex items-center">Customers cart
+                <div className="w-full bg-white fex justify-between dark:bg-opacity-10 z-50 my-2 py-3 rounded-lg px-6">
+                   <> <h1 className="font-semibold flex items-center">Customers cart
                         <BiCart className=" mx-3" /> </h1>
+                    </>
+                             <Menu.Root>
+            <Menu.Trigger>
+                <button className="p-2"> 
+                   Select customer
+                </button>  
+            </Menu.Trigger>
+            <Portal>
+                <Menu.Positioner alignItems="left">
+                    <Menu.Content>
+                        {customers?.map(
+                            cus=>
+                        <Menu.Item onClick={()=>setCustomer(cus.uuid)}>
+                            {cus.first_name} {cus.last_name}
+                        </Menu.Item>
+                        )
+                        
+                        }
+                        
+                    </Menu.Content>
+                </Menu.Positioner>
+            </Portal>
+           </Menu.Root>
                 </div>
 
                 <div className="w-full flex flex-col shadow-sm rounded-md">
                     {cart.map(item => <div key={item.id} className="bg-white dark:bg-opacity-10 shadow-sm items-center m-2 rounded-xl flex p-2">
-                        <img src={`http://192.168.20.111:8000${item?.images?.[0]?.image}`} className="rounded-sm size-16"/>
+                        <img src={`grandypos.duckkdns.org${item?.images?.[0]?.image}`} className="rounded-sm size-16"/>
                         <div className=" ml-2 w-full">
                             <div className="flex justify-between">
-                                <h className="  font-open dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>
+                                <h className="  font-roboto dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>
                                 <button className="text-red-400 dark:text-red-200" onClick={() => removeFromCart(item.uuid)}><FaRegTrashAlt /></button>
                             </div>
-                            <p className="  font-open text-xs text-gray-500 dark:text-gray-400">Stock: {item.stock}</p>
+                            <p className="  font-roboto text-xs text-gray-500 dark:text-gray-400">Stock: {item.stock}</p>
                             <div className="flex justify-between">
-                                <h className="  font-open font-semibold text-sm">{item.price.toLocaleString()} Tshs</h>
+                                <h className="  font-roboto font-semibold text-sm">{item.price.toLocaleString()} Tshs</h>
                                 <div className="flex items-center">
                                     <button onClick={() => reduceQuantity(item.uuid)} className="size-5 rounded-full bg-gray-200 flex
     place-items-center text-gray-700 font-black
     justify-center">-</button>
-                                    <span className="px-2 text-sm font-semibold    font-open">{item.quantity}</span>
+                                    <span className="px-2 text-sm font-semibold    font-roboto">{item.quantity}</span>
                                     <button onClick={() => updateQuantity(item.uuid, item.quantity)} className="size-5 rounded-full bg-[#f7d518] text-gray-700 flex place-items-center font-black justify-center">+</button>
                                 </div>
                             </div>
@@ -232,7 +267,7 @@ import logo from "./asset/logo.png"
            
           >
             <Dialog.Trigger asChild>
-              <Button  className="p-2 my-4 dark:text-gray-950 font-bold   font-open shadow rounded-lg bg-[#f7d518] w-full"
+              <Button  className="p-2 my-4 dark:text-gray-950 font-bold   font-roboto shadow rounded-lg bg-[#f7d518] w-full"
               >SELL</Button>
             </Dialog.Trigger>
             <Portal>
@@ -243,7 +278,7 @@ import logo from "./asset/logo.png"
                     
                   </Dialog.Header>
                   <Dialog.Body >
-                    <p className="  font-open flex">
+                    <p className="  font-roboto flex">
                       You're about to sell  total price <p className=" ml-1 font-bold">{total.toLocaleString()} Tshs</p>
                     </p>
                   </Dialog.Body>
@@ -257,10 +292,10 @@ import logo from "./asset/logo.png"
               </Dialog.Positioner>
             </Portal>
           </Dialog.Root>
-                        <button onClick={() => setCart([])} className="p-2   font-open dark:bg-opacity-5 text-gray-700 dark:text-gray-50 mb-4 shadow text-sm rounded-lg
+                        <button onClick={() => setCart([])} className="p-2   font-roboto dark:bg-opacity-5 text-gray-700 dark:text-gray-50 mb-4 shadow text-sm rounded-lg
     bg-white w-full">CANCEL CART</button>
                     </div>
-                    : <p className="text-center   font-open font-bold my-36">The Cart Is Empty.</p>
+                    : <p className="text-center   font-roboto font-bold my-36">The Cart Is Empty.</p>
                 }
             
             </div>

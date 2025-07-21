@@ -4,7 +4,7 @@ import axiosInstance from "./axiosInstance";
 
 const Product = ({product, onAdd, image}) => {
     const [show, setShow] = useState(false);
-    const [imge, setImge] = useState(`https://grandypos.duckdns.org${image}`)
+    const [imge, setImge] = useState(`grandypos.duckkdns.org${image}`)
     
     const nime = product.name
     
@@ -17,20 +17,20 @@ const Product = ({product, onAdd, image}) => {
             <div>
             <div className="flex flex-col">
             <div className="flex">
-            <h className="font-semibold font-open text-sm  mr-2">{nime.length > 13 && !show ? product.name.slice(0,13) + ".." :
+            <h className="font-semibold font-roboto text-sm  mr-2">{nime.length > 13 && !show ? product.name.slice(0,13) + ".." :
             product.name }</h>
             {
               nime.length > 13 && <button onClick={()=> setShow(!show)} className="">{show ? <BiChevronLeft/> : <BiChevronRight/>}</button>
             }
             
             </div>
-            <p className="text-xs font-open">{product.price.toLocaleString()}/=</p>
+            <p className="text-xs font-roboto">{product.price.toLocaleString()}/=</p>
             {}
             </div>
             <p className="text-xs flex mt-2 font-light">{product.stock}  {product.stock > 1 ? <p className="ml-1">items</p> : <p className="ml-1">item</p>}</p>
             </div>
             <button onClick={onAdd}
-            className="rounded-full absolute mr-1 shadow-lg bottom-1 right-1 size-8 dark:text-gray-950 place-items-center font-bold bg-[#f7d518]"><BiCartAdd className="font-bold text-lg"/></button>
+            className="rounded-full absolute mr-1 shadow-xl bottom-1 right-1 size-9 dark:text-gray-950 place-items-center font-bold bg-[#f7d518]"><BiCartAdd className="font-bold text-lg"/></button>
             </div>
             </div>
     );

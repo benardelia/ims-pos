@@ -117,7 +117,7 @@ const NewInv = () => {
             </Field.Root>
              <Toaster/>
             <button onClick={handleSubmit}
-             className="bg-custom dark:text-gray-800 hover:font-bold rounded-md font-semibold py-2 w-full my-3">Add Product</button>
+             className="bg-[#f7d518] dark:text-gray-800 hover:font-bold rounded-md font-semibold py-2 w-full my-3">Add Product</button>
             </div>
         </Center>
     )

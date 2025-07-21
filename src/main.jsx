@@ -20,13 +20,16 @@ import Reports from './routes/reports';
 import Management from './routes/management';
 import Admin from './routes/admin';
 import NewInv from './routes/NewInv';
+import AddCustomer from './routes/AddCustomer';
 import Error from './routes/error';
 import Edit from './routes/Edit';
 import Register from './routes/Register';
 import Items from './routes/Items';
 import User from './routes/User';
 import { Prod } from './routes/prod';
-
+import Crew from './routes/crew';
+import Customers from './routes/customers';
+import Pending from './routes/Pending';
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([
@@ -79,8 +82,24 @@ const session = localStorage.getItem("jwt_token");
     Component: Edit
   },
   {
+    path: "/admin/view/:id",
+    Component: Crew
+  },
+  {
+    path: "/admin/customers",
+    Component: Customers
+  },
+  {
      path: "/admins/add-user",
      Component: User
+  },
+  {
+     path: "/admin/add-customer",
+     Component: AddCustomer
+  },
+  {
+     path: "/admin/pending-orders",
+     Component: Pending
   },
   {
     path: "/dashboard/product/:id",

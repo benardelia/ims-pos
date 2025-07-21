@@ -3,16 +3,22 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Toaster, toaster } from "../components/ui/toaster";
 import { BsArrowLeft } from "react-icons/bs";
-
+import axiosInstance from "./axiosInstance";
+import axiosAuthInstance from "./axiosAuthInstatnce";
 
   function User () {
+
+       const [img, setImg] = useState(null)
        const [formData, setFormData] = useState({
           username: "",
           email: "",
+          image: null,
           userType: "",
+          password: "",
           first_name: "",
           last_name: ""
         })
+        
         const [confirmPassword, setConfirmPassword] = useState("")
         const [loading, setLoading] = useState(null)
       
@@ -23,37 +29,41 @@ import { BsArrowLeft } from "react-icons/bs";
             [name]: files ? files[0] : value,
           });
         };
+        
+
         const handleSubmit = async (e) => {
           e.preventDefault();
           setLoading(true);
+          const data = new FormData();
+          data.append("username", formData.username)
+          data.append("email", formData.email)
+          if (formData.image) data.append("image", formData.image);
+          data.append("userType", formData.userType)
+          data.append("password", formData.password)
+          data.append("first_name", formData.first_name)
+          data.append("last_name", formData.last_name)
           try {
-             await axiosAuthInstance.post("/auth/users/", JSON.stringify(formData));
-            if (loading) {
-              toaster.create({
-                title: "creating account!",
-                type: "loading",
-                duration: 3000
-               })
-            }
+            const res = await axios.post("/auth/users/", data,{
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
             toaster.create({
-              title: " account created!",
+              title: res.message,
               type: "success",
-              duration: 1000
+              duration: 4000
              })
-              navigate("/admin/management");
-              setLoading(false);
+              console.log(res)
+              setLoading(false)
           } catch (error) {
-            if (error.response) {
-              const err = error.response.data
-              console.error("login failed:",error.response.data);
+              const err = error.response
+              console.error("login failed:",err);
               toaster.create({
-                title: error.message,
+                title: JSON.stringify(error.response),
                 type: "error",
                 duration: 3000
                })
               setLoading(false)
-            }
-            
           }
       
         }
@@ -61,11 +71,11 @@ import { BsArrowLeft } from "react-icons/bs";
           <div className="flex relative h-dvh overflow-y-auto w-full">
             <div className=' h-dvh overflow-y-auto py-6 w-full flex justify-center dark:bg-black bg-[#e6e7e7]'>
                 <Link to="/admin/management" className="absolute left-12 top-4"><BsArrowLeft/></Link>
-              <div className="w-auto font-open px-16 pb-12 space-y-1 shadow-xl rounded-xl bg-white dark:bg-opacity-10">
-                <h2 className=" font-open text-center mt-8 text-slate-900 dark:text-gray-50">
+              <div className="w-auto font-roboto px-16 pb-12 space-y-1 shadow-xl rounded-xl bg-white dark:bg-opacity-10">
+                <h2 className=" font-roboto text-center mt-8 text-slate-900 dark:text-gray-50">
                    Add user
                 </h2>
-                <form onSubmit={handleSubmit} className=" space-y-6 w-96">
+                <form className=" space-y-4 w-96">
                   <div>
                     <Input variant="flushed"
                       type="text"
@@ -74,7 +84,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.username}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 sm:py-3  mt-1 sm:text-xs bg-[#eceaea] dark:bg-opacity-10 dark:border-gray-50 text-gray-100 border-gray-900 border-b text-sm"
+                      className="w-full px-4 py-2 sm:py-3  mt-1 sm:text-xs bg-[#eceaea] dark:bg-opacity-10 dark:border-gray-50 border-gray-900 border-b text-sm"
                     />
                   </div>
                   <div>
@@ -86,7 +96,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full dark:bg-opacity-10 px-4 py-2 bg-[#eceaea] text-gray-100 border-gray-900 dark:border-gray-50  sm:py-3 mt-1  text-sm sm:text-xs border-b"
+                      className="w-full dark:bg-opacity-10 px-4 py-2 bg-[#eceaea] border-gray-900 dark:border-gray-50  sm:py-3 mt-1  text-sm sm:text-xs border-b"
                     />
                   </div>
                     <NativeSelect.Root  variant="flushed" size="xs" width="full" p="" >
@@ -125,7 +135,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={confirmPassword}
                       onChange={(e)=>setConfirmPassword(e.target.value)}
                       required
-                      className="w-full px-4 py-2 bg-[#eceaea] dark:border-gray-50 dark:bg-opacity-10 text-gray-100 border-b-gray-900 sm:py-3 mt-1 sm:text-xs border-b "/>
+                      className="w-full px-4 py-2 bg-[#eceaea] dark:border-gray-50 dark:bg-opacity-10  border-b-gray-900 sm:py-3 mt-1 sm:text-xs border-b "/>
                     {(formData.password && confirmPassword) !== "" && formData.password !== confirmPassword ? <p className='text-xs mt-2 font-semibold  dark:text-red-400 text-red-600 '>Passwords do not match..</p> :  ( (formData.password && confirmPassword) === "" ) ? <p>  </p> : <p className='text-green-500 text-xs mt-2 font-bold font-poppins'>Passwords match</p> }
                   </div>
                   <div>
@@ -137,7 +147,7 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.first_name}
                       onChange={handleChange}
                       required
-                      className="w-full bg-[#eceaea] dark:bg-opacity-10 text-gray-100 dark:border-gray-50 border-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b b text-sm"
+                      className="w-full bg-[#eceaea] dark:bg-opacity-10 dark:border-gray-50 border-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b b text-sm"
                     />
                   </div>
                   <div>
@@ -148,16 +158,16 @@ import { BsArrowLeft } from "react-icons/bs";
                       value={formData.last_name}
                       onChange={handleChange}
                       required
-                      className="w-full dark:border-gray-50 bg-[#eceaea] dark:bg-opacity-10 text-gray-100 border-b-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b text-sm"
+                      className="w-full dark:border-gray-50 bg-[#eceaea] dark:bg-opacity-10 border-b-gray-900 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b text-sm"
                     />
                   </div>
                   <div>
                     <div className="flex mb-2 items-center mx-1">
-                    
+                    <input type="file" onChange={handleChange} className="bg-[#f0ebeb] w-full border-b border-black dark:border-gray-200  text-sm py-2 px-2 dark:bg-opacity-10"/>
                     </div>
                     <button
-                      type="submit"
-                      className="w-full px-4 hover:font-semibold bg-custom text-sm py-2 font-semibold text-gray-900 sm:text-sm  rounded-sm focus:ring-opacity-50"
+                      onClick={handleSubmit}
+                      className="w-full px-4 hover:font-semibold bg-yellow-500 text-sm py-2 font-semibold text-gray-900 sm:text-sm  rounded-sm focus:ring-opacity-50"
                     >
                       Add
                     </button>

@@ -86,10 +86,10 @@ const formData = new FormData();
 
    if (file) {
     formData.append("image", file)
-    formData.append("product", product.uuid); 
+    formData.append("product", id); 
    }
    
-    await axios.post("https://grandypos.duckdns.org/store/image/",formData,{
+    await axios.post("grandypos.duckkdns.org/store/image/",formData,{
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -145,7 +145,7 @@ const formData = new FormData();
           <input type="file" onChange={handleFileChange} className="bg-[#f0ebeb] w-full border-b border-black dark:border-gray-200  text-sm py-2 px-2 dark:bg-opacity-10"/>
          <button onClick={handleImg} className="mx-4"><BiArrowToRight/></button>
          </div>
-         <button onClick={handlePut} className="bg-custom py-2 text-gray-900 w-full rounded-sm" type="submit">Update Product</button>
+         <button onClick={handlePut} className="bg-[#f7d518] py-2 text-gray-900 w-full rounded-sm" type="submit">Update Product</button>
          <Toaster/>
           
          </div>
