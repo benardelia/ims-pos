@@ -56,7 +56,7 @@ const Customers = () => {
                               </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                               {users.length>0 && users.map((user, index) => (<Table.Row key={user.id}  className=""><Table.Cell >{index + 1}</Table.Cell>
+                               {users.length>0 && users.map((user, index) => (<Table.Row key={user.id}  className="dark:bg-[#3a3939]"><Table.Cell >{index + 1}</Table.Cell>
                                                       <Table.Cell>
                                                         <div className="flex  text-gray-800 dark:text-gray-200 ">
                                                            <Avatar size="xs" name={user.name}/>

@@ -12,7 +12,7 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import axiosInstance from "./axiosInstance";
 import { PiSpinnerLight } from "react-icons/pi";
 import { Menu } from "@chakra-ui/react";
-import { MdOutlinePendingActions } from "react-icons/md";
+import { MdOutlinePendingActions, MdFilterAlt } from "react-icons/md";
 
 
 
@@ -92,16 +92,24 @@ const Sales = () => {
 
    const Orders = () => {
     const [orders, setOrders] = useState(null);
+    const [statusFilter, setStatusFilter] = useState('')
+    const [dateFilter, setDateFilter] = useState(null)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
      const [total, setTotal] = useState(null)
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null);
-    const [url, setUrl] = useState("/store/orders/")
+    
+    const [url, setUrl] = useState(`/store/orders/`)
     const [page, setPage] = useState(1)                
     const navigate = useNavigate()
+
+    const params = {
+        ...(statusFilter && {status: statusFilter}),
+        ...(dateFilter && {created_at: dateFilter}),
+    };
               useEffect(()=> {
-                axiosInstance.get(url)
+                axiosInstance.get(url, { params })
                 .then((res)=> {
                     setOrders(res.data.results)
                     setNext(res.data.next)
@@ -114,27 +122,54 @@ const Sales = () => {
                     }
                 )
                 
-               },[url])  
+               },[url, statusFilter, dateFilter])
+               
                const handleNext = () => {
                 setUrl(next)
                 setPage(page + 1)
                 setLoading(true)
             }
-           const handlePrevious = () => {
+               const handlePrevious = () => {
                  setUrl(previous)
                  setPage( page - 1)
                  setLoading(true)
             }
             const tota = Math.ceil(total/10);
         
-
     return (
         <div className=" h-full font-roboto w-full pb-12">    
               <div className="mx-4 flex flex-col place-items-center">
               {loading ? <PiSpinnerLight className="animate-spin m-auto size-8 flex place-self-center"/> :
                error ? <p className="  font-roboto text-center">Error loading</p>
                           :
-                          <TableScrollArea h="26rem" w="full">
+                          <>
+                             <div className="flex w-full mx-6 justify-between">
+            <p>{status}</p>
+            <div>
+            <input type="date" value={dateFilter} onChange={(e)=>setDateFilter(e.target.value)} className="p-2 m-2 border-1 rounded-lg font-semibold text-sm font-open"/>
+          <Menu.Root className="absolute top-0 left-2/3">
+                                  <Menu.Trigger>
+                                      <Button className="dark:text-gray-100 text-sm" > 
+                                         <MdFilterAlt/>
+                                      </Button>
+                                  </Menu.Trigger>
+                                  <Portal>
+                                      <Menu.Positioner alignContent="end">
+                                          <Menu.Content>
+                                              <Menu.Item onClick={()=>setStatusFilter("Pending")}>
+                                               pending
+                                              </Menu.Item>
+                                              <Menu.Item onClick={()=>setStatusFilter("Completed")}> 
+                                                  completed
+                                              </Menu.Item>
+                                              
+                                          </Menu.Content>
+                                      </Menu.Positioner>
+                                  </Portal>
+                                 </Menu.Root>
+                </div>
+        </div>
+                          <TableScrollArea maxH="24rem" w="full">
                             <Table.Root interactive shadow="md" variant="outline" className=" bg-white h-2/3 dark:bg-opacity-10">
                                 <Table.Header className="bg-[#f7d518] sticky z-50 top-0 text-sm">
                                     <Table.Row>
@@ -146,7 +181,7 @@ const Sales = () => {
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
-                                    {orders.map((order, i) => 
+                                    {orders?.map((order, i) => 
                                     <Table.Row key={order.uuid}>
                                         <Table.Cell className="text-xs">{i + 1}</Table.Cell>
                                         <Table.Cell className="text-xs ">{order.status}</Table.Cell>
@@ -158,15 +193,17 @@ const Sales = () => {
                                 </Table.Body>
                             </Table.Root>
                             </TableScrollArea>
+                            </>
    }
-                            {!loading &&
-                            <div className="flex place-self-center items-center">
-                                    {previous && <button onClick={handlePrevious} className=" border dark:bg-gray-800   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>}
-                                           <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
-                                         {next && <button onClick={handleNext} className="border rounded-full font-roboto text-sm shadow-lg bg-gray-300 dark:bg-gray-800 p-1"><BiChevronRight/></button>
-                                          }
-                                    </div>
-                            }
+                         {!loading &&
+                                             <div className="flex mt-4 w-full justify-between place-self-center items-center">
+                                                    {previous && <button onClick={handlePrevious} className=" dark:bg-opacity-10 font-roboto rounded-lg text-sm shadow-lg bg-white p-3 w-16 place-items-center"><BiChevronLeft/></button>
+                                                           }
+                                                           <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
+                                                         {next && <button onClick={handleNext} className=" dark:bg-opacity-10 rounded-lg  place-items-center font-roboto text-sm shadow-lg bg-white w-16 p-3"><BiChevronRight/></button>
+                                                          }
+                                                    </div>
+                                    }
 
         </div>
         </div>
@@ -211,6 +248,8 @@ const Sales = () => {
     const [count, setCount] = useState(null)
     const [costumer, setCostumer] = useState(null)
     const [dash, setDash] = useState(null)
+    const [date, setDate] = useState("")
+    const [status, setStatus] = useState("")
      useEffect(()=> {
                 axiosInstance.get(url)
                 .then((res)=> {
@@ -271,25 +310,8 @@ const Sales = () => {
             </div>
 
             </div>
-            
-            <Tabs.Root defaultValue="Sales" size="sm" w="full" mb="1rem">
-            <Tabs.List>
-                <Tabs.Trigger value="Sales" asChild>
-                <div onClick={() =>setView("sales") } className="text-sm font-semibold pr-4">
-                 Sales
-               </div>
-              </Tabs.Trigger>
-              <Tabs.Trigger value="orders" asChild>
-               <div onClick={() =>setView("orders") } className="text-sm font-semibold pr-4">
-                 Orders
-               </div>
-            </Tabs.Trigger>
-            </Tabs.List>
-            </Tabs.Root>
-            <div className="w-full h-2/3">
-               {
-                view === "sales" ? <Sales/> : <Orders/>
-               }
+            <div className="w-full pt-16 h-2/3">
+                 <Orders/>
             </div>
             
         </div>

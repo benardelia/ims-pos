@@ -158,7 +158,7 @@ const Dash = () => {
                 <h1 className="  font-font-roboto font-semibold">Customers {customers?.count}</h1>
                 {customers?.map(cus=>
                 <div onClick={()=>navigate(`/admin/view/${cus.uuid}`)} className="p-2 my-2 bg-white dark:bg-opacity-10 flex rounded-xl">
-                    <Avatar size="sm" src={`grandypos.duckkdns.org${cus.image}`}  name={cus.first_name}/>
+                    <Avatar size="sm" src={`http://127.0.0.1:8000${cus.image}`}  name={cus.first_name}/>
                     <div className="flex mx-4 flex-col">
                     <p className="  font-font-roboto font-semibold text-sm">{cus.first_name} {cus.last_name}</p>
                     <p className="text-xs   font-font-roboto dark:text-gray-400 text-gray-700">{cus.phone}</p>

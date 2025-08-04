@@ -25,6 +25,7 @@ import { useRef } from "react"
 import { Toaster, toaster } from "../components/ui/toaster";
 import axiosAuthInstance from "./axiosAuthInstatnce";
 import { PiSpinner, PiSpinnerFill } from "react-icons/pi";
+import { FaSpinner } from "react-icons/fa6";
 
 export const Lead = () => {
   return (
@@ -73,10 +74,10 @@ const Login = () => {
       </div>
       
       <Link to="/" className="absolute text-white left-8 top-8"><BiArrowBack/></Link>
-      <div className="flex flex-col relative py-auto w-full sm:w-1/2 items-center justify-center  min-h-screen bg-[#082d2e]">
+      <div className="flex flex-col relative py-auto w-full sm:w-1/2 items-center justify-center  min-h-screen bg-[#f3fdfd]">
         <div className=" sm:py-12  justify-center sm:w-2/3 w-10/12 h-3/4 sm:h-5/6">
-          <h2 className="text-2xl font-poppins text-gray-100 font-semibold">Welcome</h2>
-          <p className="sm:text-xs text-sm  text-gray-100 font-roboto">please enter login details below</p>
+          <h2 className="text-2xl font-poppins text-gray-900 font-semibold">Welcome</h2>
+          <p className="sm:text-xs text-sm  text-gray-900 font-roboto">please enter login details below</p>
           <form onSubmit={handleSubmit} className="flex flex-col justify-center h-4/5">
           <div className="flex flex-col space-y-12 my-16">
             <Field.Root>
@@ -87,7 +88,7 @@ const Login = () => {
                 placeholder="Enter Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 border-b mt-1 bg-[#1a5052] text-gray-100 border-b-gray-50  h-10 sm:h-10  text-md sm:text-sm"
+                className="w-full px-4 border-b mt-1 bg-[#c6dfe0] text-gray-900 border-b-gray-500  h-10 sm:h-10  text-md sm:text-sm"
               />
             </Field.Root>
               <PasswordInput
@@ -95,26 +96,26 @@ const Login = () => {
               variant="flushed"
               placeholder="Enter Password"
                 value={password} onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#1a5052] px-4 border-b text-gray-100  border-b-gray-50 mt-1 h-10 sm:h-10 text-md sm:text-sm"
+                className="w-full bg-[#c6dfe0] px-4 border-b text-gray-900  border-b-gray-500 mt-1 h-10 sm:h-10 text-md sm:text-sm"
               />
              
             </div>
             <div className="flex justify-between my-8">
                <div className="flex items-center"><input type='checkbox' className=" border mx-2 border-slate-900 " />
-               <p className=" font-light text-gray-100 text-sm">remember me</p>
+               <p className=" font-light text-gray-900 text-sm">remember me</p>
                </div>
-              <Link className="text-sm font-light text-gray-100 underline">Forgot password?</Link>
+              <Link className="text-sm font-light text-gray-900 underline">Forgot password?</Link>
             </div>
             <button
               type="submit" disabled={loading}
                className="py-3 bg-green-400 text-sm sm:text-sm h-10 sm:h-10 rounded-md text-gray-900 hover:font-bold font-semibold"
             >
-              Sign In
+              {loading ? <FaSpinner className="animate-spin justify-self-center"/> : "Sign In"}
             </button>
           </form>
         </div>
-        {loading && <div className="font-roboto text-xs bg-white bg-opacity-10 dark:bg-black p-4 rounded-xl absolute text-gray-100 dark:text-gray-900 top-12 flex items-center right-1/6"><PiSpinner className="mr-2 text-lg animate-spin"/> logging in..</div>}
-        <p className="   font-roboto text-sm text-gray-100 font-light">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
+         
+        <p className="   font-roboto text-sm text-gray-900 font-light">Don't have an account? Please <Link to="/register" className="underline">register</Link></p>
       </div>
     </div>
   );

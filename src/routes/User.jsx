@@ -23,31 +23,29 @@ import axiosAuthInstance from "./axiosAuthInstatnce";
         const [loading, setLoading] = useState(null)
       
         const handleChange = (e) => {
-          const { name, value, files } = e.target;
+          const { name, value } = e.target;
           setFormData({
             ...formData,
-            [name]: files ? files[0] : value,
+            [name] : value,
           });
         };
-        
-
-        const handleSubmit = async (e) => {
-          e.preventDefault();
-          setLoading(true);
-          const data = new FormData();
+        const data = new FormData();
+        if (img) {
           data.append("username", formData.username)
           data.append("email", formData.email)
-          if (formData.image) data.append("image", formData.image);
           data.append("userType", formData.userType)
           data.append("password", formData.password)
           data.append("first_name", formData.first_name)
           data.append("last_name", formData.last_name)
+           }
+
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+          setLoading(true);
+          
+          
           try {
-            const res = await axios.post("/auth/users/", data,{
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            });
+            const res = await axiosAuthInstance.post("https://grandypos.duckdns,org/auth/users/", data);
             toaster.create({
               title: res.message,
               type: "success",
@@ -56,10 +54,10 @@ import axiosAuthInstance from "./axiosAuthInstatnce";
               console.log(res)
               setLoading(false)
           } catch (error) {
-              const err = error.response
+              const err = error.response.data
               console.error("login failed:",err);
               toaster.create({
-                title: JSON.stringify(error.response),
+                title: JSON.stringify(err),
                 type: "error",
                 duration: 3000
                })
@@ -163,7 +161,7 @@ import axiosAuthInstance from "./axiosAuthInstatnce";
                   </div>
                   <div>
                     <div className="flex mb-2 items-center mx-1">
-                    <input type="file" onChange={handleChange} className="bg-[#f0ebeb] w-full border-b border-black dark:border-gray-200  text-sm py-2 px-2 dark:bg-opacity-10"/>
+                    <input type="file" onChange={(e)=>setImg(e.target.value)} className="bg-[#f0ebeb] w-full border-b border-black dark:border-gray-200  text-sm py-2 px-2 dark:bg-opacity-10"/>
                     </div>
                     <button
                       onClick={handleSubmit}

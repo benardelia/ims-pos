@@ -7,6 +7,9 @@ import { Skeleton } from "@chakra-ui/react";
 import { FaSpinner } from "react-icons/fa";
 import { PiSpinnerLight } from "react-icons/pi";
 import axiosInstance from "./axiosInstance";
+import { Menu,Button, Portal } from "@chakra-ui/react";
+
+import { MdFilterAlt } from "react-icons/md";
 
 const Sales = () => {
     const [sales, setSales] = useState([]);
@@ -16,20 +19,25 @@ const Sales = () => {
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null);
     const [cont, setCont] = useState(null)
-     const [url, setUrl] = useState("/store/payments")
+    const [date, setDate] = useState(null);
+    const [status, setStatus] = useState(null)
+     const [url, setUrl] = useState("/store/orders/")
      const [page, setPage] = useState(1)
-
-            useEffect(()=>{
-             axiosInstance.get(url)
-             .then(res=>{
-                setCont(res.data.count)
-                setSales(res.data.results)
-                setNext(res.data.next)
-                setPrevious(res.data.previous)
-                setLoading(false)
-             }
+        const params = {
+        ...(status && {status: status}),
+        ...(date && {created_at: date}),
+    }
+    useEffect(()=>{
+     axiosInstance.get(url, {params})
+        .then(res=>{
+        setCont(res.data.count)
+        setSales(res.data.results)
+        setNext(res.data.next)
+        setPrevious(res.data.previous)
+        setLoading(false)
+        }
              )
-            },[url])
+            },[url, date, status])
 const onNext = () => {
     setUrl(next)
     setLoading(true)
@@ -42,11 +50,37 @@ const onPrev = () => {
 }
 const tota = Math.ceil(cont/10)
     return (
-        <div className="h-dvh">
+        <div className="h-dvh p-6">
         <h className="text-xl font-bold pb-8"> Sales.</h>
-        <div className=" h-full m-6 flex flex-col place-items-center relative">
+        <div className=" h-full flex flex-col place-items-center relative">
             { loading ? <PiSpinnerLight className="animate-spin size-8 flex place-self-center"/> :
-        <Table.Root interactive variant="outline"className="bg-white font-semibold font-roboto dark:bg-opacity-10 mr-16" >
+        <><div className="flex w-full mx-6 justify-between">
+            <p></p>
+            <div>
+            <input type="date" value={date} onChange={(e)=>setDate(e.target.value)} className="p-2 m-2 border-1 rounded-lg font-semibold text-sm font-open"/>
+            <Menu.Root className="absolute top-0 left-2/3">
+                                              <Menu.Trigger>
+                                                  <Button className="dark:text-gray-100 text-sm" > 
+                                                     <MdFilterAlt/>
+                                                  </Button>
+                                              </Menu.Trigger>
+                                              <Portal>
+                                                  <Menu.Positioner alignContent="end">
+                                                      <Menu.Content>
+                                                          <Menu.Item onClick={()=>setStatus("Pending")}>
+                                                           pending
+                                                          </Menu.Item>
+                                                          <Menu.Item onClick={()=>setStatus("Completed")}> 
+                                                              completed
+                                                          </Menu.Item>
+                                                          
+                                                      </Menu.Content>
+                                                  </Menu.Positioner>
+                                              </Portal>
+                                             </Menu.Root>
+                                             </div>
+        </div>
+        <Table.Root interactive variant="outline"className="bg-white font-semibold font-roboto dark:bg-opacity-10 mx-16 w-full" >
             <Table.Header>
                 <Table.Row className="bg-[#f7d518] " mt="5rem">
                 <Table.ColumnHeader className="font-bold dark:text-black">No.</Table.ColumnHeader>
@@ -61,17 +95,18 @@ const tota = Math.ceil(cont/10)
                 <Table.Row>
                     <Table.Cell className="">{i + 1}</Table.Cell>
                     <Table.Cell className="font-normal">{sale.status}</Table.Cell>
-                    <Table.Cell className="font-normal text-xs">{sale.payment_date.slice(0,20)}</Table.Cell>
+                    <Table.Cell className="font-normal text-xs">{sale.created_at?.slice(0,20)}</Table.Cell>
                     <Table.Cell className="font-semibold" textAlign="center">{sale.amount}</Table.Cell>
                 </Table.Row>)}
             </Table.Body>
-        </Table.Root>}
+        </Table.Root>
+        </>}
         {!loading &&
-         <div className="flex mt-4 place-self-center items-center">
-                {previous && <button onClick={onPrev} className=" dark:bg-opacity-10   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
+         <div className="flex mt-4 w-full justify-between place-self-center items-center">
+                {previous && <button onClick={onPrev} className=" dark:bg-opacity-10 font-roboto rounded-lg text-sm shadow-lg bg-white p-3 w-16 place-items-center"><BiChevronLeft/></button>
                        }
                        <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
-                     {next && <button onClick={onNext} className=" dark:bg-opacity-10 rounded-full   font-roboto text-sm shadow-lg bg-gray-300 p-1"><BiChevronRight/></button>
+                     {next && <button onClick={onNext} className=" dark:bg-opacity-10 rounded-lg  place-items-center font-roboto text-sm shadow-lg bg-white w-16 p-3"><BiChevronRight/></button>
                       }
                 </div>
 }

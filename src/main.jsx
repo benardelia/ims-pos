@@ -30,6 +30,7 @@ import { Prod } from './routes/prod';
 import Crew from './routes/crew';
 import Customers from './routes/customers';
 import Pending from './routes/Pending';
+import Jack from './routes/Jack';
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([
@@ -112,7 +113,7 @@ const session = localStorage.getItem("jwt_token");
       {
         index: true,
         path: "home",
-        Component: Moon
+        Component: Jack
       },
       {
         path: "sales",
