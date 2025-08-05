@@ -109,6 +109,7 @@ const Header = () => {
                 : "text-gray-800 my-1 font-roboto text-sm flex items-center font-normal dark:text-gray-50 px-2 py-2"}>
               <AiOutlineStock className="mr-2"/> Sales
             </NavLink>
+            
             <NavLink to="shortage" className={({ isActive }) =>
                 isActive ? "px-3 py-2 font-roboto text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-roboto text-sm flex items-center my-1 font-normal dark:text-gray-50 px-2 py-2"}>

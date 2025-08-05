@@ -66,13 +66,13 @@ import { Avatar } from "../components/ui/avatar";
                  created_by: res.data.created_by
                 })
                 axiosInstance.get(`/core/user/${res.data.created_by}`)
-                .then(
-                 setUser(res.data)   
-                )
+                .then(re=>{
+                  setUser(re.data)
+                })
                 axiosInstance.get(`/store/customer/${res.data.customer}`)
-                .then(
-                 setCustomer(res.data)   
-                )
+                .then(re=> {
+                  setCustomer(re.data)
+                })
             })
     
     }, [])
@@ -158,7 +158,7 @@ import { Avatar } from "../components/ui/avatar";
               </p>
               <div className="flex items-center">
                 <Avatar src={user?.image}/>
-              <p className="text-sm text-gray-900 dark:text-white">
+              <p className="text-sm px-4 text-gray-900 dark:text-white">
                 {user?.username}
               </p>
             </div>
@@ -177,8 +177,8 @@ import { Avatar } from "../components/ui/avatar";
               </p>
               <div className="flex items-center">
                 <Avatar src={customer?.image}/>
-              <p className="text-sm text-gray-900 dark:text-white">
-                {customer?.first_name}
+              <p className="text-sm px-4 text-gray-900 dark:text-white">
+                {customer?.first_name} {customer?.last_name}
               </p>
             </div>
             </div>

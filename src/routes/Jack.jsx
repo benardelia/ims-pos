@@ -10,6 +10,7 @@ import { PiSpinner } from "react-icons/pi";
 import logo from "./asset/logo.png"
 import { Tabs, Menu } from "@chakra-ui/react";
 import { CloseButton } from "../components/ui/close-button";
+import axios from "axios";
 
 const Jack = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -122,7 +123,9 @@ const Jack = () => {
     }
   }
 
-  // creating customer
+
+
+  
   const handleCus = (e) => {
     e.preventDefault();
 
@@ -142,7 +145,7 @@ const Jack = () => {
       type: "loading"
     }))
 
-    axiosInstance.post("/store/customers/", cus)
+    axios.post("/store/customers/", cus)
       .then(
         res => {
           toaster.create({

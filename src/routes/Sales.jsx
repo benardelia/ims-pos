@@ -11,6 +11,18 @@ import { Menu,Button, Portal } from "@chakra-ui/react";
 
 import { MdFilterAlt } from "react-icons/md";
 
+
+ const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+ }
+
 const Sales = () => {
     const [sales, setSales] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,10 +35,17 @@ const Sales = () => {
     const [status, setStatus] = useState(null)
      const [url, setUrl] = useState("/store/orders/")
      const [page, setPage] = useState(1)
+
+     const handleDateChange = async (e) => {
+    const dat = e.target.value;
+    setDate(dat);
+     }
         const params = {
         ...(status && {status: status}),
         ...(date && {created_at: date}),
     }
+  
+
     useEffect(()=>{
      axiosInstance.get(url, {params})
         .then(res=>{
@@ -57,7 +76,7 @@ const tota = Math.ceil(cont/10)
         <><div className="flex w-full mx-6 justify-between">
             <p></p>
             <div>
-            <input type="date" value={date} onChange={(e)=>setDate(e.target.value)} className="p-2 m-2 border-1 rounded-lg font-semibold text-sm font-open"/>
+            <input type="date" value={date} onChange={handleDateChange} className="p-2 m-2 border-1 rounded-lg font-semibold text-sm font-open"/>
             <Menu.Root className="absolute top-0 left-2/3">
                                               <Menu.Trigger>
                                                   <Button className="dark:text-gray-100 text-sm" > 
@@ -95,7 +114,7 @@ const tota = Math.ceil(cont/10)
                 <Table.Row>
                     <Table.Cell className="">{i + 1}</Table.Cell>
                     <Table.Cell className="font-normal">{sale.status}</Table.Cell>
-                    <Table.Cell className="font-normal text-xs">{sale.created_at?.slice(0,20)}</Table.Cell>
+                    <Table.Cell className="font-normal text-xs">{formatDate(sale.created_at)}</Table.Cell>
                     <Table.Cell className="font-semibold" textAlign="center">{sale.amount}</Table.Cell>
                 </Table.Row>)}
             </Table.Body>

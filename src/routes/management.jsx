@@ -86,7 +86,7 @@ const Management = () => {
                     {users?.map((user, index) => (<Table.Row key={user.id}  className=""><Table.Cell >{index + 1}</Table.Cell>
                                               <Table.Cell>
                                                 <div className="flex  text-gray-800 dark:text-gray-200 ">
-                                                   <Avatar size="xs" src={`https://grandypos.duckdns,org/user.image`} name={user.name}/>
+                                                   <Avatar size="xs" src={`https://grandypos.duckdns.org${user.image}`} name={user.name}/>
                                                    <div className="flex ml-4 flex-col">
                                                     <h1 className="font-semibold  flex items-center">{user.username}</h1>
                                                    <div className="flex items-center"><p className="text-sm text-gray-500 dark:text-gray-100">{user.email}</p></div>

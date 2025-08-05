@@ -148,7 +148,7 @@ const Dash = () => {
             </div>
             <div className="w-1/4 px-2">
             <div className="flex flex-col space-y-6 mx-4 bg-white dark:bg-opacity-10 place-items-center justify-center rounded-xl shadow p-12">
-                <Avatar src={user?.image} className=" sm:size-20 size-16 outline-2 outline outline-green-700 outline-offset-4 shadow-sm"/>
+                <Avatar src={`https://grandypos.duckdns.org${user?.image}`} className=" sm:size-20 size-16 outline-2 outline outline-green-700 outline-offset-4 shadow-sm"/>
                 <div className="flex flex-col place-items-center justify-center">
                 <h1 className="font-roboto  font-semibold">{user?.username}</h1>
                 <p className="text-xs font-roboto dark:text-gray-400 text-gray-600">{user?.email}</p>
@@ -158,7 +158,7 @@ const Dash = () => {
                 <h1 className="  font-font-roboto font-semibold">Customers {customers?.count}</h1>
                 {customers?.map(cus=>
                 <div onClick={()=>navigate(`/admin/view/${cus.uuid}`)} className="p-2 my-2 bg-white dark:bg-opacity-10 flex rounded-xl">
-                    <Avatar size="sm" src={`http://127.0.0.1:8000${cus.image}`}  name={cus.first_name}/>
+                    <Avatar size="sm" src={`https://grandypos.duckdns.org${cus.image}`}  name={cus.first_name}/>
                     <div className="flex mx-4 flex-col">
                     <p className="  font-font-roboto font-semibold text-sm">{cus.first_name} {cus.last_name}</p>
                     <p className="text-xs   font-font-roboto dark:text-gray-400 text-gray-700">{cus.phone}</p>

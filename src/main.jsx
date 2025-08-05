@@ -127,6 +127,7 @@ const session = localStorage.getItem("jwt_token");
         path: "shortage",
         Component: Shortage
       },
+      
     ],
   },
  ]);

@@ -105,7 +105,7 @@ const Crew = () => {
            </div>
                 </div>
                 <div className="p-4 items-center dark:bg-opacity-10 bg-white h-28 m-4 flex shadow-lg font-open rounded-lg">
-                    <Avatar src={`grandypos.duckkdns.org${user?.image}`} h="4rem" w="4rem"/>
+                    <Avatar src={`https://grandypos.duckdns.org${user?.image}`} h="4rem" w="4rem"/>
                     <div className="flex ml-10 flex-col">
                        {success &&
                        <>

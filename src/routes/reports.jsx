@@ -89,6 +89,16 @@ const Sales = () => {
     );
   }
 
+ const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+}
 
    const Orders = () => {
     const [orders, setOrders] = useState(null);
@@ -186,7 +196,7 @@ const Sales = () => {
                                         <Table.Cell className="text-xs">{i + 1}</Table.Cell>
                                         <Table.Cell className="text-xs ">{order.status}</Table.Cell>
                                         <Table.Cell textAlign="center" className="text-xs">{order.items.length}</Table.Cell>
-                                        <Table.Cell textAlign="center" className="text-xs ">{order.created_at.slice(0,20)}</Table.Cell>
+                                        <Table.Cell textAlign="center" className="text-xs ">{formatDate(order.created_at)}</Table.Cell>
                                         <Table.Cell textAlign="center"><button onClick={()=>navigate(`/orders/${order.uuid}`)} className="underline text-xs">see items</button></Table.Cell>
                                     </Table.Row>
                                      )}
