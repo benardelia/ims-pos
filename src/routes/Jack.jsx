@@ -145,7 +145,7 @@ const Jack = () => {
       type: "loading"
     }))
 
-    axios.post("/store/customers/", cus)
+    axiosInstance.post("/store/customers/", cus)
       .then(
         res => {
           toaster.create({

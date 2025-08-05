@@ -118,9 +118,9 @@ const formData = new FormData();
   return (
     <div className="h-dvh    font-open flex justify-center relative bg-[#dddbdb] dark:bg-black first-line: w-full">
       <Link to="/admin/inventory" className="absolute top-8 left-12"><RiArrowLeftLine/></Link>
-      <div className="rounded-md justify-center h-auto my-6 bg-white dark:bg-opacity-10 flex-col flex px-8 w-auto">
+      <div className="rounded-md justify-center my-6 bg-white dark:bg-opacity-10 flex-col flex px-8 w-auto">
       <h1 className="font-bold font-open text-center text-lg mb-6">Edit Product</h1>
-      <div className="w-full flex flex-col place-items-center space-y-8 ">
+      <div className="w-full flex flex-col place-items-center space-y-3 ">
       <div className="w-full">
       <p className="text-sm">Name</p>
          <Input name="name" onChange={handleChange} value={product?.name} w="28rem" variant="flushed"    className="bg-[#f0ebeb]   text-sm h-10 px-2 border-b border-black dark:border-gray-200  dark:bg-opacity-10"/>  
