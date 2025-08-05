@@ -89,7 +89,7 @@ const formData = new FormData();
     formData.append("product", id); 
    }
    
-    await axios.post("https://grandypos.duckkdns.org/store/image/",formData,{
+    await axios.post("https://grandypos.duckdns.org/store/image/",formData,{
       headers: {
         "Content-Type": "multipart/form-data",
       },
