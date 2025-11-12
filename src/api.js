@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://154.118.227.229:1967",
+    baseURL: "http://127.0.0.1:8000",
 });
  const fetchProducts = async () => {
     try {

@@ -28,7 +28,7 @@ import './App.css'
     };
         const token = localStorage.getItem("jwt_token")
     return (
-        <div className="relative h-svh">
+        <div className="relative h-dvh">
         <div className="flex bg-gray-100 glass dark:bg-black">
         <div className="h-dvh flex border-r dark:border-r-gray-900 bg-[#fff] dark:bg-opacity-10 flex-col w-1/5">
     <NavLink to="dashboard" className={({ isActive }) =>

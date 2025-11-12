@@ -7,14 +7,13 @@ import axiosInstance from "./axiosInstance";
 import Chort from "./Chort";
 import { Avatar } from "../components/ui/avatar";
 import logo from "./asset/pas.jpg"
-import back from "./asset/logo.png"
 import { Menu } from "@chakra-ui/react";
 import { BsFilterSquareFill, BsThreeDotsVertical } from "react-icons/bs";
 import { Portal } from "@chakra-ui/react";
 import { BiFilterAlt } from "react-icons/bi";
 import { HiFilter } from "react-icons/hi";
 import { useNavigate } from "react-router";
-
+import back from "./asset/back.png"
 
 const Boxy2 = ({ box, isLoading, icon }) => {
     return (
@@ -80,9 +79,7 @@ const Dash = () => {
     const navigate = useNavigate()
     return (
         <div className="flex w-full relative  font-font-roboto h-svh">
-           
         <div className=" w-3/4 px-3">
-         
         <div className="h-1/3 mb-16">
         <div className="dark:bg-gray-800 relative w-full h-2/3 mb-8 rounded-xl">
             <img src={back} className="w-full h-full rounded-xl"/>
@@ -146,25 +143,24 @@ const Dash = () => {
               }))} />
               </div>
             </div>
-            <div className="w-1/4 px-2">
-            <div className="flex flex-col space-y-6 mx-4 bg-white dark:bg-opacity-10 place-items-center justify-center rounded-xl shadow p-12">
+            <div className="w-1/4 h-svh px-2">
+            <div className="flex h-1/3 flex-col space-y-6 mx-4 bg-white dark:bg-opacity-10 place-items-center justify-center rounded-xl shadow p-12">
                 <Avatar src={`https://grandypos.duckdns.org${user?.image}`} className=" sm:size-20 size-16 outline-2 outline outline-green-700 outline-offset-4 shadow-sm"/>
                 <div className="flex flex-col place-items-center justify-center">
                 <h1 className="font-roboto  font-semibold">{user?.username}</h1>
                 <p className="text-xs font-roboto dark:text-gray-400 text-gray-600">{user?.email}</p>
                 </div>
             </div>
-            <div className="w-full my-8">
+            <div className="w-full h-2/3 flex flex-col overflow-y-auto">
                 <h1 className="  font-font-roboto font-semibold">Customers {customers?.count}</h1>
                 {customers?.map(cus=>
-                <div onClick={()=>navigate(`/admin/view/${cus.uuid}`)} className="p-2 my-2 bg-white dark:bg-opacity-10 flex rounded-xl">
+                <div onClick={()=>navigate(`/admin/view/${cus.uuid}`)} className="p-2 my-1 bg-white dark:bg-opacity-10 flex rounded-xl">
                     <Avatar size="sm" src={`https://grandypos.duckdns.org${cus.image}`}  name={cus.first_name}/>
                     <div className="flex mx-4 flex-col">
                     <p className="  font-font-roboto font-semibold text-sm">{cus.first_name} {cus.last_name}</p>
                     <p className="text-xs   font-font-roboto dark:text-gray-400 text-gray-700">{cus.phone}</p>
                     </div> 
-                </div>)
-}
+                </div>)}
             </div>
             </div>
         </div>

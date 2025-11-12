@@ -47,43 +47,46 @@ const Header = () => {
                        axiosInstance.get("/core/user/me/")
                        .then((response)=> {
                            setUser(response.data);
-                       }
-                       );
+                       })
+                       .catch((error)=> {
+                        if (error.status === 401) {
+                           navigate("/login")
+                    }
+              })
   },[])
   const handleLogout = () => {
-    localStorage.removeItem("jwt_token"); // Clear storage // Update context
-    navigate("/login", { replace: true }); // Redirect
+    localStorage.removeItem("jwt_token")
+    navigate("/login", { replace: true })
   };
 
   return (
         <div className="h-dvh bg-white accent-transparent dark:bg-opacity-10 text-gray-950 dark:text-gray-100 w-full">
             <div className="flex">
             <div className="sm:hidden py-4 w-12 rounded-md mr-1  flex flex-col space-y-4">
-                
             <NavLink to="home" className={({ isActive }) =>
-                isActive ? "p-3 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
-                : "text-gray-800 font-roboto flex items-center font-normal dark:text-gray-50 px-2 py-2"}>
+                isActive ? "p-2 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
+                : "text-gray-800 font-roboto flex items-center font-normal dark:text-gray-50 p-2"}>
                <MdHomeFilled className="text-xl"/>
             </NavLink>
             <NavLink to="products" className={({ isActive }) =>
-                isActive ? "p-3 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
+                isActive ? "p-2 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-roboto flex items-center font-normal dark:text-gray-50 p-2"}>
                   <FaStore className="text-xl"/>
             </NavLink>
             <NavLink to="sales" className={({ isActive }) =>
-                isActive ? "p-3 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
+                isActive ? "p-2 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 my-1 font-roboto flex items-center font-normal dark:text-gray-50 px-2 py-2"}>
               <AiOutlineStock className="text-xl"/>
             </NavLink>
             <NavLink to="shortage" className={({ isActive }) =>
-                isActive ? "p-3 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
+                isActive ? "p-2 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-roboto flex items-center font-normal dark:text-gray-50 p-2"}>
             <IoWarningOutline className="text-xl"/>
             </NavLink>
              
              { user &&
              <button onClick={()=>navigate("/admin/dashboard/")} className="bg-gray-100 dark:bg-opacity-20   font-roboto flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/></button>
- }
+             }
              <button onClick={handleLogout} className="bg-gray-100 font-roboto flex items-center rounded-lg mt-2 p-3 text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1 text-xl"/></button>
             </div>
             <div className="invisible sm:visible sm:w-1/6 w-0 rounded-md mr-1  flex flex-col">
@@ -117,14 +120,13 @@ const Header = () => {
            </NavLink>      
              {user &&
              <button onClick={()=>navigate("/admin/dashboard/")} className="bg-[#f7f5f5] dark:bg-opacity-20   font-roboto flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/>Admin panel</button>}
-             <button onClick={handleLogout} className="bg-gray-100 font-roboto flex items-center rounded-lg mt-2 p-3  sm:text-sm text-red-700 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>
+             <button onClick={handleLogout} className="bg-gray-100 font-open flex items-center rounded-lg mt-2 p-3  sm:text-xs text-red-900 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>
             </div>
-            <div className="w-5/6 dark:bg-black relative bg-[#f1f0f0] backdrop-blur-lg h-dvh overflow-y-auto">
+            <div className="w-5/6 pb-12 dark:bg-black relative bg-[#f1f0f0] backdrop-blur-lg h-dvh overflow-y-auto">
             {token ? <Outlet/> : <Navigate to="/login"/>}
-       </div>
-           
-            </div>
-        </div>
+       </div>     
+     </div>
+   </div>
     );
  }
 

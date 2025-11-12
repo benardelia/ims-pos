@@ -85,7 +85,7 @@ const Jack = () => {
 
     return () => clearInterval(interval);
   }, [url, reload, filters])
-  const sale = {
+   const sale = {
     customer: customer,
     items: cart.map(item => ({
       product: item.uuid,
@@ -95,7 +95,7 @@ const Jack = () => {
   }
   const onSell = async (e) => {
     e.preventDefault();
-    setSelling(true);
+    setSelling(true)
     console.log(sale)
     try {
       const res = await axiosInstance.post("/store/new_order",
@@ -225,9 +225,7 @@ const Jack = () => {
   return (
     <div className="flex flex-col sm:flex-row h-dvh relative font-roboto w-full">
       <Toaster />
-      <Flex justify="end" pos="relative" className="sm:hidden" >
-
-
+      <Flex justify="end" pos="relative" className="sm:hidden">
       </Flex>
       {selling &&
         <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute bottom-6 left-4 dark:bg-opacity-20 bg-white">
@@ -360,9 +358,7 @@ const Jack = () => {
             </div>
             <Dialog.Root
               placement="center"
-              motionPreset="slide-in-bottom"
-
-            >
+              motionPreset="slide-in-bottom">
               <Dialog.Trigger asChild>
                 <Button className="p-2 my-4 dark:text-gray-950 font-bold   font-roboto shadow rounded-lg bg-[#f7d518] w-full"
                 >CREATE ORDER</Button>

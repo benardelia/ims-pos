@@ -10,7 +10,7 @@ import { PiSpinner } from "react-icons/pi";
 import logo from "./asset/logo.png"
 import { Tabs, Menu } from "@chakra-ui/react";
 
-  const Moon = () => {
+  const Pelu = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [cart, setCart] = useState([]);
     const [search, setSearch] = useState("");
@@ -153,9 +153,9 @@ import { Tabs, Menu } from "@chakra-ui/react";
     const tax = total * 0.25;
     const grandTotal = total + tax;
 
+    
     return (
         <div className="flex h-dvh relative font-roboto w-full">
-            
             <Toaster/>
             {selling &&
             <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute bottom-6 left-4 dark:bg-opacity-20 bg-white">
@@ -271,4 +271,4 @@ import { Tabs, Menu } from "@chakra-ui/react";
     );
 }
 
-export default Moon
+export default Pelu

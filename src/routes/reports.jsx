@@ -288,7 +288,7 @@ const Sales = () => {
               <div className="w-full grid grid-cols-4 gap-4 px-4">
                <Item link={false} item={{
                 name: "revenues",
-                value: dash?.total_orders_price?.toLocaleString(),
+                value: dash?.total_orders_price.toLocaleString(),
                 rate: "12%"
                }}
                icon={<FaSackDollar className="text-xl text-green-600"/>}

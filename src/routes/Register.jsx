@@ -5,10 +5,13 @@ import axios from 'axios';
 import { Input } from '@chakra-ui/react';
 import axiosAuthInstance from './axiosAuthInstatnce';
 import back from "./asset/bg.jpg"
+import { NativeSelect } from '@chakra-ui/react';
+
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
+    user_type: "",
     first_name: "",
     last_name: ""
   })
@@ -46,7 +49,7 @@ const Register = () => {
         const err = error.response.data
         console.error("login failed:",error.response.data);
         toaster.create({
-          title: error.message,
+          title: JSON.stringify(err),
           type: "error",
           duration: 3000
          })
@@ -123,6 +126,20 @@ const Register = () => {
                 className="w-full bg-[#1a5052] text-gray-100 border-gray-50 px-4 py-2 sm:py-3 mt-1 sm:text-xs border-b b text-sm"
               />
             </div>
+            <NativeSelect.Root  variant="flushed" size="xs" width="full" p="" >
+                                              <NativeSelect.Field fontSize="sm" placeholder="select user type"
+                                              value={formData.user_type}
+                                              name="user_type"
+                                              onChange={handleChange}
+                                              h="2.9rem"
+                                              px="0.5rem"
+                                              className="dark:bg-opacity-10 border-b border-black dark:border-gray-200 bg-[#f0ebeb] dark:text-white"
+                                              >
+                                              <option value="Owner" className="dark:bg-[#363636]">owner</option>
+                                              <option value="Staff" className="dark:bg-[#363636]">Staff</option>
+                                              </NativeSelect.Field>
+                      <NativeSelect.Indicator />
+                 </NativeSelect.Root>
             <div>
               <Input variant="flushed"
                 type="text"

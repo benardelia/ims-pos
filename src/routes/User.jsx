@@ -7,10 +7,10 @@ import axiosInstance from "./axiosInstance";
 import axiosAuthInstance from "./axiosAuthInstatnce";
 import axios from "axios";
 
-
+  
 
   function User () {
-
+        
        const [img, setImg] = useState(null)
        const [formData, setFormData] = useState({
           username: "",
@@ -42,8 +42,8 @@ import axios from "axios";
        const data = new FormData();
           data.append("username", formData.username)
           data.append("email", formData.email)
-          data.append("image", formData.image)
-          data.append("userType", formData.userType)
+          {  formData.image &&  data.append("image", formData.image) }
+          data.append("user_type", formData.userType)
           data.append("password", formData.password)
           data.append("first_name", formData.first_name)
           data.append("last_name", formData.last_name)
@@ -54,13 +54,13 @@ import axios from "axios";
            
           
           try {
-            const res = await axios.post("https://grandypos.duckdns.org/auth/users/", data, {
+            const res = await axios.post("http://127.0.0.1:8000/auth/users/",data, {
               headers: {
                 'Content-Type':'multipart/form-data'
               }
             });
             toaster.create({
-              title: JSON.stringify(res),
+              title: "user created successfully",
               type: "success",
               duration: 4000
              })
@@ -76,8 +76,7 @@ import axios from "axios";
                })
               setLoading(false)
           }
-      
-        }
+      }
         return (
           <div className="flex relative h-dvh overflow-y-auto w-full">
             <div className=' h-dvh overflow-y-auto py-6 w-full flex justify-center dark:bg-black bg-[#e6e7e7]'>
@@ -124,7 +123,6 @@ import axios from "axios";
                                   </NativeSelect.Field>
                                   <NativeSelect.Indicator />
                                 </NativeSelect.Root>
-                    
                   <div>
                     <Input variant="flushed"
                       type="password"
@@ -191,5 +189,4 @@ import axios from "axios";
         );
   }
 
-
-  export default User;
+export default User

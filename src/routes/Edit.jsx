@@ -51,7 +51,7 @@ import { BsArrowRight } from "react-icons/bs"
         e.preventDefault()
         console.log(product)
         try {
-        const res = await axiosInstance.put(`/store/products/${product.uuid}/`,product);
+        const res = await axiosInstance.put(`/store/products/${product.uuid}/`, product);
 
         toaster.create({
           title: "product updated successfully!",
@@ -89,7 +89,7 @@ const formData = new FormData();
     formData.append("product", id); 
    }
    
-    await axios.post("https://grandypos.duckdns.org/store/image/",formData,{
+    await axios.post("http://10.165.206.65:8000/store/image/",formData,{
       headers: {
         "Content-Type": "multipart/form-data",
       },

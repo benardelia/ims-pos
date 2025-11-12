@@ -81,8 +81,7 @@ import { Avatar } from "../components/ui/avatar";
         e.preventDefault();
         setPosting(true)
         try {
-          const res = await axiosInstance.put(`/store/order/${order.uuid}/`,order,
-                        )
+          const res = await axiosInstance.put(`/store/order/${order.uuid}/`,order)
                     toaster.create({
                     title: "order saved successfully!",
                     type: "success",

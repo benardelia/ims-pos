@@ -31,6 +31,9 @@ import Crew from './routes/crew';
 import Customers from './routes/customers';
 import Pending from './routes/Pending';
 import Jack from './routes/Jack';
+import EditUser from './routes/EditUser';
+import Pelu from './routes/Pelu'
+
 
 const session = localStorage.getItem("jwt_token");
  const router = createBrowserRouter ([
@@ -106,9 +109,13 @@ const session = localStorage.getItem("jwt_token");
     path: "/dashboard/product/:id",
     Component: Prod
  },
+ {
+  path: "/admin/edit-user/:id",
+  Component: EditUser
+ },
   {
     path: "dashboard",
-    element:<Dashboard/> ,
+    element:<Dashboard/>,
     children: [
       {
         index: true,

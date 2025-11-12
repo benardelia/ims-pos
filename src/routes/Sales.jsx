@@ -69,12 +69,11 @@ const onPrev = () => {
 }
 const tota = Math.ceil(cont/10)
     return (
-        <div className="h-dvh p-6">
-        <h className="text-xl font-bold pb-8"> Sales.</h>
+        <div className="h-dvh px-6">
         <div className=" h-full flex flex-col place-items-center relative">
             { loading ? <PiSpinnerLight className="animate-spin size-8 flex place-self-center"/> :
-        <><div className="flex w-full mx-6 justify-between">
-            <p></p>
+        <><div className="flex items-center w-full mx-6 justify-between">
+            <p className="font-semibold">Sales.</p>
             <div>
             <input type="date" value={date} onChange={handleDateChange} className="p-2 m-2 border-1 rounded-lg font-semibold text-sm font-open"/>
             <Menu.Root className="absolute top-0 left-2/3">
@@ -96,8 +95,8 @@ const tota = Math.ceil(cont/10)
                                                       </Menu.Content>
                                                   </Menu.Positioner>
                                               </Portal>
-                                             </Menu.Root>
-                                             </div>
+                                    </Menu.Root>
+                                  </div>
         </div>
         <Table.Root interactive variant="outline"className="bg-white font-semibold font-roboto dark:bg-opacity-10 mx-16 w-full" >
             <Table.Header>
@@ -113,7 +112,7 @@ const tota = Math.ceil(cont/10)
              sales?.map((sale, i) =>
                 <Table.Row>
                     <Table.Cell className="">{i + 1}</Table.Cell>
-                    <Table.Cell className="font-normal">{sale.status}</Table.Cell>
+                    <Table.Cell className="font-normal text-xs">{sale.status}</Table.Cell>
                     <Table.Cell className="font-normal text-xs">{formatDate(sale.created_at)}</Table.Cell>
                     <Table.Cell className="font-semibold" textAlign="center">{sale.amount}</Table.Cell>
                 </Table.Row>)}
