@@ -3,7 +3,7 @@ import logo from "./asset/logo.png";
 import icon from "./asset/icon.png"
 const companies = [
   { name: "JACKGOLD", logo: icon },
-  { name: "PharmaX", logo: "https://dummyimage.com/60x60/62c29a/fff&text=P" },
+  { name: "Pelu Sunflower", logo: "https://dummyimage.com/60x60/62c29a/fff&text=P" },
   { name: "SuperMart", logo: "https://dummyimage.com/60x60/62c29a/fff&text=S" },
   { name: "RetailPro", logo: "https://dummyimage.com/60x60/62c29a/fff&text=R" },
 ];

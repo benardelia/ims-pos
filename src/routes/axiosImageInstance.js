@@ -1,15 +1,14 @@
 import axios from "axios";
      
-                 const axiosInstance = axios.create({
+                 const axiosImageInstance = axios.create({
                         baseURL: "https://advancedstore.duckdns.org", 
                                  timeout: 9000,
                              })
                              
-                             axiosInstance.interceptors.request.use(
+                             axiosImageInstance.interceptors.request.use(
                                 (config)=> {
                                     const token = localStorage.getItem("jwt_token");
-
-                                    config.headers["Content-Type"] = "application/json";
+                                    config.headers["Content-Type"] = "multipart/form-data";
                                     if (token) {
                                         config.headers["Authorization"] = `Bearer ${token}` ;
                                     }
@@ -17,5 +16,4 @@ import axios from "axios";
                                 },
                                 (error) => Promise.reject(error)
                              );
-
-  export default axiosInstance;
+export default axiosImageInstance;

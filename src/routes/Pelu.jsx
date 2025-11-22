@@ -9,16 +9,30 @@ import axiosInstance from "./axiosInstance";
 import { PiSpinner } from "react-icons/pi";
 import logo from "./asset/logo.png"
 import { Tabs, Menu } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { gql } from "@apollo/client"
+import { useQuery } from "@apollo/client/react";
+
+const GET_CUS = gql`
+   query MyQuery {
+  getAllCustomers {
+    uuid
+    lastName
+    firstName
+    phone
+  }
+}
+`;
 
   const Pelu = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [cart, setCart] = useState([]);
     const [search, setSearch] = useState("");
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState();
+    const [loading1, setLoading] = useState(true);
+    const [error1, setError] = useState();
     const [selling, setSelling] = useState(null);
-    const [errorSelling, setErrorSelling] = useState(false);
+    const [error1Selling, setErrorSelling] = useState(false);
     const [customer, setCustomer] = useState(null)
     const [customers, setCustomers] = useState()
     const [user,setUser] = useState({})
@@ -30,11 +44,57 @@ import { Tabs, Menu } from "@chakra-ui/react";
     const [reload, setReload] = useState(false)
     const [current, setCurrent] = useState(0)
     const [saleAPI, setSaleAPI ] = useState("/store/sale")
+    const [cus, setCus] = useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        address: ""
+      })
+      const [creating, setCreating] = useState(null)
+    
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setCus({
+          ...cus,
+          [name]: value,
+        })
+      }
+    
+     const handleCus = (e) => {
+        e.preventDefault();
+        setCreating(true);
+        (creating && toaster.create({
+          title: "creating customer",
+          type: "loading"
+        }))
+    
+        axiosInstance.post("/store/customers/", cus)
+          .then(
+            res => {
+              toaster.create({
+                title: "customer created successfully",
+                type: "success",
+                duration: 4000
+              })
+              setCreating(false)
+            }
+          )
+          .catch(error => {
+            toaster.create({
+              title: error.response.data,
+              type: "error",
+              duration: 5000
+            })
+            setCreating(false)
+          })
+      }
 
+    const { data, loading, error } = useQuery(GET_CUS)
 
       const token = localStorage.getItem("jwt_token");
         useEffect(()=> {
-            axiosInstance.get(url)
+            axiosInstance.get(url, {params: {category: "ec4a1d9c-3c74-4679-9297-a7f07276b981"}})
             .then((response)=> {
                 setProducts(response.data.results);
                 console.log(response.data.results)
@@ -42,12 +102,12 @@ import { Tabs, Menu } from "@chakra-ui/react";
                     setNext(response.data.next)
                     setPrevious(response.data.previous)
             }
-            ).catch(error => {
+            ).catch(error1 => {
                 setLoading(false)
-                const err = error.response.data
+                const err = error1.response.data
                 toaster.create({
                     title: err.detail,
-                    type: "error",
+                    type: "error1",
                     duration: 5000
                   })
             })
@@ -55,11 +115,11 @@ import { Tabs, Menu } from "@chakra-ui/react";
             .then(res=>{
                 setCustomers(res.data.results);
 
-            }).catch(error => {
-                const err = error.response.data
+            }).catch(error1 => {
+                const err = error1.response.data
                 toaster.create({
                     title: err.detail,
-                    type: "error",
+                    type: "error1",
                     duration: 5000
                   })
             })
@@ -70,7 +130,7 @@ import { Tabs, Menu } from "@chakra-ui/react";
       return ()=> clearInterval(interval);
     },[url,reload, filters])
         const sale = {
-            customer: "81084fb3-780e-4d00-b623-b745ca4f746b",
+            customer: customer?.uuid,
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity
@@ -78,12 +138,12 @@ import { Tabs, Menu } from "@chakra-ui/react";
             payment_method: "Cash"
         }
     const onSell = async (e) => {
-        e.preventDefault();
-        setSelling(true);
+        e.preventDefault()
+        setSelling(true)
         console.log(sale)
         try {
          const res = await axiosInstance.post(saleAPI,
-                JSON.stringify(sale));
+                JSON.stringify(sale))
               setCart([])
               setSelling(false);
               setReload(!reload)
@@ -93,13 +153,13 @@ import { Tabs, Menu } from "@chakra-ui/react";
                 duration: 5000
               })
               
-            }  catch (error) {
-                const err = error.response.data
-             console.error(error)
+            }  catch (error1) {
+                const err = error1.response.data
+             console.error(error1)
              setSelling(false)
              toaster.create({
                        title: err.status,
-                       description: JSON.stringify(err),
+                       description: (err.customer) && "please select customer",
                        type: "error",
                        duration: 5000
                      })
@@ -147,33 +207,86 @@ import { Tabs, Menu } from "@chakra-ui/react";
             return item;
         }));
     };
+    
+     const handleQuantity = (uuid, newQuantity) => {
+    setCart((prev) => prev.map((prod) =>
+      prod.uuid === uuid
+        ? { ...prod, quantity: parseInt(newQuantity) || 0 }
+        : prod
+    ))
+  }
+
+
     const filteredProducts = products?.filter(p =>
         p.name.toLowerCase().includes(filters.toLowerCase()));
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const tax = total * 0.25;
     const grandTotal = total + tax;
 
+
+
+    const { loading:cusLoading, error: cusError, data:cusies} = useQuery(GET_CUS)
     
     return (
         <div className="flex h-dvh relative font-roboto w-full">
+            
             <Toaster/>
             {selling &&
             <div className="flex items-center py-2 px-8 rounded-lg shadow-lg absolute bottom-6 left-4 dark:bg-opacity-20 bg-white">
                 <PiSpinner className="animate-spin"/><p className="font-roboto text-sm font-bold px-2">selling...</p></div>
   }
             <div className="sm:w-2/3 z-50 w-full h-dvh">
-                <div className="flex justify-center my-6">
+            <Tabs.Root lazyMount defaultValue="sales" className="flex justify-self-center" w="-moz-fit-content">
+                <Tabs.List>
+                    <Tabs.Trigger w="60"  onClick={()=>setSaleAPI("/store/sale")} textAlign="center" alignItems="center" alignContent="center" value="sales"><Button>Sales</Button></Tabs.Trigger>
+                    <Tabs.Trigger w="60" onClick={()=>setSaleAPI("/store/new_order")} value="orders">Orders</Tabs.Trigger>
+                </Tabs.List>
+            </Tabs.Root>
+                <div className="flex items-center justify-center m-6">
                     <input type="text" placeholder="Search Product" value={filters} onChange={(e) => setFilters(e.target.value)}
                         className="font-light mx-auto text-sm px-4 py-3 dark:bg-opacity-10 rounded-lg w-2/3"/>
+                <Dialog.Root
+                           placement="center"
+                           motionPreset="slide-in-bottom"
+                         >
+                           <Dialog.Trigger asChild>
+                             <Button className="p-4 dark:text-gray-100 dark:bg-[#494747] font-bold bg-white font-roboto shadow rounded-lg"
+                             >Add Customer</Button>
+                           </Dialog.Trigger>
+                           <Portal>
+                             <Dialog.Backdrop />
+                             <Dialog.Positioner>
+                               <Dialog.Content className="dark:bg-opacity-30">
+                                 <Dialog.Header>
+               
+                                 </Dialog.Header>
+                                 <Dialog.Body >
+                                   <Input type="text" name="first_name" placeholder="First name" value={cus.first_name} onChange={handleChange} className="px-3 bg-[#ebeaea] dark:bg-[#2e2c2c] mb-3" />
+                                   <Input type="text" name="last_name" placeholder="last name" value={cus.last_name} onChange={handleChange} className="px-3 bg-[#ebeaea] dark:bg-[#2e2c2c] mb-3" />
+                                   <Input type="email" name="email" placeholder="email" value={cus.email} onChange={handleChange} className="px-3 bg-[#ebeaea] dark:bg-[#2e2c2c] mb-3" />
+                                   <Input type="text" name="address" placeholder="address" value={cus.address} onChange={handleChange} className="px-3 dark:bg-[#2e2c2c] bg-[#ebeaea] mb-3" />
+                                   <Input type="text" name="phone" placeholder="phone number" value={cus.phone} onChange={handleChange} className="px-3 dark:bg-[#2e2c2c] mb-3 bg-[#ebeaea]" />
+               
+                                 </Dialog.Body>
+                                 <Dialog.Footer>
+                                   <Dialog.ActionTrigger asChild>
+                                     <Button variant="outline">Cancel</Button>
+                                   </Dialog.ActionTrigger>
+                                  {cus.first_name && cus.last_name && cus.email && cus.phone && cus.address !== "" && <Button  onClick={handleCus} className="bg-[#f7d518] text-gray-900 px-6 font-bold">CREATE</Button>}
+                                 </Dialog.Footer>
+                               </Dialog.Content>
+                             </Dialog.Positioner>
+                           </Portal>
+                         </Dialog.Root>
                 </div>
-               { loading ? <div className="w-full my-4 grid p-2 md:grid-cols-4 sm:grid-cols-3 gap-2">
+               { loading1 ? <div className="w-full my-4 grid p-2 md:grid-cols-4 sm:grid-cols-3 gap-2">
                 <Skeleton w="100%" h="12rem" rounded="xl"/>
                 <Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/>
                 <Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/>
                 <Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/><Skeleton w="100%" h="12rem" rounded="xl"/>
                      
                  </div>
-                     : error ? 
+                     : error1 ? 
                      <p className="font-roboto text-center text-red-600">
                     Failed to fetch, Check the internet connection.
                     </p> : <p></p> }
@@ -186,38 +299,59 @@ import { Tabs, Menu } from "@chakra-ui/react";
                             product={product}
                             onAdd={()=> addToCart(product)}
                         />)
-                    }
+                    } 
                 </div>
                {next && <button onClick={onMore} className="mb-12 font-bold text-sm pb-6 flex-col place-items-center flex justify-self-center">see more<BiChevronDown className="font-bold"/></button>}
             </div>
             <div className="sm:w-1/3 invisible sm:visible w-0 relative h-dvh place-items-center">
-            
-                <div className="w-full bg-white fex justify-between dark:bg-opacity-10 z-50 my-2 py-3 rounded-lg px-6">
-                   <> <h1 className="font-semibold flex items-center">Customers cart
+                <div className="w-full bg-white flex justify-between dark:bg-opacity-10 z-50 my-2 py-3 rounded-lg px-6">
+                 <h1 className="font-semibold flex items-center">Customers cart
                         <BiCart className=" mx-3" /> </h1>
-                    </>  
+                        <Menu.Root>
+                                    <Menu.Trigger>
+                                      <button className="p-2">
+                                        {customer? customer?.firstName : "Select customer"}
+                                      </button>
+                                    </Menu.Trigger>
+                                    <Portal>
+                                      <Menu.Positioner alignItems="left">
+                                        <Menu.Content>
+                                          {cusies?.getAllCustomers?.map(
+                                            cus =>
+                                              <Menu.Item onClick={() => setCustomer(cus)}>
+                                                {cus.firstName} {cus.lastName}
+                                              </Menu.Item>
+                                          )
+                        
+                                          }
+                        
+                                        </Menu.Content>
+                                      </Menu.Positioner>
+                                    </Portal>
+                                  </Menu.Root>
+                    
                 </div>
                 <div className="w-full flex flex-col shadow-sm rounded-md">
                     {cart.map(item => <div key={item.id} className="bg-white dark:bg-opacity-10 shadow-sm items-center m-2 rounded-xl flex p-2">
-                        <img src={`grandypos.duckkdns.org${item?.images?.[0]?.image}`} className="rounded-sm size-16"/>
-                        <div className=" ml-2 w-full">
-                            <div className="flex justify-between">
-                                <h className="  font-roboto dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>
-                                <button className="text-red-400 dark:text-red-200" onClick={() => removeFromCart(item.uuid)}><FaRegTrashAlt /></button>
-                            </div>
-                            <p className="  font-roboto text-xs text-gray-500 dark:text-gray-400">Stock: {item.stock}</p>
-                            <div className="flex justify-between">
-                                <h className="  font-roboto font-semibold text-sm">{item.price.toLocaleString()} Tshs</h>
-                                <div className="flex items-center">
-                                    <button onClick={() => reduceQuantity(item.uuid)} className="size-5 rounded-full bg-gray-200 flex
-    place-items-center text-gray-700 font-black
-    justify-center">-</button>
-                                    <span className="px-2 text-sm font-semibold    font-roboto">{item.quantity}</span>
-                                    <button onClick={() => updateQuantity(item.uuid, item.quantity)} className="size-5 rounded-full bg-[#f7d518] text-gray-700 flex place-items-center font-black justify-center">+</button>
+                                <img src={`http://127.0.0.1:8000${item?.images?.[0]?.image}`} className="rounded-sm size-16" />
+                                <div className=" ml-2 w-full">
+                                  <div className="flex justify-between">
+                                    <h className="  font-roboto dark:text-gray-50 text-gray-700 font-bold">{item.name}</h>
+                                    <button className="text-red-400 dark:text-red-200" onClick={() => removeFromCart(item.uuid)}><FaRegTrashAlt /></button>
+                                  </div>
+                                  <p className="  font-roboto text-xs text-gray-500 dark:text-gray-400">Stock: {item.stock}</p>
+                                  <div className="flex justify-between">
+                                    <h className="  font-roboto font-semibold text-sm">{item.price.toLocaleString()} Tshs</h>
+                                    <div className="flex items-center">
+                                      <button onClick={() => reduceQuantity(item.uuid)} className="size-5 rounded-full bg-gray-200 flex
+                        place-items-center text-gray-700 font-black
+                        justify-center">-</button>
+                                      <Input value={item.quantity} onChange={(e) => handleQuantity(item.uuid, e.target.value)} mx="1rem" h="1.5rem" w="4rem" variant="subtle" rounded="md" className="px-2 text-center text-sm font-semibold    font-roboto" />
+                                      <button onClick={() => updateQuantity(item.uuid, item.quantity)} className="size-5 rounded-full bg-[#f7d518] text-gray-700 flex place-items-center font-black justify-center">+</button>
+                                    </div>
+                                  </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>)
+                              </div>)
                     }
                 </div>
                 {cart.length > 0 ?

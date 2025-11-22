@@ -64,7 +64,7 @@ const NewInv = () => {
     return (
         <Center w="100%" rounded="md" className="font-roboto h-dvh relative bg-[#e0dfdf] dark:bg-black">
           <Link to="/admin/inventory" className="absolute top-8 left-4"><RiArrowLeftLine/></Link>
-            <div className="flex flex-col space-y-8 bg-white dark:bg-opacity-20 border-b border-black dark:border-gray-200 py-8 rounded-xl shadow-lg px-6">
+            <div className="flex flex-col space-y-8 bg-white dark:bg-opacity-10 border-b border-black dark:border-gray-200 py-8 rounded-lg shadow-lg px-6">
              <Field.Root>
                 <Field.Label fontSize="xs">Product name:</Field.Label>
                 <Input required  placeholder="product name" 

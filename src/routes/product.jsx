@@ -4,7 +4,7 @@ import axiosInstance from "./axiosInstance";
 
 const Product = ({product, onAdd, image}) => {
     const [show, setShow] = useState(false);
-    const [imge, setImge] = useState(`http://10.209.224.249:8000${image}`)
+    const [imge, setImge] = useState(`http://127.0.0.1:8000${image}`)
     
     const nime = product.name
     

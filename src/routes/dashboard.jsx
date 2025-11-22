@@ -8,7 +8,7 @@ import { GiHamburger, GiHamburgerMenu } from "react-icons/gi";
 import { NavLink, Outlet, Link, useNavigate, redirect, Navigate } from "react-router";
 import axios from "axios";
 import { Avatar } from "../components/ui/avatar";
-import { MdDashboard, MdHomeFilled, MdProductionQuantityLimits } from "react-icons/md";
+import { MdDashboard, MdHomeFilled, MdProductionQuantityLimits, MdRawOn } from "react-icons/md";
 import axiosInstance from "./axiosInstance";
 import { FcSalesPerformance } from "react-icons/fc";
 import { RiStockFill, RiStockLine } from "react-icons/ri";
@@ -73,6 +73,11 @@ const Header = () => {
                 : "text-gray-800 font-roboto flex items-center font-normal dark:text-gray-50 p-2"}>
                   <FaStore className="text-xl"/>
             </NavLink>
+            <NavLink to="materials" className={({ isActive }) =>
+                isActive ? "p-2 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
+                : "text-gray-800 font-roboto flex items-center font-normal dark:text-gray-50 p-2"}>
+                  <FaStore className="text-xl"/>
+            </NavLink>
             <NavLink to="sales" className={({ isActive }) =>
                 isActive ? "p-2 font-roboto flex items-center rounded-md text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 my-1 font-roboto flex items-center font-normal dark:text-gray-50 px-2 py-2"}>
@@ -106,6 +111,11 @@ const Header = () => {
                 isActive ? "px-3 py-2 font-roboto text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"
                 : "text-gray-800 font-roboto text-sm flex items-center my-1 font-normal dark:text-gray-50 px-2 py-2"}>
                   <FaStore className="mr-2"/>  Products
+            </NavLink>
+            <NavLink to="materials" className={({ isActive }) =>
+                isActive ? "px-3 py-2 font-roboto text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"
+                : "text-gray-800 font-roboto text-sm flex items-center my-1 font-normal dark:text-gray-50 px-2 py-2"}>
+                  <MdRawOn className="mr-2"/>  Materials
             </NavLink>
             <NavLink to="sales" className={({ isActive }) =>
                 isActive ? "px-3 py-2 font-roboto text-sm flex items-center rounded-md mr-2 ml-1 text-gray-900 font-semibold bg-[#f7d518]"

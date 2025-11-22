@@ -33,7 +33,6 @@ const Products = () => {
                         setError(true)
                     }
                 )
-        
             },[url])
 
 
@@ -77,13 +76,11 @@ const Products = () => {
 }
 {!loading &&
 <div className="flex place-self-center mt-6 items-center">
-        {previous && <button onClick={handlePrevious} className=" border dark:bg-opacity-10   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>
-               }
+        {previous && <button onClick={handlePrevious} className=" border dark:bg-opacity-10   font-roboto rounded-full text-sm shadow-lg bg-gray-300 p-1"><BiChevronLeft/></button>}
                <p className="text-xs mx-4 font-bold text-center   font-roboto">{page}/{tota}</p>
              {next && <button onClick={handleNext} className="border rounded-full   font-roboto text-sm shadow-lg bg-gray-300 dark:bg-opacity-10 p-1"><BiChevronRight/></button>
               }
-        </div>
-}
+        </div>}
         </div>
         </div>
     );

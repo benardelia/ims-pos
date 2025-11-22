@@ -123,9 +123,6 @@ const Jack = () => {
     }
   }
 
-
-
-  
   const handleCus = (e) => {
     e.preventDefault();
 
@@ -232,14 +229,12 @@ const Jack = () => {
           <PiSpinner className="animate-spin" /><p className="font-roboto text-sm font-bold px-2">selling...</p></div>
       }
       <div className="sm:w-2/3 z-50 w-full h-dvh">
-
         <div className="flex justify-between m-6">
           <input type="text" placeholder="Search Product" value={filters} onChange={(e) => setFilters(e.target.value)}
             className="font-light text-sm px-4 py-3 dark:bg-opacity-10 rounded-lg w-2/3" />
           <Dialog.Root
             placement="center"
             motionPreset="slide-in-bottom"
-
           >
             <Dialog.Trigger asChild>
               <Button className="p-4 dark:text-gray-100 dark:bg-[#494747] font-bold bg-white font-roboto shadow rounded-lg"
@@ -276,7 +271,6 @@ const Jack = () => {
           <Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" />
           <Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" />
           <Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" /><Skeleton w="100%" h="12rem" rounded="xl" />
-
         </div>
           : error ?
             <p className="font-roboto text-center text-red-600">

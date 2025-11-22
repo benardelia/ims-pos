@@ -33,9 +33,35 @@ import Pending from './routes/Pending';
 import Jack from './routes/Jack';
 import EditUser from './routes/EditUser';
 import Pelu from './routes/Pelu'
-
+import { SetContextLink } from "@apollo/client/link/context";
+import { ApolloClient, InMemoryCache, HttpLink, gql } from '@apollo/client';
+import { ApolloProvider } from "@apollo/client/react"
+import Raw from './routes/Raw';
 
 const session = localStorage.getItem("jwt_token");
+
+// HTTP link
+const httpLink = new HttpLink({
+  uri: "https://advancedstore.duckdns.org/graphql",
+});
+
+const authLink = new SetContextLink(async (_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      "Content-Type": "application/json",
+      ...(session ? { Authorization: `Bearer ${session}` } : {}),
+    },
+  };
+});
+
+// Apollo client
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
+
  const router = createBrowserRouter ([
   {
     path: "/",
@@ -115,12 +141,16 @@ const session = localStorage.getItem("jwt_token");
  },
   {
     path: "dashboard",
-    element:<Dashboard/>,
+    Component : Dashboard,
     children: [
       {
         index: true,
         path: "home",
-        Component: Jack
+        Component: Pelu
+      },
+      {
+        path: "materials",
+        Component: Raw
       },
       {
         path: "sales",
@@ -142,7 +172,9 @@ const session = localStorage.getItem("jwt_token");
 createRoot(document.getElementById('root')).render(
   <StrictMode>
       <Provider>
-      <RouterProvider router={router}/>
+      <ApolloProvider client={client}>
+        <RouterProvider router={router}/>
+      </ApolloProvider>
       </Provider>  
   </StrictMode>
 )

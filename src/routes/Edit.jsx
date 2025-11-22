@@ -14,6 +14,7 @@ import { MdCategory, MdDescription, MdOutlineInventory2, MdProductionQuantityLim
 import { PiListNumbers } from "react-icons/pi"
 import { GiPriceTag } from "react-icons/gi"
 import { BsArrowRight } from "react-icons/bs"
+import axiosImageInstance from "./axiosImageInstance"
 
    const Edit = () => {
       const {id} = useParams();
@@ -89,11 +90,7 @@ const formData = new FormData();
     formData.append("product", id); 
    }
    
-    await axios.post("http://10.165.206.65:8000/store/image/",formData,{
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    await axiosImageInstance.post("/store/image/",formData)
     .then( res=> {
       toaster.create({
           title: "file uploaded successfully!",

@@ -6,6 +6,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import axiosInstance from "./axiosInstance";
 import axiosAuthInstance from "./axiosAuthInstatnce";
 import axios from "axios";
+import axiosImageInstance from "./axiosImageInstance";
 
   
 
@@ -54,11 +55,7 @@ import axios from "axios";
            
           
           try {
-            const res = await axios.post("http://127.0.0.1:8000/auth/users/",data, {
-              headers: {
-                'Content-Type':'multipart/form-data'
-              }
-            });
+            const res = await axiosImageInstance.post("/auth/users/",data);
             toaster.create({
               title: "user created successfully",
               type: "success",

@@ -6,6 +6,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import axiosInstance from "./axiosInstance";
 import axiosAuthInstance from "./axiosAuthInstatnce";
 import axios from "axios";
+import axiosImageInstance from "./axiosImageInstance";
 
   
 
@@ -67,11 +68,7 @@ import axios from "axios";
            
           
           try {
-            const res = await axios.put("http://127.0.0.1:8000/auth/users/", data, {
-              headers: {
-                'Content-Type':'multipart/form-data'
-              }
-            });
+            const res = await axiosImageInstance.put("/auth/users/", data);
             toaster.create({
               title: "user created successfully",
               type: "success",
@@ -93,8 +90,8 @@ import axios from "axios";
           <div className="flex relative h-dvh overflow-y-auto w-full">
             <div className=' h-dvh overflow-y-auto py-6 w-full flex justify-center dark:bg-black bg-[#e6e7e7]'>
                 <Link to="/admin/management" className="absolute left-12 top-4"><BsArrowLeft/></Link>
-              <div className="w-1/3 font-roboto px-8 pb-12 space-y-1 shadow-xl rounded-xl bg-white dark:bg-opacity-10">
-                <h2 className="font-roboto text-center my-8 text-slate-900 dark:text-gray-50">
+              <div className="w-1/3 font-roboto px-8  space-y-1 shadow-xl rounded-xl bg-white dark:bg-opacity-10">
+                <h2 className="font-roboto text-center my-4 text-slate-900 dark:text-gray-50">
                    Edit user
                 </h2>
                 <form className=" space-y-4 w-full">

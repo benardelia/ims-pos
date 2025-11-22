@@ -8,8 +8,23 @@ import { FaSpinner } from "react-icons/fa";
 import { PiSpinnerLight } from "react-icons/pi";
 import axiosInstance from "./axiosInstance";
 import { Menu,Button, Portal } from "@chakra-ui/react";
-
+import { useQuery } from "@apollo/client/react";
+import { gql } from "@apollo/client";
 import { MdFilterAlt } from "react-icons/md";
+
+
+const GET_SALES = gql`query MyQuery {
+  getAllSales {
+    amount
+    order {
+      customer {
+        firstName
+        lastName
+      }
+      createdAt
+    }
+  }
+}`
 
 
  const formatDate = (dateString) => {
@@ -68,6 +83,8 @@ const onPrev = () => {
     setPage(page - 1)
 }
 const tota = Math.ceil(cont/10)
+
+ const { data, loading: gqlLoading, error: gqlError } = useQuery(GET_SALES);
     return (
         <div className="h-dvh px-6">
         <div className=" h-full flex flex-col place-items-center relative">
