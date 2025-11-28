@@ -42,7 +42,7 @@ const session = localStorage.getItem("jwt_token");
 
 // HTTP link
 const httpLink = new HttpLink({
-  uri: "https://advancedstore.duckdns.org/graphql",
+  uri: "https://grandypos.duckdns.org/graphql",
 });
 
 const authLink = new SetContextLink(async (_, { headers }) => {
@@ -146,7 +146,7 @@ const client = new ApolloClient({
       {
         index: true,
         path: "home",
-        Component: Pelu
+        Component: Jack
       },
       {
         path: "materials",
