@@ -94,7 +94,7 @@ const GET_CUS = gql`
 
       const token = localStorage.getItem("jwt_token");
         useEffect(()=> {
-            axiosInstance.get(url, {params: {category: "ec4a1d9c-3c74-4679-9297-a7f07276b981"}})
+            axiosInstance.get(url, {params: {category: "5575b54d-220a-42eb-a896-32bcd7c477f3"}})
             .then((response)=> {
                 setProducts(response.data.results);
                 console.log(response.data.results)
@@ -123,6 +123,7 @@ const GET_CUS = gql`
                     duration: 5000
                   })
             })
+            
     const interval = setInterval(()=> {
         setCurrent(prev => prev + 1);
       }, 3000);

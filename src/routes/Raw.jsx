@@ -14,7 +14,7 @@ const Raw = () => {
     useEffect(() => {
         axiosInstance.get("/store/products/", {
             params: {
-                category: "4926e1f4-76af-42dc-9a3c-f3a733bfc2a8"
+                category: "23756693-650b-422d-b052-12858bde0572"
             }
             })
             .then(res => {
