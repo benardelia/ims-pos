@@ -9,7 +9,10 @@ import door from "./asset/pelu-1.png"
 import { FaFacebookF, FaInstagram, FaLocationPin, FaPhone, FaWhatsapp } from "react-icons/fa6"
 import { MdLocationPin } from "react-icons/md"
 import { BiPhone } from "react-icons/bi"
+import { useNavigate } from "react-router"
 export default function Sunflower () {
+
+    const navigate = useNavigate();
     return (
         <div className="w-full relative min-h-svh overflow-y-auto">
             <div className="bg-white drop-shadow-lg z-50 shadow-green-900 fixed w-full top-0 p-1 flex items-center justify-around">
@@ -28,7 +31,7 @@ export default function Sunflower () {
             <div className=" w-2/3 absolute  py-36 place-items-center flex flex-col justify-self-center">
             <h1 className="text-6xl text-center text-white font-light font-plus">Pelu Sunflower Oil: Nurturing Goodness from the Heart of the Sun.</h1>
             <p className="font-medium py-4 text-lg font-open text-white text-center">Pure sunflower oil from the sunny lands of Dodoma.</p>
-             <button className="w-1/3 text-sm  font-semibold text-white bg-orange-500 rounded-full p-2">explore our products</button>
+             <button onClick={(()=>navigate("/login"))} className="w-1/3 text-sm  font-semibold text-white bg-orange-500 rounded-full p-2">Start to enter</button>
             </div>
         </div>
             <div className="bg-yellow-200 flex-row space-x-16 flex justify-center place-items-center p-12">
