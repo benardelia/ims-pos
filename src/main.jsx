@@ -36,6 +36,7 @@ import Pelu from './routes/Pelu'
 import { SetContextLink } from "@apollo/client/link/context";
 import { ApolloClient, InMemoryCache, HttpLink, gql } from '@apollo/client';
 import { ApolloProvider } from "@apollo/client/react"
+import Sunflower from './routes/Sunflower';
 import Raw from './routes/Raw';
 
 const session = localStorage.getItem("jwt_token");
@@ -65,7 +66,7 @@ const client = new ApolloClient({
  const router = createBrowserRouter ([
   {
     path: "/",
-    Component: Home
+    Component: Sunflower
   },
   {
     path: "login",
