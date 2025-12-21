@@ -132,7 +132,7 @@ const Header = () => {
              <button onClick={()=>navigate("/admin/dashboard/")} className="bg-[#f7f5f5] dark:bg-opacity-20   font-roboto flex items-center rounded-lg mt-6 p-3 sm:text-sm hover:font-semibold mx-2"><MdDashboard className="mr-1"/>Admin panel</button>}
              <button onClick={handleLogout} className="bg-gray-100 font-open flex items-center rounded-lg mt-2 p-3  sm:text-xs text-red-900 mx-2 hover:font-semibold"><BiLogOut className="mr-1"/>Log out</button>
             </div>
-            <div className="w-5/6 pb-12 dark:bg-black relative bg-[#f1f0f0] backdrop-blur-lg h-dvh overflow-y-auto">
+            <div className="w-5/6 pb-12 dark:bg-black relative bg-[#fcfbfb] backdrop-blur-lg h-dvh overflow-y-auto">
             {token ? <Outlet/> : <Navigate to="/login"/>}
        </div>     
      </div>

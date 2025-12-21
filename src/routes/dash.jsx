@@ -2,7 +2,7 @@ import { Button, Skeleton } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { MdFilterAlt, MdFilterList, MdOutlineInventory } from "react-icons/md";
 import { FcSalesPerformance } from "react-icons/fc";
-import { IoFilter, IoWarning } from "react-icons/io5";
+import { IoFilter, IoReload, IoWarning } from "react-icons/io5";
 import axiosInstance from "./axiosInstance";
 import Chort from "./Chort";
 import { Avatar } from "../components/ui/avatar";
@@ -12,8 +12,11 @@ import { BsFilterSquareFill, BsThreeDotsVertical } from "react-icons/bs";
 import { Portal } from "@chakra-ui/react";
 import { BiFilterAlt } from "react-icons/bi";
 import { HiFilter } from "react-icons/hi";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import back from "./asset/back.png"
+import { QueryErrorResetBoundary, useSuspenseQuery } from "@tanstack/react-query";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 const Boxy2 = ({ box, isLoading, icon }) => {
     return (
@@ -35,7 +38,7 @@ const Dash = () => {
     const [loading, setLoading] = useState(true)
     const [shortage, setShortage] = useState([])
     const [user, setUser] = useState(null)
-    const [dash, setDash] = useState(null);
+    const [dash, setDash] = useState();
     const [category, setCategory] = useState(null)
     const [customers, setCustomers] = useState(null)
     const [filter, setFilter] = useState(365)
@@ -114,33 +117,35 @@ const Dash = () => {
                 />
             </div>
             </div>
-            <div className="h-1/2">
-            <Menu.Root className="absolute top-0 left-2/3">
-                        <Menu.Trigger>
-                            <Button className="dark:text-gray-100 text-sm" > 
-                               <MdFilterAlt/>
-                            </Button>
-                        </Menu.Trigger>
-                        <Portal>
-                            <Menu.Positioner alignContent="end">
-                                <Menu.Content>
-                                    <Menu.Item onClick={()=>setFilter("month")}>
-                                     month
-                                    </Menu.Item>
-                                    <Menu.Item onClick={()=>setFilter("week")}> 
-                                        weekly
-                                    </Menu.Item>
-                                    <Menu.Item onClick={()=>setFilter("day")}>
-                                        day
-                                    </Menu.Item>
-                                </Menu.Content>
-                            </Menu.Positioner>
-                        </Portal>
-                       </Menu.Root>
-               <Chort details={dash?.sales_summary?.map(item => ({
-                sales: item.total_sales,
-                time: item?.period.slice(0,10)
-              }))} />
+            <div className="h-1/2 py-4">
+            <QueryErrorResetBoundary>
+                {
+                    ({reset}) => (
+                        <ErrorBoundary onReset={reset} fallbackRender={({error, resetErrorBoundary})=> (
+                            <div className="flex flex-col place-items-center justify-center h-full w-full">
+                                <p className="font-roboto text-sm font-medium text-red-600 mb-4">An error occurred: {error.message}</p>     
+                                <Button onClick={()=> resetErrorBoundary()} className="bg-yellow-500 font-medium font-roboto text-sm p-2 rounded-lg"><IoReload/></Button>
+                            </div>
+                        )}>     
+                 <Suspense fallback={
+                    <div className="flex relative justify-center place-items-end mt-10 flex-row h-full w-full">
+                    <Skeleton h="100%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    <Skeleton h="70%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    <Skeleton h="20%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    <Skeleton h="80%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                     <Skeleton h="100%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    <Skeleton h="70%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    <Skeleton h="20%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    <Skeleton h="80%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                     <Skeleton h="100%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    <Skeleton h="70%" w="3rem" my="1rem" className="w-1/4 mx-2"/>
+                    </div>}>
+                    <Chort />
+                 </Suspense>
+                 </ErrorBoundary>
+                    )
+                }
+            </QueryErrorResetBoundary>
               </div>
             </div>
             <div className="w-1/4 h-svh px-2">
@@ -152,20 +157,101 @@ const Dash = () => {
                 </div>
             </div>
             <div className="w-full h-2/3 flex flex-col overflow-y-auto">
-                <h1 className="  font-font-roboto font-semibold">Customers {customers?.count}</h1>
-                {customers?.map(cus=>
-                <div onClick={()=>navigate(`/admin/view/${cus.uuid}`)} className="p-2 my-1 bg-white dark:bg-opacity-10 flex rounded-xl">
-                    <Avatar size="sm" src={`https://grandypos.duckdns.org${cus.image}`}  name={cus.first_name}/>
-                    <div className="flex mx-4 flex-col">
-                    <p className="  font-font-roboto font-semibold text-sm">{cus.first_name} {cus.last_name}</p>
-                    <p className="text-xs   font-font-roboto dark:text-gray-400 text-gray-700">{cus.phone}</p>
-                    </div> 
-                </div>)}
+                 <QueryErrorResetBoundary>
+                {
+                    ({reset}) => (
+                        <ErrorBoundary onReset={reset} fallbackRender={({error, resetErrorBoundary})=> (
+                            <div className="flex flex-col place-items-center justify-center h-full w-full">
+                                <p className="font-roboto text-sm font-medium text-red-600 mb-4">An error occurred: {error.message}</p>     
+                                <Button onClick={()=> resetErrorBoundary()} className="bg-yellow-500 font-medium font-roboto text-sm p-3 rounded-lg"><IoReload/></Button>
+                            </div>
+                        )}>     
+                 <Suspense fallback={<div className="flex flex-col pt-8 h-full w-full">     
+                    <div className="flex items-center">
+                        <Skeleton h="2rem" w="2rem" mr="0.4rem" rounded="full"/>
+                        <div className="">
+                          <Skeleton h="0.6rem" w="10rem" rounded="lg" my="0.5rem"/>
+                          <Skeleton h="0.6rem" w="5rem" rounded="lg" my="0.5rem"/>
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        <Skeleton h="2rem" w="2rem" mr="0.4rem" rounded="full"/>
+                        <div className="">
+                          <Skeleton h="0.6rem" w="10rem" rounded="lg" my="0.5rem"/>
+                          <Skeleton h="0.6rem" w="5rem" rounded="lg" my="0.5rem"/>
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        <Skeleton h="2rem" w="2rem" mr="0.4rem" rounded="full"/>
+                        <div className="">
+                          <Skeleton h="0.6rem" w="10rem" rounded="lg" my="0.5rem"/>
+                          <Skeleton h="0.6rem" w="5rem" rounded="lg" my="0.5rem"/>
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        <Skeleton h="2rem" w="2rem" mr="0.4rem" rounded="full"/>
+                        <div className="">
+                          <Skeleton h="0.6rem" w="10rem" rounded="lg" my="0.5rem"/>
+                          <Skeleton h="0.6rem" w="5rem" rounded="lg" my="0.5rem"/>
+                        </div>
+                    </div>
+                     <div className="flex items-center">
+                        <Skeleton h="2rem" w="2rem" mr="0.4rem" rounded="full"/>
+                        <div className="">
+                          <Skeleton h="0.6rem" w="10rem" rounded="lg" my="0.5rem"/>
+                          <Skeleton h="0.6rem" w="5rem" rounded="lg" my="0.5rem"/>
+                        </div>
+                    </div>
+                     <div className="flex items-center">
+                        <Skeleton h="2rem" w="2rem" mr="0.4rem" rounded="full"/>
+                        <div className="">
+                          <Skeleton h="0.6rem" w="10rem" rounded="lg" my="0.5rem"/>
+                          <Skeleton h="0.6rem" w="5rem" rounded="lg" my="0.5rem"/>
+                        </div>
+                    </div>
+                     <div className="flex items-center">
+                        <Skeleton h="2rem" w="2rem" mr="0.4rem" rounded="full"/>
+                        <div className="">
+                          <Skeleton h="0.6rem" w="10rem" rounded="lg" my="0.5rem"/>
+                          <Skeleton h="0.6rem" w="5rem" rounded="lg" my="0.5rem"/>
+                        </div>
+                    </div>
+                    </div>}>
+                    <Customers />
+                    </Suspense>
+                    </ErrorBoundary>
+                    )
+                 }
+            </QueryErrorResetBoundary>
             </div>
             </div>
         </div>
     );
 }
+
+ const Customers = () => {
+    const { data } = useSuspenseQuery({
+        queryKey: ['customers'],
+        queryFn: () => (axiosInstance.get("/store/customers/")
+        .then(res=> { 
+            console.log(res.data)
+            return res.data
+        })
+    ),})
+    return (
+        <div className="w-full h-full flex flex-col">
+         <h1 className="my-2 font-font-roboto font-semibold">Customers  {data?.count}</h1>
+                {data.results.map(cus=>
+                <Link to={`/admin/view/${cus.uuid}`} className="p-2 my-1 bg-white dark:bg-opacity-10 flex rounded-xl">
+                    <Avatar size="sm" src={`https://grandypos.duckdns.org${cus.image}`}  name={cus.first_name}/>
+                    <div className="flex mx-4 flex-col">
+                    <p className="  font-font-roboto font-semibold text-sm">{cus.first_name} {cus.last_name}</p>
+                    <p className="text-xs   font-font-roboto dark:text-gray-400 text-gray-700">{cus.phone}</p>
+                    </div> 
+                </Link>)}
+        </div>
+    );
+ }
 
 
 export default Dash;

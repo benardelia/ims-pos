@@ -94,7 +94,7 @@ const GET_CUS = gql`
 
       const token = localStorage.getItem("jwt_token");
         useEffect(()=> {
-            axiosInstance.get(url, {params: {category: "5575b54d-220a-42eb-a896-32bcd7c477f3"}})
+            axiosInstance.get(url, {params: {category: "564e9da1-a281-44f3-a573-319798dc282a"}})
             .then((response)=> {
                 setProducts(response.data.results);
                 console.log(response.data.results)
@@ -131,7 +131,7 @@ const GET_CUS = gql`
       return ()=> clearInterval(interval);
     },[url,reload, filters])
         const sale = {
-            customer: customer?.uuid,
+            customer: "bd112b32-e191-4942-9151-e0c19810c6e7",
             items: cart.map(item => ({
                 product: item.uuid,
                 quantity: item.quantity
