@@ -17,7 +17,7 @@ const Chort = () => {
     })),
   })
 
-  
+
   const chart = useChart({
     data: data.sales_summary?.map(item => ({
                 sales: item.total_sales,

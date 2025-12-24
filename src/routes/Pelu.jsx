@@ -94,7 +94,7 @@ const GET_CUS = gql`
 
       const token = localStorage.getItem("jwt_token");
         useEffect(()=> {
-            axiosInstance.get(url, {params: {category: "564e9da1-a281-44f3-a573-319798dc282a"}})
+            axiosInstance.get(url, {params: {category: "b4550993-2eb3-417c-b902-c96fcaaa2e20"}})
             .then((response)=> {
                 setProducts(response.data.results);
                 console.log(response.data.results)

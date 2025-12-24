@@ -36,23 +36,23 @@ export default function Sunflower () {
         </div>
             <div className="bg-yellow-200 flex-row space-x-16 flex justify-center place-items-center p-12">
                 <div className="bg-white shadow-xl hover:size-56 drop-shadow-xl shadow-yellow-800 rounded-xl flex flex-col py-4 justify-evenly place-items-center size-56">
-                   <IoSunnyOutline className="text-6xl font-extralight"/>
+                   <IoSunnyOutline className="text-6xl text-black font-extralight"/>
                    <div className="flex flex-col">
-                   <h4 className="font-roboto font-medium">Sun-kissed Goodness</h4>
-                   <p className="font-plus font-medium text-xs">healthy grown sunflowers</p>
+                   <h4 className="font-roboto text-black font-medium">Sun-kissed Goodness</h4>
+                   <p className="font-plus text-black font-medium text-xs">healthy grown sunflowers</p>
                    </div>
                 </div>
                 <div className="bg-white shadow-xl hover:size-56 drop-shadow-xl shadow-yellow-800 rounded-xl flex flex-col py-4 justify-evenly place-items-center size-56">
-                   <PiChefHatThin className="text-6xl font-extralight"/>
+                   <PiChefHatThin className="text-6xl text-black font-extralight"/>
                    <div className="flex place-items-center flex-col">
-                   <h4 className="font-roboto font-medium">Versatile & Delicious</h4>
-                   <p className="font-plus font-medium text-center text-xs">cooking oil for delicious meals everyday</p>
+                   <h4 className="font-roboto text-black font-medium">Versatile & Delicious</h4>
+                   <p className="font-plus font-medium text-black text-center text-xs">cooking oil for delicious meals everyday</p>
                    </div>
                 </div>
                 <div className="bg-white shadow-xl hover:size-56 drop-shadow-xl shadow-yellow-800 rounded-xl flex flex-col p-4 justify-evenly place-items-center size-56">
-                   <GiThreeLeaves className="text-6xl font-extralight"/>
-                   <div className="flex flex-col place-items-center">
-                   <h4 className="font-roboto font-medium">Naturally Healthy</h4>
+                   <GiThreeLeaves className="text-6xl text-black font-extralight"/>
+                   <div className="flex flex-col place-items-center text-black">
+                   <h4 className="font-roboto font-medium text-black">Naturally Healthy</h4>
                    <p className="font-plus text-center font-medium text-xs">naturally grown for your the best health</p>
                    </div>
                 </div>
